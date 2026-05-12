@@ -400,6 +400,7 @@ Important : le message doit être immédiatement utilisable, naturel, et adapté
   function regenerate() { generateMessage(true); }
 
   function simulatePay() {
+    window.open('https://buy.stripe.com/test_00w14p1y24OWeNJezeao804', '_blank');
     isPaid = true;
     const b = document.getElementById('blurredPart');
     if (b) b.classList.remove('blurred');
