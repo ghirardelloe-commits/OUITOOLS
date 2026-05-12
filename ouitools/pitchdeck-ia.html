@@ -1106,6 +1106,9 @@ function renderDeck() {
 }
 
 function simulatePay() {
+    // Redirect to Stripe payment page
+    window.location.href = 'https://buy.stripe.com/test_6oU6oJgsWftA0WTaiYao801';
+    return;
   isPaid = true;
   document.getElementById('paywall').classList.remove('visible');
   renderDeck();

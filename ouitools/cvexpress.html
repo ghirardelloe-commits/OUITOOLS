@@ -1104,6 +1104,9 @@ Documents COMPLETS et IMMÉDIATEMENT UTILISABLES.`;
 }
 
 function simulatePay() {
+    // Redirect to Stripe payment page
+    window.location.href = 'https://buy.stripe.com/test_14A3cx90ua9g351aiYao803';
+    return;
   isPaid = true;
   const b = document.getElementById('blurPart');
   if (b) b.classList.remove('blurred');
