@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OuiTools — Les outils IA gratuits pour les Français</title>
+<meta name="description" content="Simulateur micro-entreprise, calculateur TJM, lettre de résiliation, documents juridiques, pitch deck IA — tous gratuits ou à partir de 2,90€.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #07090f;
+  --card: #0d1018;
+  --card2: #131824;
+  --border: #1a2235;
+  --border2: #243050;
+  --accent: #4f8ef7;
+  --gold: #f0b429;
+  --green: #34d399;
+  --red: #f87171;
+  --purple: #a78bfa;
+  --text: #eef2ff;
+  --muted: #64748b;
+  --muted2: #94a3b8;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Ambient */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.12;
+}
+
+.blob1 { width: 600px; height: 600px; top: -200px; left: -100px; background: var(--accent); }
+.blob2 { width: 500px; height: 500px; top: 200px; right: -150px; background: var(--gold); }
+.blob3 { width: 400px; height: 400px; bottom: 100px; left: 30%; background: var(--purple); }
+
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+/* ─── NAV ─── */
+nav {
+  padding: 24px 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+}
+
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.nav-logo span { color: var(--gold); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.nav-cta {
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* ─── HERO ─── */
+.hero {
+  padding: 80px 0 72px;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(79,142,247,0.08);
+  border: 1px solid rgba(79,142,247,0.2);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 28px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(40px, 7vw, 80px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -2.5px;
+  margin-bottom: 22px;
+}
+
+h1 .gold { color: var(--gold); }
+h1 .blue { color: var(--accent); }
+
+.hero-sub {
+  font-size: 18px;
+  color: var(--muted2);
+  max-width: 580px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* Stats row */
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.stat { text-align: center; }
+
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -1px;
+  margin-bottom: 4px;
+}
+
+.stat-num.gold { color: var(--gold); }
+.stat-num.blue { color: var(--accent); }
+.stat-num.green { color: var(--green); }
+
+.stat-label { font-size: 13px; color: var(--muted); }
+
+/* ─── TOOLS GRID ─── */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 720px) { .tools-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .tools-grid { grid-template-columns: 1fr; } }
+
+/* Tool card */
+.tool-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  text-decoration: none;
+  transition: all 0.22s;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.tool-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: transparent;
+  transition: background 0.22s;
+}
+
+.tool-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+.tool-card.blue:hover::before { background: var(--accent); }
+.tool-card.gold:hover::before { background: var(--gold); }
+.tool-card.red:hover::before { background: var(--red); }
+.tool-card.green:hover::before { background: var(--green); }
+.tool-card.purple:hover::before { background: var(--purple); }
+
+/* Featured card */
+.tool-card.featured {
+  grid-column: span 2;
+  background: linear-gradient(135deg, #0d1525, #0a1020);
+  border-color: rgba(240,180,41,0.25);
+}
+
+@media (max-width: 720px) { .tool-card.featured { grid-column: span 1; } }
+
+.tool-card.featured::before { background: linear-gradient(90deg, var(--gold), var(--accent)); height: 2px; }
+
+.tool-icon {
+  font-size: 32px;
+  margin-bottom: 14px;
+}
+
+.tool-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.tool-desc {
+  font-size: 13px;
+  color: var(--muted2);
+  line-height: 1.5;
+  flex: 1;
+  margin-bottom: 16px;
+}
+
+.tool-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.tool-price {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.price-free { color: var(--green); }
+.price-paid { color: var(--gold); }
+
+.tool-arrow {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: transform 0.2s;
+  background: var(--card2);
+  border: 1px solid var(--border);
+}
+
+.tool-card:hover .tool-arrow { transform: translateX(3px); }
+
+.tool-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.tool-tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tag-seo { background: rgba(79,142,247,0.1); color: var(--accent); border: 1px solid rgba(79,142,247,0.2); }
+.tag-ia { background: rgba(167,139,250,0.1); color: var(--purple); border: 1px solid rgba(167,139,250,0.2); }
+.tag-gratuit { background: rgba(52,211,153,0.1); color: var(--green); border: 1px solid rgba(52,211,153,0.2); }
+.tag-new { background: rgba(240,180,41,0.1); color: var(--gold); border: 1px solid rgba(240,180,41,0.2); }
+
+/* ─── HOW IT WORKS ─── */
+.how-section {
+  padding: 72px 0;
+  border-top: 1px solid var(--border);
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+}
+
+.section-title span { color: var(--gold); }
+
+.section-sub {
+  font-size: 15px;
+  color: var(--muted2);
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 600px) { .how-grid { grid-template-columns: 1fr; } }
+
+.how-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.how-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--gold);
+  opacity: 0.2;
+  line-height: 1;
+  margin-bottom: 10px;
+  letter-spacing: -2px;
+}
+
+.how-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.how-text { font-size: 13px; color: var(--muted2); line-height: 1.6; }
+
+/* ─── REVENUE SECTION ─── */
+.revenue-section {
+  padding: 72px 0;
+  border-top: 1px solid var(--border);
+}
+
+.revenue-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+@media (max-width: 600px) { .revenue-grid { grid-template-columns: 1fr; } }
+
+.rev-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+}
+
+.rev-period {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.rev-amount {
+  font-family: 'Syne', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 4px;
+}
+
+.rev-sub { font-size: 13px; color: var(--muted2); }
+
+.rev-bar {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-top: 16px;
+  overflow: hidden;
+}
+
+.rev-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+}
+
+/* ─── CTA SECTION ─── */
+.cta-section {
+  padding: 72px 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.cta-box {
+  background: linear-gradient(135deg, #0d1525, #0f1a2e);
+  border: 1px solid rgba(79,142,247,0.2);
+  border-radius: 20px;
+  padding: 52px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--gold), var(--purple));
+}
+
+.cta-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  margin-bottom: 14px;
+}
+
+.cta-title span { color: var(--gold); }
+
+.cta-sub {
+  font-size: 16px;
+  color: var(--muted2);
+  margin-bottom: 32px;
+  font-weight: 300;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #2563eb);
+  color: #fff;
+  padding: 15px 32px;
+  border-radius: 10px;
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: all 0.2s;
+  letter-spacing: -0.3px;
+}
+
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(79,142,247,0.3); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--muted2);
+  padding: 15px 32px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--border2);
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  margin-bottom: 20px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.footer-logo span { color: var(--gold); }
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-link {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer-link:hover { color: var(--accent); }
+
+.footer-copy { font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- Ambient blobs -->
+<div class="ambient">
+  <div class="ambient-blob blob1"></div>
+  <div class="ambient-blob blob2"></div>
+  <div class="ambient-blob blob3"></div>
+</div>
+
+<div class="wrap">
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-logo">Oui<span>Tools</span></div>
+    <div class="nav-right">
+      <span class="nav-tag">// 7 outils · 100% IA</span>
+      <a href="#outils" class="nav-cta">Voir les outils</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-eyebrow">Outils IA pour les Français</div>
+
+    <h1>Tout ce dont<br>tu as <span class="gold">besoin</span><br>en <span class="blue">2 minutes</span></h1>
+
+    <p class="hero-sub">7 outils IA gratuits ou à petit prix pour gérer ta vie pro et perso. CV, résiliation, droits juridiques, freelance, pitch deck — sans prise de tête.</p>
+
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num gold">7</div>
+        <div class="stat-label">Outils disponibles</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num blue">2 min</div>
+        <div class="stat-label">Temps moyen</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num green">Gratuit</div>
+        <div class="stat-label">Pour commencer</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Satisfaction</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tools -->
+  <div id="outils">
+    <div class="section-label">// les outils</div>
+
+    <div class="tools-grid">
+
+      <!-- PitchDeck — featured -->
+      <a href="pitchdeck-ia.html" class="tool-card featured gold">
+        <div class="tool-icon">🚀</div>
+        <div class="tool-tags">
+          <span class="tool-tag tag-new">✦ Nouveau</span>
+          <span class="tool-tag tag-ia">IA</span>
+        </div>
+        <div class="tool-name">PitchDeck IA</div>
+        <div class="tool-desc">Génère un pitch deck investisseur complet en 5 minutes. Structure Sequoia / YC, 10 slides, storytelling adapté à ton secteur. Ce qu'une agence facture 5 000€, tu l'as pour 49€.</div>
+        <div class="tool-footer">
+          <span class="tool-price price-paid">49€ / deck</span>
+          <span class="tool-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- Résiliation -->
+      <a href="generateur-resiliation.html" class="tool-card red">
+        <div class="tool-icon">📄</div>
+        <div class="tool-tags">
+          <span class="tool-tag tag-seo">SEO</span>
+          <span class="tool-tag tag-ia">IA</span>
+        </div>
+        <div class="tool-name">Lettre de résiliation</div>
+        <div class="tool-desc">Free, SFR, salle de sport, assurance, Netflix... Ta lettre conforme loi Châtel en 30 secondes.</div>
+        <div class="tool-footer">
+          <span class="tool-price price-paid">2,90€ / lettre</span>
+          <span class="tool-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- DroitFacile -->
+      <a href="droitfacile.html" class="tool-card blue">
+        <div class="tool-icon">⚖️</div>
+        <div class="tool-tags">
+          <span class="tool-tag tag-ia">IA</span>
+          <span class="tool-tag tag-gratuit">Certains gratuits</span>
+        </div>
+        <div class="tool-name">DroitFacile</div>
+        <div class="tool-desc">Vol annulé (600€), dépôt de garantie, amende injuste, produit défectueux... Tes documents juridiques en 2 minutes.</div>
+        <div class="tool-footer">
+          <span class="tool-price price-free">Gratuit → 4,90€</span>
+          <span class="tool-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- Simulateur -->
+      <a href="simulateur-micro-entreprise.html" class="tool-card green">
+        <div class="tool-icon">📊</div>
+        <div class="tool-tags">
+          <span class="tool-tag tag-seo">SEO</span>
+          <span class="tool-tag tag-gratuit">Gratuit</span>
+        </div>
+        <div class="tool-name">Simulateur micro-entreprise</div>
+        <div class="tool-desc">Calcule ton salaire net en auto-entrepreneur en temps réel. Charges URSSAF 2025, ACRE, TVA, versement libératoire.</div>
+        <div class="tool-footer">
+          <span class="tool-price price-free">100% gratuit</span>
+          <span class="tool-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- TJM -->
+      <a href="calculateur-tjm.html" class="tool-card purple">
+        <div class="tool-icon">💼</div>
+        <div class="tool-tags">
+          <span class="tool-tag tag-seo">SEO</span>
+          <span class="tool-tag tag-gratuit">Gratuit</span>
+        </div>
+        <div class="tool-name">Calculateur TJM</div>
+        <div class="tool-desc">Calcule ton tarif journalier idéal en temps réel. Arrête de sous-facturer.</div>
+        <div class="tool-footer">
+          <span class="tool-price price-free">100% gratuit</span>
+          <span class="tool-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- CVExpress -->
+      <a href="cvexpress.html" class="tool-card blue">
+        <div class="tool-icon">📋</div>
+        <div class="tool-tags">
+          <span class="tool-tag tag-new">✦ Nouveau</span>
+          <span class="tool-tag tag-ia">IA</span>
+        </div>
+        <div class="tool-name">CVExpress</div>
+        <div class="tool-desc">Génère ton CV professionnel et ta lettre de motivation en 2 minutes. Adapté à ton poste cible, prêt à envoyer.</div>
+        <div class="tool-footer">
+          <span class="tool-price price-paid">4,90€ — 7,90€</span>
+          <span class="tool-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- Relance client -->
+      <a href="relance-client.html" class="tool-card green">
+        <div class="tool-icon">💸</div>
+        <div class="tool-tags">
+          <span class="tool-tag tag-ia">IA</span>
+          <span class="tool-tag tag-gratuit">Freelances</span>
+        </div>
+        <div class="tool-name">Relance client</div>
+        <div class="tool-desc">Facture impayée, devis sans réponse, client fantôme... Le bon message en 10 secondes. Ni trop agressif, ni trop mou.</div>
+        <div class="tool-footer">
+          <span class="tool-price price-paid">4,90€ / relance</span>
+          <span class="tool-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div class="how-section">
+    <div class="section-title">Simple comme <span>bonjour</span></div>
+    <div class="section-sub">Pas d'inscription, pas de carte bancaire pour commencer. Tu utilises, tu paies si ça te convient.</div>
+
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-num">01</div>
+        <div class="how-title">Tu choisis ton outil</div>
+        <div class="how-text">7 outils couvrant le CV, la résiliation, le juridique, le freelance et les levées de fonds. Chacun résout un problème précis.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">02</div>
+        <div class="how-title">L'IA génère en 2 min</div>
+        <div class="how-text">Tu remplis quelques champs. L'IA fait le reste — document juridique, simulation, CV complet, pitch deck.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">03</div>
+        <div class="how-title">Tu copies et tu gagnes</div>
+        <div class="how-text">Lettre prête à envoyer, chiffres à utiliser, CV à soumettre. Résultats immédiats, sans jargon inutile.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Social proof -->
+  <div class="revenue-section">
+    <div class="section-title">Ils ont <span>récupéré</span> ce qu'ils méritaient</div>
+    <div class="section-sub">Des milliers de Français utilisent déjà nos outils chaque mois.</div>
+
+    <div class="revenue-grid">
+      <div class="rev-card">
+        <div style="font-size:18px;margin-bottom:10px">⭐⭐⭐⭐⭐</div>
+        <div style="font-size:14px;color:var(--muted2);line-height:1.6;margin-bottom:14px">"J'ai récupéré 600€ d'indemnisation pour mon vol annulé grâce à DroitFacile. La lettre était parfaite, Air France a remboursé en 3 semaines."</div>
+        <div style="font-size:12px;color:var(--muted)">Sarah M. — Paris</div>
+      </div>
+      <div class="rev-card">
+        <div style="font-size:18px;margin-bottom:10px">⭐⭐⭐⭐⭐</div>
+        <div style="font-size:14px;color:var(--muted2);line-height:1.6;margin-bottom:14px">"Mon propriétaire me retenait 800€ de dépôt depuis 3 mois. Une mise en demeure générée en 2 minutes, remboursé la semaine suivante."</div>
+        <div style="font-size:12px;color:var(--muted)">Thomas R. — Lyon</div>
+      </div>
+      <div class="rev-card">
+        <div style="font-size:18px;margin-bottom:10px">⭐⭐⭐⭐⭐</div>
+        <div style="font-size:14px;color:var(--muted2);line-height:1.6;margin-bottom:14px">"Le simulateur micro-entreprise m'a convaincu de me lancer. En 5 minutes j'avais tous les chiffres pour prendre ma décision."</div>
+        <div style="font-size:12px;color:var(--muted)">Julie K. — Bordeaux</div>
+      </div>
+      <div class="rev-card">
+        <div style="font-size:18px;margin-bottom:10px">⭐⭐⭐⭐⭐</div>
+        <div style="font-size:14px;color:var(--muted2);line-height:1.6;margin-bottom:14px">"Mon pitch deck généré en 8 minutes. L'investisseur l'a trouvé très bien structuré. On a eu notre premier RDV la semaine d'après."</div>
+        <div style="font-size:12px;color:var(--muted)">Marc D. — Paris</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-box">
+      <div class="cta-title">Prêt à commencer ?<br><span>C'est gratuit.</span></div>
+      <div class="cta-sub">Aucune inscription. Aucune carte bancaire. Tu utilises l'outil, tu vois le résultat, tu décides.</div>
+      <div class="cta-buttons">
+        <a href="droitfacile.html" class="btn-primary">⚖️ Voir mes droits gratuitement</a>
+        <a href="pitchdeck-ia.html" class="btn-secondary">🚀 Générer un pitch deck</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div>
+        <div class="footer-logo">Oui<span>Tools</span></div>
+        <div class="footer-copy" style="margin-top:4px">© 2025 OuiTools — Propulsé par IA</div>
+      </div>
+      <div class="footer-links">
+        <a href="seo-lettre-resiliation.html" class="footer-link">Résiliation</a>
+        <a href="seo-droitfacile.html" class="footer-link">Droits</a>
+        <a href="seo-simulateur-micro-entreprise.html" class="footer-link">Micro-entreprise</a>
+        <a href="seo-calculateur-tjm.html" class="footer-link">TJM</a>
+        <a href="#" class="footer-link">CGV</a>
+        <a href="#" class="footer-link">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

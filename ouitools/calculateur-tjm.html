@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TJM Calc — Calcule ton tarif journalier freelance en temps réel</title>
+<meta name="description" content="Calculateur gratuit de TJM pour freelances français. Calcule ton tarif journalier minimum selon ton statut, tes charges et ton objectif de salaire net.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Figtree:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #05080f;
+  --card: #0c1018;
+  --card2: #131824;
+  --border: #1e2535;
+  --accent: #7c6af7;
+  --accent2: #9d8fff;
+  --green: #4ade80;
+  --orange: #fb923c;
+  --red: #f87171;
+  --blue: #60a5fa;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --border2: #2a3347;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Figtree', sans-serif;
+  min-height: 100vh;
+}
+
+/* Ambient */
+body::before {
+  content: '';
+  position: fixed;
+  top: -100px; right: -100px;
+  width: 600px; height: 600px;
+  background: radial-gradient(ellipse, rgba(124,106,247,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -100px; left: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(ellipse, rgba(96,165,250,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.wrap { max-width: 920px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+
+/* Header */
+header {
+  padding: 28px 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 44px;
+}
+
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.logo em { font-style: italic; color: var(--accent2); }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.free-tag {
+  background: rgba(124,106,247,0.15);
+  border: 1px solid rgba(124,106,247,0.3);
+  color: var(--accent2);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+.update-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+/* Hero */
+.hero { margin-bottom: 40px; }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--accent2);
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+  opacity: 0.8;
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 6vw, 60px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin-bottom: 14px;
+}
+
+h1 em { font-style: italic; color: var(--accent2); }
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 500px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* Big number display */
+.tjm-display {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  overflow: hidden;
+  position: relative;
+}
+
+@media (max-width: 600px) { .tjm-display { grid-template-columns: 1fr; gap: 16px; } }
+
+.tjm-display::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(124,106,247,0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.tjm-cell {
+  text-align: center;
+  padding: 20px 16px;
+  position: relative;
+}
+
+.tjm-cell:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 20%; height: 60%;
+  width: 1px;
+  background: var(--border);
+}
+
+@media (max-width: 600px) {
+  .tjm-cell:not(:last-child)::after { display: none; }
+}
+
+.tjm-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.tjm-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 6px;
+  transition: all 0.3s;
+}
+
+.tjm-value.purple { color: var(--accent2); }
+.tjm-value.green { color: var(--green); }
+.tjm-value.blue { color: var(--blue); }
+
+.tjm-unit {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.tjm-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-min { background: rgba(248,113,113,0.15); color: var(--red); }
+.badge-reco { background: rgba(124,106,247,0.15); color: var(--accent2); }
+.badge-ca { background: rgba(96,165,250,0.15); color: var(--blue); }
+
+/* Main layout */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 720px) { .main-grid { grid-template-columns: 1fr; } }
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.card-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent2);
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+/* Inputs */
+.inp-row { margin-bottom: 20px; }
+
+.inp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.inp-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.inp-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent2);
+}
+
+/* Custom slider */
+.slider-wrap { position: relative; padding-bottom: 18px; }
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 3px;
+  background: var(--border2);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--accent2);
+  cursor: pointer;
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--accent);
+  transition: box-shadow 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 4px rgba(124,106,247,0.2);
+}
+
+.slider-minmax {
+  position: absolute;
+  bottom: 0;
+  left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--border2);
+}
+
+/* Select */
+select {
+  width: 100%;
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  color: var(--text);
+  font-family: 'Figtree', sans-serif;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+select:focus { border-color: var(--accent); }
+
+/* Breakdown */
+.breakdown {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.break-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.break-row:last-child { margin-bottom: 0; }
+
+.break-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.break-info { flex: 1; }
+
+.break-label {
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.break-amount {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.break-pct { font-size: 11px; color: var(--muted); }
+
+.break-bar {
+  height: 4px;
+  background: var(--border2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.break-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Stacked bar */
+.stacked {
+  display: flex;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  gap: 2px;
+  margin: 20px 0;
+}
+
+.stacked-seg {
+  height: 100%;
+  border-radius: 3px;
+  transition: flex 0.5s cubic-bezier(0.4,0,0.2,1);
+  min-width: 2px;
+}
+
+/* Verdict */
+.verdict {
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 16px;
+}
+
+.verdict.ok { background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.2); color: var(--green); }
+.verdict.warn { background: rgba(124,106,247,0.08); border: 1px solid rgba(124,106,247,0.2); color: var(--accent2); }
+.verdict.bad { background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.2); color: var(--red); }
+
+.verdict strong { font-weight: 700; }
+
+/* Tips */
+.tips {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 600px) { .tips { grid-template-columns: 1fr; } }
+
+.tip {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.tip-icon { font-size: 22px; margin-bottom: 8px; }
+.tip-title { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+.tip-text { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* Share */
+.share-btn {
+  width: 100%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-family: 'Figtree', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.share-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+/* Notif */
+.notif {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 999;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.notif.show { transform: translateY(0); opacity: 1; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card, .breakdown, .tjm-display { animation: fadeIn 0.4s ease forwards; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="logo">TJM<em>Calc</em></div>
+    </div>
+    <div class="header-right">
+      <span class="update-tag">// taux URSSAF 2025</span>
+      <span class="free-tag">Gratuit</span>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-eyebrow">// freelance.tarif_calculator</div>
+    <h1>Quel est ton <em>vrai</em><br>tarif journalier ?</h1>
+    <p class="hero-sub">Calcule ton tarif journalier idéal en temps réel selon ton objectif de salaire, ton statut et tes charges. Arrête de sous-facturer.</p>
+  </div>
+
+  <!-- Big display -->
+  <div class="tjm-display">
+    <div class="tjm-cell">
+      <div class="tjm-label">TJM Minimum</div>
+      <div class="tjm-value red" id="tjmMin">—</div>
+      <div class="tjm-unit">€ / jour</div>
+      <div class="tjm-badge badge-min">Plancher absolu</div>
+    </div>
+    <div class="tjm-cell">
+      <div class="tjm-label">TJM Recommandé</div>
+      <div class="tjm-value purple" id="tjmReco">—</div>
+      <div class="tjm-unit">€ / jour</div>
+      <div class="tjm-badge badge-reco">À annoncer aux clients</div>
+    </div>
+    <div class="tjm-cell">
+      <div class="tjm-label">CA Annuel cible</div>
+      <div class="tjm-value blue" id="caAnnuel">—</div>
+      <div class="tjm-unit">€ HT / an</div>
+      <div class="tjm-badge badge-ca">Objectif 12 mois</div>
+    </div>
+  </div>
+
+  <!-- Inputs -->
+  <div class="main-grid">
+
+    <div class="card">
+      <div class="card-title">// tes_objectifs</div>
+
+      <div class="inp-row">
+        <div class="inp-header">
+          <span class="inp-label">Salaire net mensuel souhaité</span>
+          <span class="inp-val" id="salaryVal">3 500 €</span>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" id="salarySlider" min="1000" max="12000" step="100" value="3500" oninput="syncSalary(this.value)">
+          <div class="slider-minmax"><span>1 000€</span><span>12 000€</span></div>
+        </div>
+      </div>
+
+      <div class="inp-row">
+        <div class="inp-header">
+          <span class="inp-label">Jours facturés par mois</span>
+          <span class="inp-val" id="daysVal">18 jours</span>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" id="daysSlider" min="5" max="25" step="1" value="18" oninput="syncDays(this.value)">
+          <div class="slider-minmax"><span>5j</span><span>25j</span></div>
+        </div>
+      </div>
+
+      <div class="inp-row">
+        <div class="inp-header">
+          <span class="inp-label">Taux de remplissage</span>
+          <span class="inp-val" id="fillVal">75%</span>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" id="fillSlider" min="40" max="100" step="5" value="75" oninput="syncFill(this.value)">
+          <div class="slider-minmax"><span>40% (difficile)</span><span>100% (plein)</span></div>
+        </div>
+      </div>
+
+      <div class="inp-row">
+        <div class="inp-header">
+          <span class="inp-label">Épargne mensuelle cible</span>
+          <span class="inp-val" id="savingsVal">500 €</span>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" id="savingsSlider" min="0" max="3000" step="100" value="500" oninput="syncSavings(this.value)">
+          <div class="slider-minmax"><span>0€</span><span>3 000€</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">// ta_situation</div>
+
+      <div class="inp-row">
+        <div class="inp-header">
+          <span class="inp-label">Statut juridique</span>
+        </div>
+        <select id="status" onchange="calculate()">
+          <option value="0.221">Auto-entrepreneur — 22,1%</option>
+          <option value="0.231">Libéral CIPAV — 23,1%</option>
+          <option value="0.45">SASU / EURL — ~45%</option>
+          <option value="0.35">Portage salarial — ~35%</option>
+        </select>
+      </div>
+
+      <div class="inp-row">
+        <div class="inp-header">
+          <span class="inp-label">Charges pro mensuelles</span>
+          <span class="inp-val" id="expVal">300 €</span>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" id="expSlider" min="0" max="3000" step="50" value="300" oninput="syncExp(this.value)">
+          <div class="slider-minmax"><span>0€</span><span>3 000€</span></div>
+        </div>
+      </div>
+
+      <div class="inp-row">
+        <div class="inp-header">
+          <span class="inp-label">Congés annuels</span>
+          <span class="inp-val" id="vacVal">25 jours</span>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" id="vacSlider" min="0" max="60" step="1" value="25" oninput="syncVac(this.value)">
+          <div class="slider-minmax"><span>0</span><span>60j</span></div>
+        </div>
+      </div>
+
+      <div class="inp-row">
+        <div class="inp-header">
+          <span class="inp-label">Expérience</span>
+        </div>
+        <select id="experience" onchange="calculate()">
+          <option value="1.0">Junior (0-2 ans)</option>
+          <option value="1.15" selected>Intermédiaire (2-5 ans)</option>
+          <option value="1.3">Senior (5-10 ans)</option>
+          <option value="1.5">Expert (10 ans+)</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Breakdown -->
+  <div class="breakdown">
+    <div class="card-title">// répartition_de_ton_ca</div>
+
+    <div class="stacked" id="stacked">
+      <div class="stacked-seg" id="segSalary" style="background:var(--green)"></div>
+      <div class="stacked-seg" id="segSavings" style="background:var(--accent2)"></div>
+      <div class="stacked-seg" id="segCot" style="background:var(--red)"></div>
+      <div class="stacked-seg" id="segExp" style="background:var(--blue)"></div>
+    </div>
+
+    <div class="break-row">
+      <div class="break-dot" style="background:var(--green)"></div>
+      <div class="break-info">
+        <div class="break-label">
+          <span>Salaire net</span>
+          <span class="break-amount" id="bSalary">—</span>
+        </div>
+        <div class="break-bar"><div class="break-bar-fill" id="bBarSalary" style="background:var(--green)"></div></div>
+      </div>
+      <span class="break-pct" id="bPctSalary">—</span>
+    </div>
+
+    <div class="break-row">
+      <div class="break-dot" style="background:var(--accent2)"></div>
+      <div class="break-info">
+        <div class="break-label">
+          <span>Épargne</span>
+          <span class="break-amount" id="bSavings">—</span>
+        </div>
+        <div class="break-bar"><div class="break-bar-fill" id="bBarSavings" style="background:var(--accent2)"></div></div>
+      </div>
+      <span class="break-pct" id="bPctSavings">—</span>
+    </div>
+
+    <div class="break-row">
+      <div class="break-dot" style="background:var(--red)"></div>
+      <div class="break-info">
+        <div class="break-label">
+          <span>Cotisations sociales</span>
+          <span class="break-amount" id="bCot">—</span>
+        </div>
+        <div class="break-bar"><div class="break-bar-fill" id="bBarCot" style="background:var(--red)"></div></div>
+      </div>
+      <span class="break-pct" id="bPctCot">—</span>
+    </div>
+
+    <div class="break-row">
+      <div class="break-dot" style="background:var(--blue)"></div>
+      <div class="break-info">
+        <div class="break-label">
+          <span>Charges professionnelles</span>
+          <span class="break-amount" id="bExp">—</span>
+        </div>
+        <div class="break-bar"><div class="break-bar-fill" id="bBarExp" style="background:var(--blue)"></div></div>
+      </div>
+      <span class="break-pct" id="bPctExp">—</span>
+    </div>
+
+    <div class="verdict ok" id="verdict">
+      Ajuste les curseurs pour voir ton TJM personnalisé.
+    </div>
+
+    <button class="share-btn" onclick="copyResult()">
+      📋 Copier mon TJM
+    </button>
+  </div>
+
+  <!-- Tips -->
+  <div class="tips">
+    <div class="tip">
+      <div class="tip-icon">📈</div>
+      <div class="tip-title">La règle des +20%</div>
+      <div class="tip-text">Annonce toujours ton TJM recommandé (+20%) aux clients. Ils négocieront à la baisse — tu atterriras à ton vrai minimum.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-icon">🎯</div>
+      <div class="tip-title">Taux de remplissage</div>
+      <div class="tip-text">Un junior tourne à 60-70%. Un senior établi : 80-90%. Ne compte jamais sur 100% — les périodes creuses existent toujours.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-icon">💡</div>
+      <div class="tip-title">Augmente chaque année</div>
+      <div class="tip-text">Revois ton TJM à la hausse chaque année. +10% par an est une norme raisonnable pour un freelance qui monte en compétences.</div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 TJMCalc — Outil gratuit pour freelances · Calculs basés sur les taux URSSAF 2025 · Simulation indicative
+  </footer>
+
+</div>
+
+<div class="notif" id="notif"></div>
+
+<script>
+function fmt(n) {
+  return Math.round(Math.max(0, n)).toLocaleString('fr-FR') + ' €';
+}
+
+function syncSalary(v) {
+  document.getElementById('salaryVal').textContent = parseInt(v).toLocaleString('fr-FR') + ' €';
+  calculate();
+}
+
+function syncDays(v) {
+  document.getElementById('daysVal').textContent = v + ' jours';
+  calculate();
+}
+
+function syncFill(v) {
+  document.getElementById('fillVal').textContent = v + '%';
+  calculate();
+}
+
+function syncSavings(v) {
+  document.getElementById('savingsVal').textContent = parseInt(v).toLocaleString('fr-FR') + ' €';
+  calculate();
+}
+
+function syncExp(v) {
+  document.getElementById('expVal').textContent = parseInt(v).toLocaleString('fr-FR') + ' €';
+  calculate();
+}
+
+function syncVac(v) {
+  document.getElementById('vacVal').textContent = v + ' jours';
+  calculate();
+}
+
+function calculate() {
+  const salary = parseFloat(document.getElementById('salarySlider').value);
+  const days = parseFloat(document.getElementById('daysSlider').value);
+  const fill = parseFloat(document.getElementById('fillSlider').value) / 100;
+  const savings = parseFloat(document.getElementById('savingsSlider').value);
+  const expenses = parseFloat(document.getElementById('expSlider').value);
+  const vac = parseFloat(document.getElementById('vacSlider').value);
+  const cotRate = parseFloat(document.getElementById('status').value);
+  const expMult = parseFloat(document.getElementById('experience').value);
+
+  // Working days per year
+  const workDaysYear = (365 - 104 - vac) * fill;
+  const billedDaysMonth = workDaysYear / 12;
+
+  // Monthly need
+  const monthlyNeed = salary + savings + expenses;
+  // Gross needed (before cotisations)
+  const monthlyGross = monthlyNeed / (1 - cotRate);
+
+  // TJM minimum
+  const tjmMin = Math.ceil(monthlyGross / billedDaysMonth);
+  // TJM recommended (with experience multiplier)
+  const tjmReco = Math.ceil(tjmMin * expMult);
+  // CA annuel
+  const caAnnuel = Math.round(tjmReco * workDaysYear);
+
+  // Update display
+  document.getElementById('tjmMin').textContent = tjmMin.toLocaleString('fr-FR');
+  document.getElementById('tjmReco').textContent = tjmReco.toLocaleString('fr-FR');
+  document.getElementById('caAnnuel').textContent = caAnnuel.toLocaleString('fr-FR');
+
+  // Breakdown (based on tjmMin × billedDaysMonth = monthlyGross)
+  const totalMonth = monthlyGross;
+  const cotisations = totalMonth * cotRate;
+
+  const pctSalary = (salary / totalMonth) * 100;
+  const pctSavings = (savings / totalMonth) * 100;
+  const pctCot = (cotisations / totalMonth) * 100;
+  const pctExp = (expenses / totalMonth) * 100;
+
+  document.getElementById('bSalary').textContent = fmt(salary);
+  document.getElementById('bSavings').textContent = fmt(savings);
+  document.getElementById('bCot').textContent = fmt(cotisations);
+  document.getElementById('bExp').textContent = fmt(expenses);
+
+  document.getElementById('bPctSalary').textContent = Math.round(pctSalary) + '%';
+  document.getElementById('bPctSavings').textContent = Math.round(pctSavings) + '%';
+  document.getElementById('bPctCot').textContent = Math.round(pctCot) + '%';
+  document.getElementById('bPctExp').textContent = Math.round(pctExp) + '%';
+
+  document.getElementById('bBarSalary').style.width = Math.max(0, pctSalary) + '%';
+  document.getElementById('bBarSavings').style.width = Math.max(0, pctSavings) + '%';
+  document.getElementById('bBarCot').style.width = Math.max(0, pctCot) + '%';
+  document.getElementById('bBarExp').style.width = Math.max(0, pctExp) + '%';
+
+  // Stacked bar
+  document.getElementById('segSalary').style.flex = Math.max(0, pctSalary);
+  document.getElementById('segSavings').style.flex = Math.max(0, pctSavings);
+  document.getElementById('segCot').style.flex = Math.max(0, pctCot);
+  document.getElementById('segExp').style.flex = Math.max(0, pctExp);
+
+  // Verdict
+  const v = document.getElementById('verdict');
+  if (tjmMin < 200) {
+    v.className = 'verdict warn';
+    v.innerHTML = `Ton TJM minimum est très bas à <strong>${tjmMin}€/jour</strong>. Assure-toi de ne pas avoir oublié des charges ou que ton objectif salarial est réaliste.`;
+  } else if (tjmMin < 400) {
+    v.className = 'verdict ok';
+    v.innerHTML = `Ton TJM minimum est <strong>${tjmMin}€/jour</strong>. Annonce <strong>${tjmReco}€/jour</strong> à tes clients — c'est ton tarif recommandé après négociation.`;
+  } else if (tjmMin < 700) {
+    v.className = 'verdict ok';
+    v.innerHTML = `Bon TJM ! <strong>${tjmMin}€/jour</strong> minimum, <strong>${tjmReco}€/jour</strong> recommandé. Profil intermédiaire à senior — tu peux justifier ce tarif avec tes références.`;
+  } else {
+    v.className = 'verdict warn';
+    v.innerHTML = `TJM élevé à <strong>${tjmMin}€/jour</strong>. C'est un tarif expert/senior. Vérifie que ton taux de remplissage et tes jours facturés sont réalistes à ce niveau.`;
+  }
+}
+
+function copyResult() {
+  const tjmMin = document.getElementById('tjmMin').textContent;
+  const tjmReco = document.getElementById('tjmReco').textContent;
+  const ca = document.getElementById('caAnnuel').textContent;
+  const text = `Mon TJM calculé avec TJMCalc :\n• Minimum : ${tjmMin}€/jour\n• Recommandé : ${tjmReco}€/jour\n• CA annuel cible : ${ca}€ HT`;
+  navigator.clipboard.writeText(text).then(() => {
+    const n = document.getElementById('notif');
+    n.textContent = '✓ TJM copié !';
+    n.classList.add('show');
+    setTimeout(() => n.classList.remove('show'), 2500);
+  });
+}
+
+// Init
+calculate();
+</script>
+</body>
+</html>

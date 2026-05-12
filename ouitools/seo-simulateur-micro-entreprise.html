@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SEO Primary -->
+<title>Simulateur Micro-Entreprise 2025 — Calcul Salaire Net Gratuit | SimAutoEntrepreneur</title>
+<meta name="description" content="Calcule ton salaire net en micro-entreprise gratuitement. Charges URSSAF, TVA, seuils 2025, ACRE, versement libératoire — simulation instantanée et précise.">
+<meta name="keywords" content="simulateur micro entreprise, calculateur auto entrepreneur, salaire net auto entrepreneur, charges urssaf 2025, simulation revenus freelance, tjm auto entrepreneur, calculer net micro entreprise">
+<link rel="canonical" href="https://simautoentrepreneur.fr">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Simulateur Micro-Entreprise 2025 — Calcul Salaire Net Gratuit">
+<meta property="og:description" content="Calcule ton salaire net en micro-entreprise gratuitement. Simulation instantanée selon les taux URSSAF 2025.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://simautoentrepreneur.fr">
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Simulateur Micro-Entreprise",
+  "description": "Calculateur gratuit de salaire net pour auto-entrepreneurs et micro-entreprises en France",
+  "url": "https://simautoentrepreneur.fr",
+  "applicationCategory": "FinanceApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "featureList": [
+    "Calcul salaire net temps réel",
+    "Taux URSSAF 2025",
+    "Simulation ACRE",
+    "Seuils TVA 2025",
+    "Versement libératoire"
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien gagne un auto-entrepreneur en net ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un auto-entrepreneur en services BIC avec 3000€ de CA mensuel gagne environ 2337€ net avant charges personnelles (22,1% de cotisations). Notre simulateur calcule ce montant en temps réel selon votre situation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelles sont les charges d'un auto-entrepreneur en 2025 ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En 2025, les taux de cotisations sont : 22,1% pour les services BIC, 23,1% pour les professions libérales CIPAV, 12,4% pour la vente de marchandises, 6,2% pour la restauration et hébergement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "C'est quoi le seuil TVA en micro-entreprise ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En 2025, le seuil de franchise TVA est de 37 500€ de CA annuel pour les prestations de services, et 85 000€ pour la vente de marchandises. En dessous de ces seuils, vous ne facturez pas de TVA."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L'ACRE réduit-elle vraiment les charges ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. L'ACRE (Aide aux Créateurs et Repreneurs d'Entreprise) réduit de 50% vos cotisations sociales pendant la 1ère année d'activité. Elle est accordée automatiquement lors de la création de votre micro-entreprise."
+      }
+    }
+  ]
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #05080f;
+  --card: #0c1018;
+  --border: #1e2535;
+  --accent: #7c6af7;
+  --accent2: #9d8fff;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --green: #4ade80;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Figtree', sans-serif;
+  line-height: 1.6;
+}
+
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+
+/* Nav */
+nav {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-logo em { font-style: italic; color: var(--accent2); }
+
+.nav-links { display: flex; gap: 20px; }
+.nav-link {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-link:hover { color: var(--text); }
+
+/* Hero SEO */
+.seo-hero {
+  padding: 60px 0 48px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+
+.breadcrumb {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent2); }
+.breadcrumb span { color: var(--border); }
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+
+h1 em { font-style: italic; color: var(--accent2); }
+
+.hero-desc {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.hero-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.hero-tag {
+  background: rgba(124,106,247,0.1);
+  border: 1px solid rgba(124,106,247,0.2);
+  color: var(--accent2);
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* CTA box */
+.cta-box {
+  background: var(--card);
+  border: 2px solid var(--accent);
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.cta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.cta-sub { color: var(--muted); font-size: 15px; margin-bottom: 20px; }
+
+.btn-cta {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  padding: 14px 36px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.btn-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+/* Content sections */
+.content { margin-bottom: 48px; }
+
+h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 14px;
+  margin-top: 36px;
+  color: var(--text);
+}
+
+h2 em { font-style: italic; color: var(--accent2); }
+
+h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  margin-top: 24px;
+  color: var(--text);
+}
+
+p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+strong { color: var(--text); font-weight: 600; }
+
+/* Table */
+.table-wrap { overflow-x: auto; margin: 20px 0; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th {
+  background: rgba(124,106,247,0.1);
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--accent2);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+td {
+  border: 1px solid var(--border);
+  padding: 11px 16px;
+  color: var(--muted);
+}
+
+tr:nth-child(even) td { background: rgba(30,37,53,0.3); }
+
+td strong { color: var(--text); }
+
+/* FAQ */
+.faq-section { margin-bottom: 48px; }
+
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+}
+
+.faq-q {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.faq-a {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.footer-left { font-size: 13px; color: var(--muted); }
+.footer-links { display: flex; gap: 16px; }
+.footer-link { font-size: 12px; color: var(--muted); text-decoration: none; }
+.footer-link:hover { color: var(--accent2); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <nav>
+    <a href="/" class="nav-logo">Sim<em>Auto</em>Entrepreneur</a>
+    <div class="nav-links">
+      <a href="/simulateur" class="nav-link">Simulateur</a>
+      <a href="/guide" class="nav-link">Guide</a>
+      <a href="/faq" class="nav-link">FAQ</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="seo-hero">
+    <div class="breadcrumb">
+      <a href="/">Accueil</a>
+      <span>›</span>
+      <span>Simulateur micro-entreprise 2025</span>
+    </div>
+
+    <h1>Simulateur <em>Micro-Entreprise</em> 2025<br>— Calcule ton salaire net gratuitement</h1>
+
+    <p class="hero-desc">
+      Combien vas-tu vraiment gagner en auto-entrepreneur ? Notre simulateur calcule instantanément ton salaire net, tes charges URSSAF, tes seuils TVA et l'impact de l'ACRE selon les taux officiels 2025.
+    </p>
+
+    <div class="hero-tags">
+      <span class="hero-tag">✓ Taux URSSAF 2025</span>
+      <span class="hero-tag">✓ 100% gratuit</span>
+      <span class="hero-tag">✓ Mis à jour en temps réel</span>
+      <span class="hero-tag">✓ ACRE inclus</span>
+      <span class="hero-tag">✓ Versement libératoire</span>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <div class="cta-title">Lance la simulation maintenant</div>
+    <div class="cta-sub">Résultats instantanés · Aucune inscription requise · 100% gratuit</div>
+    <a href="/simulateur.html" class="btn-cta">→ Accéder au simulateur</a>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <h2>Micro-entreprise en 2025 : <em>combien gardes-tu vraiment ?</em></h2>
+
+    <p>La question que se pose tout auto-entrepreneur avant de se lancer : une fois les charges payées, que reste-t-il vraiment sur ton compte ? La réponse dépend de plusieurs facteurs — ton type d'activité, ton statut, l'application de l'ACRE, et tes charges personnelles.</p>
+
+    <p>Notre simulateur prend en compte <strong>tous ces paramètres en temps réel</strong> pour te donner une estimation précise de ta situation financière en micro-entreprise.</p>
+
+    <h3>Les taux de cotisations URSSAF 2025</h3>
+
+    <p>En micro-entreprise, tes charges sociales sont calculées directement sur ton chiffre d'affaires. Voici les taux applicables en 2025 :</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Type d'activité</th>
+            <th>Taux de cotisations</th>
+            <th>Exemple : 3 000€ CA</th>
+            <th>Net mensuel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Services BIC</strong></td>
+            <td>22,1%</td>
+            <td>663€ de charges</td>
+            <td><strong style="color:#4ade80">2 337€</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Libéral CIPAV</strong></td>
+            <td>23,1%</td>
+            <td>693€ de charges</td>
+            <td><strong style="color:#4ade80">2 307€</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Commerce / vente</strong></td>
+            <td>12,4%</td>
+            <td>372€ de charges</td>
+            <td><strong style="color:#4ade80">2 628€</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Restauration</strong></td>
+            <td>6,2%</td>
+            <td>186€ de charges</td>
+            <td><strong style="color:#4ade80">2 814€</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Les <em>seuils à ne pas dépasser</em> en 2025</h2>
+
+    <p>La micro-entreprise impose des plafonds de chiffre d'affaires annuel. Au-delà, tu bascules vers un régime classique et tu perds les avantages de la micro.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Seuil</th>
+            <th>Montant 2025</th>
+            <th>Conséquence si dépassé</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Franchise TVA (services)</strong></td>
+            <td>37 500 € / an</td>
+            <td>Obligation de facturer la TVA</td>
+          </tr>
+          <tr>
+            <td><strong>Franchise TVA (commerce)</strong></td>
+            <td>85 000 € / an</td>
+            <td>Obligation de facturer la TVA</td>
+          </tr>
+          <tr>
+            <td><strong>Plafond micro-BNC</strong></td>
+            <td>77 700 € / an</td>
+            <td>Sortie du régime micro</td>
+          </tr>
+          <tr>
+            <td><strong>Plafond micro-BIC (services)</strong></td>
+            <td>77 700 € / an</td>
+            <td>Sortie du régime micro</td>
+          </tr>
+          <tr>
+            <td><strong>Plafond micro-BIC (commerce)</strong></td>
+            <td>188 700 € / an</td>
+            <td>Sortie du régime micro</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>L'ACRE : <em>la réduction de charges de la 1ère année</em></h2>
+
+    <p>Si tu crées ou reprends une micro-entreprise, tu peux bénéficier de l'<strong>ACRE (Aide aux Créateurs et Repreneurs d'Entreprise)</strong>. Elle réduit de <strong>50% tes cotisations sociales pendant 12 mois</strong>.</p>
+
+    <p>Concrètement, si tu es en services BIC (taux normal : 22,1%), avec l'ACRE tu ne paies que <strong>11,05%</strong> de cotisations pendant ta première année. Sur 3 000€ de CA mensuel, c'est 330€ d'économie par mois — soit presque <strong>4 000€ économisés sur un an</strong>.</p>
+
+    <h2>Versement libératoire : <em>est-ce intéressant pour toi ?</em></h2>
+
+    <p>Le versement libératoire (VFL) te permet de payer l'impôt sur le revenu directement avec tes cotisations sociales, à un taux fixe sur ton CA :</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Activité</th>
+            <th>Taux VFL</th>
+            <th>Intéressant si...</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Vente / Commerce</td>
+            <td><strong>1%</strong> du CA</td>
+            <td>Tranche d'imposition ≥ 11%</td>
+          </tr>
+          <tr>
+            <td>Services BIC</td>
+            <td><strong>1,7%</strong> du CA</td>
+            <td>Tranche d'imposition ≥ 30%</td>
+          </tr>
+          <tr>
+            <td>Libéral / BNC</td>
+            <td><strong>2,2%</strong> du CA</td>
+            <td>Tranche d'imposition ≥ 30%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>Condition :</strong> ton revenu fiscal de référence N-2 ne doit pas dépasser 27 478€ par part du quotient familial.</p>
+
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2>Questions <em>fréquentes</em></h2>
+
+    <div class="faq-item">
+      <div class="faq-q">Combien gagne vraiment un auto-entrepreneur en net ?</div>
+      <div class="faq-a">Cela dépend de ton activité et de ton CA. En services BIC, tu gardes environ <strong>77,9% de ton CA brut</strong> après cotisations URSSAF. Pour 3 000€ de CA : 2 337€ net avant charges personnelles. Notre simulateur te donne le montant exact selon ta situation.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Dois-je payer des impôts en plus des cotisations ?</div>
+      <div class="faq-a">Oui, sauf si tu optes pour le versement libératoire. Sans VFL, ton bénéfice micro-entreprise (CA - abattement forfaitaire) s'ajoute à tes autres revenus pour le calcul de l'impôt sur le revenu. Notre simulateur intègre cette distinction.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Peut-on cumuler auto-entrepreneur et salarié ?</div>
+      <div class="faq-a">Oui, le cumul est totalement légal. Tu paies des cotisations sur ton CA d'auto-entrepreneur en plus de tes cotisations salariales. Les deux revenus s'additionnent pour le calcul de ton impôt sur le revenu.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Comment déclarer son CA en micro-entreprise ?</div>
+      <div class="faq-a">Tu déclares ton CA mensuellement ou trimestriellement sur autoentrepreneur.urssaf.fr. Même si tu n'as pas eu de CA ce mois-ci, tu dois déclarer "0". Les cotisations sont prélevées automatiquement après la déclaration.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Qu'est-ce que l'abattement forfaitaire en micro-entreprise ?</div>
+      <div class="faq-a">C'est la déduction fiscale appliquée à ton CA pour calculer ton bénéfice imposable. Il est de <strong>71%</strong> pour le commerce, <strong>50%</strong> pour les services BIC, et <strong>34%</strong> pour les professions libérales. Tu ne peux pas déduire tes vraies charges à la place.</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-left">© 2025 SimAutoEntrepreneur — Simulation indicative · Taux URSSAF 2025</div>
+    <div class="footer-links">
+      <a href="#" class="footer-link">CGV</a>
+      <a href="#" class="footer-link">Confidentialité</a>
+      <a href="#" class="footer-link">Contact</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

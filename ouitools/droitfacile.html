@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DroitFacile — Règle tes litiges sans avocat en 2 minutes</title>
+<meta name="description" content="Conteste une amende, réclame un remboursement vol annulé, envoie une mise en demeure... L'IA génère tes documents juridiques en 2 minutes. Conforme au droit français.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #f9f7f4;
+  --card: #ffffff;
+  --card2: #f2efe9;
+  --border: #e2ddd6;
+  --accent: #1c3d5a;
+  --accent2: #2563a8;
+  --gold: #b8922a;
+  --text: #16120e;
+  --muted: #786e64;
+  --green: #1a5c3a;
+  --green-bg: #edf7f2;
+  --red: #8b1a1a;
+  --red-bg: #fdf2f2;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Figtree', sans-serif;
+  min-height: 100vh;
+}
+
+/* Top accent bar */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--gold));
+  z-index: 100;
+}
+
+.wrap { max-width: 940px; margin: 0 auto; padding: 0 20px; }
+
+/* ─── HEADER ─── */
+header {
+  padding: 28px 0 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 52px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 36px; height: 36px;
+  background: var(--accent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.logo-text {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+}
+
+.logo-text em { font-style: italic; color: var(--accent2); }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.disclaimer-badge {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+  padding: 5px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ─── HERO ─── */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 56px;
+}
+
+@media (max-width: 680px) { .hero { grid-template-columns: 1fr; gap: 28px; } }
+
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 20px; height: 1px;
+  background: var(--gold);
+}
+
+h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(34px, 5vw, 58px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -1px;
+  margin-bottom: 18px;
+}
+
+h1 em { font-style: italic; color: var(--accent2); }
+
+.hero-sub {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff;
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.hero-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+/* Hero right — stat cards */
+.hero-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border-color 0.2s;
+}
+
+.stat-card:hover { border-color: var(--accent2); }
+
+.stat-icon { font-size: 28px; }
+
+.stat-info { flex: 1; }
+
+.stat-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.stat-label { font-size: 12px; color: var(--muted); }
+
+/* ─── DISCLAIMER ─── */
+.disclaimer {
+  background: #fffbf0;
+  border: 1px solid #e8d5a0;
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: #7a6320;
+  line-height: 1.5;
+  margin-bottom: 40px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.disclaimer-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+/* ─── TOOL ─── */
+.tool {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 48px;
+  box-shadow: 0 2px 40px rgba(0,0,0,0.05);
+}
+
+.tool-header {
+  background: var(--accent);
+  padding: 16px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tool-header-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 17px;
+  color: #fff;
+  font-weight: 400;
+}
+
+.progress-bar {
+  display: flex;
+  gap: 5px;
+}
+
+.pb {
+  width: 28px; height: 3px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+
+.pb.active { background: var(--gold); }
+.pb.done { background: rgba(255,255,255,0.6); }
+
+.tool-body { padding: 36px; }
+
+/* ─── SITUATION GRID ─── */
+.sit-section { margin-bottom: 32px; }
+
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.sit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 620px) { .sit-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.sit-btn {
+  border: 1.5px solid var(--border);
+  background: var(--card2);
+  border-radius: 12px;
+  padding: 18px 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s;
+  font-family: 'Figtree', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.sit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: transparent;
+  transition: background 0.18s;
+}
+
+.sit-btn:hover { border-color: var(--accent2); transform: translateY(-1px); }
+.sit-btn:hover::before { background: var(--accent2); }
+
+.sit-btn.selected {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, #f0f5fb, #fff);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(28,61,90,0.1);
+}
+
+.sit-btn.selected::before { background: var(--accent); }
+
+.sit-icon { font-size: 24px; margin-bottom: 8px; }
+.sit-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.sit-sub { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+.sit-price {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gold);
+  background: #fdf8ee;
+  border: 1px solid #e8d5a0;
+  padding: 2px 7px;
+  border-radius: 10px;
+  margin-top: 6px;
+}
+
+/* ─── FORM ─── */
+.form-section { margin-bottom: 28px; }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 540px) { .form-grid { grid-template-columns: 1fr; } }
+
+.full { grid-column: 1 / -1; }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+
+label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+}
+
+input, select, textarea {
+  background: var(--card2);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  color: var(--text);
+  font-family: 'Figtree', sans-serif;
+  font-size: 14px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.18s, background 0.18s;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent2);
+  background: #fff;
+}
+
+textarea { resize: vertical; min-height: 90px; }
+
+/* Dynamic fields */
+.dynamic-field { display: none; }
+.dynamic-field.visible { display: flex; }
+
+/* ─── GENERATE BUTTON ─── */
+.btn-generate {
+  width: 100%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  letter-spacing: -0.2px;
+}
+
+.btn-generate:hover {
+  background: var(--accent2);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(28,61,90,0.2);
+}
+
+/* ─── LOADING ─── */
+.loading { display: none; text-align: center; padding: 52px; }
+.loading.visible { display: block; }
+
+.load-ring {
+  width: 44px; height: 44px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.load-title { font-family: 'Instrument Serif', serif; font-size: 20px; margin-bottom: 6px; }
+.load-step { font-size: 13px; color: var(--muted); }
+
+/* ─── RESULT ─── */
+.result { display: none; }
+.result.visible { display: block; }
+
+.result-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.result-ok {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--green);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.result-ok-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.result-actions { display: flex; gap: 8px; }
+
+.btn-action {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 8px 14px;
+  font-family: 'Figtree', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-action:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Document output */
+.doc-output {
+  background: var(--card2);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 32px;
+  font-size: 14px;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  color: var(--text);
+  font-family: 'Figtree', sans-serif;
+  min-height: 280px;
+  position: relative;
+}
+
+/* Paywall */
+.paywall {
+  display: none;
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1.5px solid var(--gold);
+}
+
+.paywall.visible { display: block; }
+
+.paywall-top {
+  background: var(--accent);
+  padding: 24px 28px;
+  text-align: center;
+}
+
+.paywall-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  color: #fff;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.paywall-sub { font-size: 13px; color: rgba(255,255,255,0.7); }
+
+.paywall-body { background: var(--card); padding: 24px 28px; text-align: center; }
+
+.paywall-price {
+  font-family: 'Instrument Serif', serif;
+  font-size: 52px;
+  font-weight: 400;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.paywall-note { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+
+.paywall-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-pay {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 36px;
+  font-family: 'Instrument Serif', serif;
+  font-size: 19px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-pay:hover { background: var(--accent2); transform: translateY(-1px); }
+
+.paywall-guarantees {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.pw-g { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+
+/* Reset */
+.btn-reset {
+  width: 100%;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 11px;
+  font-family: 'Figtree', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  margin-top: 14px;
+  transition: all 0.15s;
+}
+
+.btn-reset:hover { border-color: var(--accent); color: var(--accent); }
+
+.blurred { filter: blur(5px); user-select: none; pointer-events: none; opacity: 0.6; }
+
+/* ─── HOW IT WORKS ─── */
+.how {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+@media (max-width: 580px) { .how { grid-template-columns: 1fr; } }
+
+.how-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+  position: relative;
+}
+
+.how-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 44px;
+  font-weight: 400;
+  color: var(--accent);
+  opacity: 0.15;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.how-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.how-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* ─── USE CASES ─── */
+.use-cases {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 48px;
+}
+
+.uc-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+.uc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 560px) { .uc-grid { grid-template-columns: 1fr; } }
+
+.uc-item {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.uc-icon { font-size: 16px; flex-shrink: 0; }
+.uc-text strong { color: var(--text); display: block; font-size: 13px; margin-bottom: 2px; }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  margin-bottom: 20px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-logo {
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.footer-logo em { font-style: italic; color: var(--accent2); }
+
+.footer-disclaimer {
+  font-size: 11px;
+  color: var(--muted);
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+.footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.footer-link { font-size: 12px; color: var(--muted); text-decoration: none; }
+.footer-link:hover { color: var(--accent2); }
+
+/* ─── NOTIF ─── */
+.notif {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 10px;
+  padding: 13px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 999;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.notif.show { transform: translateY(0); opacity: 1; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.result.visible { animation: fadeUp 0.35s ease; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">⚖️</div>
+      <div class="logo-text">Droit<em>Facile</em></div>
+    </div>
+    <div class="header-right">
+      <div class="disclaimer-badge">⚠️ Informatif uniquement — pas un conseil juridique</div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow">Vos droits, simplement</div>
+      <h1>Règle tes litiges<br><em>sans avocat</em><br>en 2 minutes</h1>
+      <p class="hero-sub">Vol annulé, amende injuste, loyer non rendu, produit défectueux... L'IA génère le document juridique exact dont tu as besoin, conforme au droit français.</p>
+      <button class="hero-cta" onclick="document.getElementById('tool').scrollIntoView({behavior:'smooth'})">
+        → Démarrer gratuitement
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-icon">✈️</div>
+        <div class="stat-info">
+          <div class="stat-num">600€</div>
+          <div class="stat-label">Indemnisation vol annulé (EU261)</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🏠</div>
+        <div class="stat-info">
+          <div class="stat-num">1 mois</div>
+          <div class="stat-label">Délai récupération dépôt de garantie</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🛒</div>
+        <div class="stat-info">
+          <div class="stat-num">2 ans</div>
+          <div class="stat-label">Garantie légale de conformité</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Disclaimer -->
+  <div class="disclaimer">
+    <span class="disclaimer-icon">⚖️</span>
+    <span>DroitFacile génère des <strong>documents informatifs</strong> basés sur le droit français en vigueur. Ces documents ne constituent pas un conseil juridique personnalisé. Pour toute situation complexe, consultez un avocat ou un juriste qualifié.</span>
+  </div>
+
+  <!-- Tool -->
+  <div class="tool" id="tool">
+    <div class="tool-header">
+      <span class="tool-header-title">DroitFacile — Générateur de documents juridiques</span>
+      <div class="progress-bar">
+        <div class="pb active" id="pb1"></div>
+        <div class="pb" id="pb2"></div>
+        <div class="pb" id="pb3"></div>
+      </div>
+    </div>
+
+    <div class="tool-body">
+
+      <!-- Form -->
+      <div id="formSection">
+
+        <div class="sit-section">
+          <div class="section-label">1 — Quelle est ta situation ?</div>
+          <div class="sit-grid">
+
+            <button class="sit-btn" onclick="selectSit(this, 'vol_annule')">
+              <div class="sit-icon">✈️</div>
+              <div class="sit-name">Vol annulé / retardé</div>
+              <div class="sit-sub">Réclame jusqu'à 600€ d'indemnisation (règlement EU261)</div>
+              <div class="sit-price">Gratuit</div>
+            </button>
+
+            <button class="sit-btn" onclick="selectSit(this, 'depot_garantie')">
+              <div class="sit-icon">🏠</div>
+              <div class="sit-name">Dépôt de garantie non rendu</div>
+              <div class="sit-sub">Mise en demeure propriétaire avec intérêts légaux</div>
+              <div class="sit-price">4,90€</div>
+            </button>
+
+            <button class="sit-btn" onclick="selectSit(this, 'amende')">
+              <div class="sit-icon">🚗</div>
+              <div class="sit-name">Amende injuste</div>
+              <div class="sit-sub">Conteste une amende stationnement, vitesse, transport</div>
+              <div class="sit-price">4,90€</div>
+            </button>
+
+            <button class="sit-btn" onclick="selectSit(this, 'produit_defectueux')">
+              <div class="sit-icon">📦</div>
+              <div class="sit-name">Produit défectueux</div>
+              <div class="sit-sub">Remboursement ou échange — garantie légale 2 ans</div>
+              <div class="sit-price">Gratuit</div>
+            </button>
+
+            <button class="sit-btn" onclick="selectSit(this, 'mise_en_demeure')">
+              <div class="sit-icon">📋</div>
+              <div class="sit-name">Mise en demeure</div>
+              <div class="sit-sub">Client impayé, voisin, prestataire défaillant...</div>
+              <div class="sit-price">4,90€</div>
+            </button>
+
+            <button class="sit-btn" onclick="selectSit(this, 'remboursement')">
+              <div class="sit-icon">💸</div>
+              <div class="sit-name">Remboursement refusé</div>
+              <div class="sit-sub">Achat en ligne, service non rendu, arnaque</div>
+              <div class="sit-price">Gratuit</div>
+            </button>
+
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-label">2 — Tes informations</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Ton prénom et nom</label>
+              <input type="text" id="userName" placeholder="Jean Dupont">
+            </div>
+            <div class="form-group">
+              <label>Ton adresse</label>
+              <input type="text" id="userAddress" placeholder="12 rue de la Paix, 75001 Paris">
+            </div>
+            <div class="form-group">
+              <label>Ton email</label>
+              <input type="email" id="userEmail" placeholder="jean@exemple.fr">
+            </div>
+            <div class="form-group">
+              <label>Nom de l'entreprise / personne concernée</label>
+              <input type="text" id="targetName" placeholder="Air France, M. Martin...">
+            </div>
+
+            <!-- Vol annulé fields -->
+            <div class="form-group dynamic-field full" id="field_vol1">
+              <label>Numéro de vol</label>
+              <input type="text" id="flightNum" placeholder="AF1234">
+            </div>
+            <div class="form-group dynamic-field" id="field_vol2">
+              <label>Date du vol</label>
+              <input type="date" id="flightDate">
+            </div>
+            <div class="form-group dynamic-field" id="field_vol3">
+              <label>Trajet</label>
+              <input type="text" id="flightRoute" placeholder="Paris CDG → New York JFK">
+            </div>
+            <div class="form-group dynamic-field" id="field_vol4">
+              <label>Motif du problème</label>
+              <select id="flightIssue">
+                <option>Vol annulé sans préavis suffisant</option>
+                <option>Retard de plus de 3 heures</option>
+                <option>Correspondance manquée</option>
+                <option>Refus d'embarquement (overbooking)</option>
+              </select>
+            </div>
+
+            <!-- Dépôt de garantie fields -->
+            <div class="form-group dynamic-field" id="field_depot1">
+              <label>Adresse du bien loué</label>
+              <input type="text" id="rentAddress" placeholder="Adresse du logement">
+            </div>
+            <div class="form-group dynamic-field" id="field_depot2">
+              <label>Date de fin de bail</label>
+              <input type="date" id="rentEndDate">
+            </div>
+            <div class="form-group dynamic-field" id="field_depot3">
+              <label>Montant du dépôt (€)</label>
+              <input type="number" id="depositAmount" placeholder="800">
+            </div>
+
+            <!-- Amende fields -->
+            <div class="form-group dynamic-field" id="field_amende1">
+              <label>Numéro de l'avis de contravention</label>
+              <input type="text" id="fineNum" placeholder="123456789">
+            </div>
+            <div class="form-group dynamic-field" id="field_amende2">
+              <label>Date de l'infraction</label>
+              <input type="date" id="fineDate">
+            </div>
+            <div class="form-group dynamic-field" id="field_amende3">
+              <label>Motif de la contestation</label>
+              <input type="text" id="fineReason" placeholder="Je n'étais pas au volant, signalisation absente...">
+            </div>
+
+            <!-- Produit défectueux fields -->
+            <div class="form-group dynamic-field" id="field_prod1">
+              <label>Nom du produit</label>
+              <input type="text" id="productName" placeholder="iPhone 14, Machine à café...">
+            </div>
+            <div class="form-group dynamic-field" id="field_prod2">
+              <label>Date d'achat</label>
+              <input type="date" id="purchaseDate">
+            </div>
+            <div class="form-group dynamic-field" id="field_prod3">
+              <label>Prix d'achat (€)</label>
+              <input type="number" id="productPrice" placeholder="299">
+            </div>
+
+            <!-- Mise en demeure fields -->
+            <div class="form-group dynamic-field" id="field_med1">
+              <label>Objet de la mise en demeure</label>
+              <input type="text" id="medObject" placeholder="Facture impayée, travaux non réalisés...">
+            </div>
+            <div class="form-group dynamic-field" id="field_med2">
+              <label>Montant dû (€)</label>
+              <input type="number" id="medAmount" placeholder="1500">
+            </div>
+            <div class="form-group dynamic-field" id="field_med3">
+              <label>Délai accordé</label>
+              <select id="medDelay">
+                <option>8 jours</option>
+                <option>15 jours</option>
+                <option>30 jours</option>
+              </select>
+            </div>
+
+            <!-- Remboursement fields -->
+            <div class="form-group dynamic-field" id="field_remb1">
+              <label>Nature du litige</label>
+              <input type="text" id="rembObject" placeholder="Commande non reçue, service non rendu...">
+            </div>
+            <div class="form-group dynamic-field" id="field_remb2">
+              <label>Montant à rembourser (€)</label>
+              <input type="number" id="rembAmount" placeholder="150">
+            </div>
+            <div class="form-group dynamic-field" id="field_remb3">
+              <label>Date de l'achat / transaction</label>
+              <input type="date" id="rembDate">
+            </div>
+
+            <div class="form-group full">
+              <label>Détails supplémentaires (optionnel)</label>
+              <textarea id="details" placeholder="Plus tu donnes de détails, plus la lettre sera percutante..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-generate" onclick="generate()">
+          ⚖️ Générer mon document juridique
+        </button>
+
+      </div>
+
+      <!-- Loading -->
+      <div class="loading" id="loadingSection">
+        <div class="load-ring"></div>
+        <div class="load-title">Analyse juridique en cours...</div>
+        <div class="load-step" id="loadStep">Vérification de tes droits...</div>
+      </div>
+
+      <!-- Result -->
+      <div class="result" id="resultSection">
+        <div class="result-top">
+          <div class="result-ok">
+            <div class="result-ok-dot"></div>
+            Document généré
+          </div>
+          <div class="result-actions">
+            <button class="btn-action" onclick="copyDoc()">📋 Copier</button>
+            <button class="btn-action" onclick="downloadDoc()">⬇️ .txt</button>
+          </div>
+        </div>
+
+        <div class="doc-output" id="docOutput"></div>
+
+        <div class="paywall" id="paywall">
+          <div class="paywall-top">
+            <div class="paywall-title">Document complet — accès immédiat</div>
+            <div class="paywall-sub">Les mentions légales et la conclusion sont masquées</div>
+          </div>
+          <div class="paywall-body">
+            <div class="paywall-price">4,90€</div>
+            <div class="paywall-note">Paiement unique · Pas d'abonnement</div>
+            <div class="paywall-desc">Débloque la version complète avec toutes les références légales, la formule de conclusion et les recours possibles en cas de refus.</div>
+            <button class="btn-pay" onclick="simulatePay()">🔓 Débloquer pour 4,90€</button>
+            <div class="paywall-guarantees">
+              <span class="pw-g">🔒 Paiement sécurisé</span>
+              <span class="pw-g">✓ Satisfait ou remboursé</span>
+              <span class="pw-g">⚡ Accès immédiat</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-reset" onclick="resetForm()">← Nouvelle situation</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div class="how">
+    <div class="how-card">
+      <div class="how-num">01</div>
+      <div class="how-title">Décris ta situation</div>
+      <div class="how-text">Choisis ton type de litige et remplis quelques champs. L'IA adapte le document à ta situation exacte.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">02</div>
+      <div class="how-title">L'IA rédige</div>
+      <div class="how-text">En quelques secondes, tu reçois un document conforme au droit français avec les bons articles de loi.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">03</div>
+      <div class="how-title">Envoie et récupère</div>
+      <div class="how-text">Copie, envoie par email ou en recommandé. Ton document est prêt à l'emploi, sans jargon inutile.</div>
+    </div>
+  </div>
+
+  <!-- Use cases -->
+  <div class="use-cases">
+    <div class="uc-title">Ce que DroitFacile peut faire pour toi</div>
+    <div class="uc-grid">
+      <div class="uc-item">
+        <span class="uc-icon">✈️</span>
+        <div class="uc-text">
+          <strong>Réclamer jusqu'à 600€ pour vol annulé</strong>
+          Le règlement européen EU261/2004 t'y donne droit — la plupart des passagers ne le savent pas.
+        </div>
+      </div>
+      <div class="uc-item">
+        <span class="uc-icon">🏠</span>
+        <div class="uc-text">
+          <strong>Récupérer ton dépôt de garantie</strong>
+          Ton propriétaire a 1 mois (ou 2 si état des lieux contesté). En retard ? Des intérêts légaux s'appliquent.
+        </div>
+      </div>
+      <div class="uc-item">
+        <span class="uc-icon">🚗</span>
+        <div class="uc-text">
+          <strong>Contester une amende abusive</strong>
+          Signalisation absente, erreur d'identité, circonstances exceptionnelles — certaines amendes se contestent.
+        </div>
+      </div>
+      <div class="uc-item">
+        <span class="uc-icon">📦</span>
+        <div class="uc-text">
+          <strong>Faire valoir la garantie légale de conformité</strong>
+          2 ans pour tout produit acheté en France. Le vendeur doit réparer, remplacer ou rembourser.
+        </div>
+      </div>
+      <div class="uc-item">
+        <span class="uc-icon">📋</span>
+        <div class="uc-text">
+          <strong>Mettre en demeure avant de saisir</strong>
+          Première étape obligatoire avant tout recours judiciaire. Souvent suffisant pour débloquer la situation.
+        </div>
+      </div>
+      <div class="uc-item">
+        <span class="uc-icon">💸</span>
+        <div class="uc-text">
+          <strong>Réclamer un remboursement refusé</strong>
+          Achat en ligne, prestation non rendue, arnaque... Tes droits sont clairs, le document aussi.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <div class="footer-logo">Droit<em>Facile</em></div>
+        <div class="footer-disclaimer">
+          Les documents générés sont fournis à titre informatif et ne constituent pas un conseil juridique. Pour toute situation complexe ou contentieux, consultez un avocat qualifié.
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="#" class="footer-link">CGV</a>
+        <a href="#" class="footer-link">Confidentialité</a>
+        <a href="#" class="footer-link">Mentions légales</a>
+        <a href="#" class="footer-link">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<div class="notif" id="notif"></div>
+
+<script>
+let selectedSituation = '';
+let generatedDoc = '';
+let isPaid = false;
+
+// Situation configs
+const situations = {
+  vol_annule: {
+    label: 'Vol annulé / retardé',
+    fields: ['field_vol1','field_vol2','field_vol3','field_vol4'],
+    free: true,
+    prompt: (d) => `Tu es un expert en droit du transport aérien européen. Génère une lettre de réclamation pour un passager victime d'un problème de vol.
+
+INFORMATIONS :
+- Passager : ${d.name} — ${d.address}
+- Email : ${d.email}
+- Compagnie aérienne : ${d.target}
+- Numéro de vol : ${d.flightNum || 'Non renseigné'}
+- Date : ${d.flightDate ? new Date(d.flightDate).toLocaleDateString('fr-FR') : 'Non renseignée'}
+- Trajet : ${d.flightRoute || 'Non renseigné'}
+- Problème : ${d.flightIssue || 'Vol annulé'}
+- Détails : ${d.details || 'Aucun'}
+- Date du jour : ${new Date().toLocaleDateString('fr-FR')}
+
+DOCUMENT REQUIS : Lettre de réclamation formelle invoquant le Règlement (CE) n°261/2004, avec :
+1. En-têtes complets (expéditeur, destinataire, date, objet)
+2. Rappel des faits
+3. Référence explicite aux articles du règlement EU261/2004
+4. Montant d'indemnisation réclamé (250€ <1500km, 400€ 1500-3500km, 600€ >3500km)
+5. Délai de réponse (30 jours)
+6. Menace de recours (médiateur, DGAC, tribunal)
+7. Formule de politesse et signature
+
+Génère la lettre COMPLÈTE et IMMÉDIATEMENT UTILISABLE.`
+  },
+  depot_garantie: {
+    label: 'Dépôt de garantie',
+    fields: ['field_depot1','field_depot2','field_depot3'],
+    free: false,
+    prompt: (d) => `Tu es un expert en droit immobilier français. Génère une mise en demeure pour récupération de dépôt de garantie.
+
+INFORMATIONS :
+- Locataire : ${d.name} — ${d.address}
+- Propriétaire / Agence : ${d.target}
+- Adresse du bien : ${d.rentAddress || 'Non renseignée'}
+- Date fin de bail : ${d.rentEndDate ? new Date(d.rentEndDate).toLocaleDateString('fr-FR') : 'Non renseignée'}
+- Montant du dépôt : ${d.depositAmount || 'Non renseigné'}€
+- Détails : ${d.details || 'Aucun'}
+- Date du jour : ${new Date().toLocaleDateString('fr-FR')}
+
+DOCUMENT : Lettre de mise en demeure invoquant la loi du 6 juillet 1989 (art. 22) et le décret n°2015-341, avec délai légal de restitution, intérêts de retard (10% du loyer mensuel par mois de retard), et recours (commission départementale de conciliation, tribunal d'instance). Lettre COMPLÈTE et prête à envoyer en recommandé.`
+  },
+  amende: {
+    label: 'Contestation amende',
+    fields: ['field_amende1','field_amende2','field_amende3'],
+    free: false,
+    prompt: (d) => `Tu es un expert en droit des contraventions françaises. Génère un recours gracieux pour contester une amende.
+
+INFORMATIONS :
+- Contrevenant présumé : ${d.name} — ${d.address}
+- Autorité : ${d.target}
+- Numéro de l'avis : ${d.fineNum || 'Non renseigné'}
+- Date infraction : ${d.fineDate ? new Date(d.fineDate).toLocaleDateString('fr-FR') : 'Non renseignée'}
+- Motif contestation : ${d.fineReason || 'Non renseigné'}
+- Détails : ${d.details || 'Aucun'}
+- Date du jour : ${new Date().toLocaleDateString('fr-FR')}
+
+DOCUMENT : Recours gracieux en contestation de contravention, avec références au Code de la route ou Code de procédure pénale selon le cas, arguments précis, demande d'annulation, et délais légaux de recours. Lettre COMPLÈTE et professionnelle.`
+  },
+  produit_defectueux: {
+    label: 'Produit défectueux',
+    fields: ['field_prod1','field_prod2','field_prod3'],
+    free: true,
+    prompt: (d) => `Tu es un expert en droit de la consommation français. Génère une réclamation pour produit défectueux.
+
+INFORMATIONS :
+- Acheteur : ${d.name} — ${d.address}
+- Vendeur : ${d.target}
+- Produit : ${d.productName || 'Non renseigné'}
+- Date d'achat : ${d.purchaseDate ? new Date(d.purchaseDate).toLocaleDateString('fr-FR') : 'Non renseignée'}
+- Prix : ${d.productPrice || 'Non renseigné'}€
+- Défaut : ${d.details || 'Non précisé'}
+- Date du jour : ${new Date().toLocaleDateString('fr-FR')}
+
+DOCUMENT : Lettre invoquant la garantie légale de conformité (art. L217-4 à L217-16 du Code de la consommation, 2 ans) et/ou la garantie des vices cachés (art. 1641 du Code civil). Choix entre réparation, remplacement ou remboursement. Délai de réponse 15 jours. Lettre COMPLÈTE et prête à envoyer.`
+  },
+  mise_en_demeure: {
+    label: 'Mise en demeure',
+    fields: ['field_med1','field_med2','field_med3'],
+    free: false,
+    prompt: (d) => `Tu es un juriste expert en droit civil français. Génère une mise en demeure formelle.
+
+INFORMATIONS :
+- Expéditeur : ${d.name} — ${d.address}
+- Destinataire : ${d.target}
+- Objet : ${d.medObject || 'Non renseigné'}
+- Montant dû : ${d.medAmount || 'Non renseigné'}€
+- Délai accordé : ${d.medDelay || '15 jours'}
+- Détails : ${d.details || 'Aucun'}
+- Date du jour : ${new Date().toLocaleDateString('fr-FR')}
+
+DOCUMENT : Mise en demeure formelle avec références aux articles 1231 et suivants du Code civil, délai précis, mention des intérêts légaux de retard (taux légal 2025), et recours judiciaires prévus en cas de non-réponse. Lettre COMPLÈTE et à envoyer en recommandé avec AR.`
+  },
+  remboursement: {
+    label: 'Remboursement refusé',
+    fields: ['field_remb1','field_remb2','field_remb3'],
+    free: true,
+    prompt: (d) => `Tu es un expert en droit de la consommation et du commerce électronique français. Génère une lettre de réclamation pour remboursement refusé.
+
+INFORMATIONS :
+- Consommateur : ${d.name} — ${d.address}
+- Vendeur / Prestataire : ${d.target}
+- Litige : ${d.rembObject || 'Non renseigné'}
+- Montant : ${d.rembAmount || 'Non renseigné'}€
+- Date transaction : ${d.rembDate ? new Date(d.rembDate).toLocaleDateString('fr-FR') : 'Non renseignée'}
+- Détails : ${d.details || 'Aucun'}
+- Date du jour : ${new Date().toLocaleDateString('fr-FR')}
+
+DOCUMENT : Lettre de réclamation invoquant le Code de la consommation (droit de rétractation 14 jours pour achat en ligne, obligation de délivrance conforme), avec délai de réponse 15 jours et recours (médiateur, DGCCRF, tribunal de proximité). Lettre COMPLÈTE et professionnelle.`
+  }
+};
+
+function selectSit(btn, sit) {
+  document.querySelectorAll('.sit-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedSituation = sit;
+
+  // Hide all dynamic fields
+  document.querySelectorAll('.dynamic-field').forEach(f => f.classList.remove('visible'));
+
+  // Show relevant fields
+  const config = situations[sit];
+  if (config?.fields) {
+    config.fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('visible');
+    });
+  }
+}
+
+function showNotif(msg) {
+  const n = document.getElementById('notif');
+  n.textContent = msg;
+  n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), 3000);
+}
+
+function updateProgress(step) {
+  for (let i = 1; i <= 3; i++) {
+    const p = document.getElementById('pb' + i);
+    p.classList.remove('active', 'done');
+    if (i < step) p.classList.add('done');
+    if (i === step) p.classList.add('active');
+  }
+}
+
+async function generate() {
+  if (!selectedSituation) { showNotif('⚠️ Choisis une situation d\'abord'); return; }
+
+  const name = document.getElementById('userName').value.trim();
+  const target = document.getElementById('targetName').value.trim();
+  if (!name) { showNotif('⚠️ Indique ton prénom et nom'); return; }
+  if (!target) { showNotif('⚠️ Indique le nom de l\'entreprise ou personne'); return; }
+
+  const config = situations[selectedSituation];
+
+  document.getElementById('formSection').style.display = 'none';
+  document.getElementById('loadingSection').classList.add('visible');
+  updateProgress(2);
+
+  const steps = [
+    'Vérification de tes droits...',
+    'Recherche des articles de loi applicables...',
+    'Rédaction du document...',
+    'Vérification de la conformité...'
+  ];
+  let si = 0;
+  const iv = setInterval(() => {
+    if (si < steps.length) document.getElementById('loadStep').textContent = steps[si++];
+  }, 800);
+
+  const data = {
+    name,
+    address: document.getElementById('userAddress').value.trim(),
+    email: document.getElementById('userEmail').value.trim(),
+    target,
+    details: document.getElementById('details').value.trim(),
+    // Vol
+    flightNum: document.getElementById('flightNum')?.value,
+    flightDate: document.getElementById('flightDate')?.value,
+    flightRoute: document.getElementById('flightRoute')?.value,
+    flightIssue: document.getElementById('flightIssue')?.value,
+    // Dépôt
+    rentAddress: document.getElementById('rentAddress')?.value,
+    rentEndDate: document.getElementById('rentEndDate')?.value,
+    depositAmount: document.getElementById('depositAmount')?.value,
+    // Amende
+    fineNum: document.getElementById('fineNum')?.value,
+    fineDate: document.getElementById('fineDate')?.value,
+    fineReason: document.getElementById('fineReason')?.value,
+    // Produit
+    productName: document.getElementById('productName')?.value,
+    purchaseDate: document.getElementById('purchaseDate')?.value,
+    productPrice: document.getElementById('productPrice')?.value,
+    // MED
+    medObject: document.getElementById('medObject')?.value,
+    medAmount: document.getElementById('medAmount')?.value,
+    medDelay: document.getElementById('medDelay')?.value,
+    // Remb
+    rembObject: document.getElementById('rembObject')?.value,
+    rembAmount: document.getElementById('rembAmount')?.value,
+    rembDate: document.getElementById('rembDate')?.value,
+  };
+
+  try {
+    const res = await fetch('/.netlify/functions/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: prompt })
+    });
+
+    const json = await res.json();
+    clearInterval(iv);
+    generatedDoc = json.content?.[0]?.text || '';
+    if (!generatedDoc) throw new Error();
+
+    document.getElementById('loadingSection').classList.remove('visible');
+    document.getElementById('resultSection').classList.add('visible');
+    updateProgress(3);
+
+    const lines = generatedDoc.split('\n');
+    const cut = Math.floor(lines.length * 0.60);
+    const preview = lines.slice(0, cut).join('\n');
+    const rest = lines.slice(cut).join('\n');
+
+    const out = document.getElementById('docOutput');
+    out.textContent = preview;
+
+    const existing = document.getElementById('blurredPart');
+    if (existing) existing.remove();
+
+    // Free situations don't have paywall
+    if (!config.free && !isPaid) {
+      const blur = document.createElement('div');
+      blur.className = 'blurred';
+      blur.id = 'blurredPart';
+      blur.textContent = rest;
+      out.appendChild(blur);
+      document.getElementById('paywall').classList.add('visible');
+    } else {
+      // Free — show full
+      out.textContent = generatedDoc;
+      document.getElementById('paywall').classList.remove('visible');
+    }
+
+  } catch (e) {
+    clearInterval(iv);
+    document.getElementById('loadingSection').classList.remove('visible');
+    document.getElementById('formSection').style.display = 'block';
+    updateProgress(1);
+    showNotif('❌ Erreur de génération. Réessaie.');
+  }
+}
+
+function simulatePay() {
+  isPaid = true;
+  const b = document.getElementById('blurredPart');
+  if (b) b.classList.remove('blurred');
+  document.getElementById('paywall').classList.remove('visible');
+  // Show full doc
+  document.getElementById('docOutput').textContent = generatedDoc;
+  showNotif('🎉 Document complet débloqué !');
+}
+
+function copyDoc() {
+  const text = isPaid || situations[selectedSituation]?.free
+    ? generatedDoc
+    : document.getElementById('docOutput').innerText;
+  navigator.clipboard.writeText(text).then(() => showNotif('✓ Document copié !'));
+}
+
+function downloadDoc() {
+  if (!isPaid && !situations[selectedSituation]?.free) {
+    showNotif('⚠️ Débloque le document complet d\'abord');
+    return;
+  }
+  const blob = new Blob([generatedDoc], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'document-juridique.txt';
+  a.click();
+  showNotif('⬇️ Document téléchargé');
+}
+
+function resetForm() {
+  isPaid = false;
+  generatedDoc = '';
+  selectedSituation = '';
+  document.querySelectorAll('.sit-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.dynamic-field').forEach(f => f.classList.remove('visible'));
+  ['userName','userAddress','userEmail','targetName','details',
+   'flightNum','flightRoute','rentAddress','depositAmount',
+   'fineNum','fineReason','productName','productPrice',
+   'medObject','medAmount','rembObject','rembAmount'
+  ].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('docOutput').textContent = '';
+  document.getElementById('paywall').classList.remove('visible');
+  document.getElementById('resultSection').classList.remove('visible');
+  document.getElementById('formSection').style.display = 'block';
+  updateProgress(1);
+}
+</script>
+
+</body>
+</html>

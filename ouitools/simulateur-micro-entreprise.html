@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SimAutoEntrepreneur — Calcule ton salaire net réel en temps réel</title>
+<meta name="description" content="Simulateur gratuit pour auto-entrepreneurs et micro-entreprises. Calcule ton salaire net, tes charges sociales, ta TVA et tes seuils en temps réel.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Neue+Haas+Grotesk:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Figtree:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0e0f11;
+  --card: #16181c;
+  --card2: #1e2026;
+  --border: #2a2d35;
+  --accent: #f0c93a;
+  --accent-dim: rgba(240,201,58,0.12);
+  --green: #3ecf8e;
+  --green-dim: rgba(62,207,142,0.1);
+  --red: #ff6b6b;
+  --red-dim: rgba(255,107,107,0.1);
+  --blue: #60a5fa;
+  --text: #e8eaed;
+  --muted: #6b7280;
+  --border-light: #353840;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Figtree', sans-serif;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Ambient background */
+body::before {
+  content: '';
+  position: fixed;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 800px; height: 600px;
+  background: radial-gradient(ellipse, rgba(240,201,58,0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+
+/* Header */
+header {
+  padding: 28px 0 20px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.logo em { font-style: italic; color: var(--accent); }
+
+.free-badge {
+  background: var(--green-dim);
+  border: 1px solid rgba(62,207,142,0.3);
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Hero */
+.hero { margin-bottom: 40px; }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 24px; height: 1px;
+  background: var(--accent);
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+
+h1 em { font-style: italic; color: var(--accent); }
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 520px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* Main layout */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 720px) { .main-grid { grid-template-columns: 1fr; } }
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.card-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Inputs */
+.inp-row { margin-bottom: 18px; }
+
+.inp-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inp-live {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Slider */
+.slider-wrap { position: relative; }
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(240,201,58,0.2);
+  transition: box-shadow 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 5px rgba(240,201,58,0.25);
+}
+
+.slider-track {
+  position: absolute;
+  top: 50%; left: 0;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 2px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: width 0.1s;
+}
+
+.slider-minmax {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--border-light);
+  margin-top: 5px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Select */
+select {
+  width: 100%;
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--text);
+  font-family: 'Figtree', sans-serif;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+select:focus { border-color: var(--accent); }
+
+/* Toggle */
+.toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+}
+
+.toggle-label { font-size: 13px; color: var(--text); }
+.toggle-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+.toggle {
+  position: relative;
+  width: 40px; height: 22px;
+  flex-shrink: 0;
+}
+
+.toggle input { opacity: 0; width: 0; height: 0; }
+
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: var(--border);
+  border-radius: 11px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 16px; height: 16px;
+  left: 3px; top: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.toggle input:checked + .toggle-slider { background: var(--accent); }
+.toggle input:checked + .toggle-slider::before { transform: translateX(18px); }
+
+/* Results */
+.results-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 600px) { .results-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.res-cell {
+  background: var(--card2);
+  padding: 18px 16px;
+  text-align: center;
+}
+
+.res-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.res-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.res-value.green { color: var(--green); }
+.res-value.yellow { color: var(--accent); }
+.res-value.red { color: var(--red); }
+.res-value.blue { color: var(--blue); }
+
+.res-sub {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Breakdown bars */
+.breakdown { margin-bottom: 20px; }
+
+.break-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.break-bar-wrap { margin-bottom: 12px; }
+
+.break-bar-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.break-bar-label { font-size: 13px; color: var(--text); display: flex; align-items: center; gap: 6px; }
+.break-bar-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.break-bar-val { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; }
+
+.break-bar-track {
+  height: 5px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.break-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Stacked bar */
+.stacked-bar {
+  height: 8px;
+  border-radius: 4px;
+  display: flex;
+  overflow: hidden;
+  margin-bottom: 20px;
+  gap: 2px;
+}
+
+.stacked-seg {
+  height: 100%;
+  transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 2px;
+}
+
+/* Seuils */
+.seuils-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 600px) { .seuils-grid { grid-template-columns: 1fr; } }
+
+.seuil-card {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.seuil-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+}
+
+.seuil-card.ok::before { background: var(--green); }
+.seuil-card.warn::before { background: var(--accent); }
+.seuil-card.danger::before { background: var(--red); }
+
+.seuil-name { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+.seuil-amount { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+
+.seuil-progress-track {
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.seuil-progress-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.5s;
+}
+
+.seuil-pct { font-size: 11px; color: var(--muted); }
+
+/* Verdict */
+.verdict {
+  border-radius: 10px;
+  padding: 16px 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.verdict.good { background: var(--green-dim); border: 1px solid rgba(62,207,142,0.2); }
+.verdict.warn { background: rgba(240,201,58,0.08); border: 1px solid rgba(240,201,58,0.2); }
+.verdict.bad { background: var(--red-dim); border: 1px solid rgba(255,107,107,0.2); }
+
+.verdict-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.verdict-text { color: var(--text); }
+.verdict-text strong { font-weight: 700; }
+
+/* Monthly projection */
+.projection {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.months-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+@media (max-width: 600px) { .months-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.month-cell {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 8px;
+  text-align: center;
+}
+
+.month-name {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.month-net {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--green);
+}
+
+.month-ca {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* FAQ */
+.faq {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+
+.faq-item { border-bottom: 1px solid var(--border); padding: 14px 0; }
+.faq-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+.faq-q {
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text);
+}
+
+.faq-q span { color: var(--muted); font-size: 18px; transition: transform 0.2s; }
+.faq-q.open span { transform: rotate(45deg); }
+
+.faq-a {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-top: 10px;
+  display: none;
+}
+
+.faq-a.visible { display: block; }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card, .results-panel, .projection, .faq {
+  animation: fadeIn 0.4s ease forwards;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="logo">Sim<em>Auto</em>Entrepreneur</div>
+    <div class="free-badge">100% gratuit</div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Simulateur 2025</div>
+    <h1>Combien vas-tu<br><em>vraiment</em> gagner ?</h1>
+    <p class="hero-sub">Calcule ton salaire net réel en tant qu'auto-entrepreneur ou micro-entreprise. Charges, TVA, seuils, impôts — tout en temps réel.</p>
+  </div>
+
+  <!-- Inputs -->
+  <div class="main-grid">
+
+    <!-- Revenus -->
+    <div class="card">
+      <div class="card-title">Ton activité</div>
+
+      <div class="inp-row">
+        <div class="inp-label">
+          <span>Chiffre d'affaires mensuel</span>
+          <span class="inp-live" id="caDisplay">3 000 €</span>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" id="caSlider" min="500" max="20000" step="100" value="3000" oninput="syncCA(this.value)">
+        </div>
+        <div class="slider-minmax"><span>500 €</span><span>20 000 €</span></div>
+      </div>
+
+      <div class="inp-row">
+        <div class="inp-label"><span>Type d'activité</span></div>
+        <select id="actType" onchange="calculate()">
+          <option value="0.221" data-label="Services BIC">Services (BIC) — 22,1% de charges</option>
+          <option value="0.231" data-label="Libérale CIPAV">Profession libérale CIPAV — 23,1%</option>
+          <option value="0.124" data-label="Commerce">Vente de marchandises — 12,4%</option>
+          <option value="0.062" data-label="Restauration">Restauration / hébergement — 6,2%</option>
+        </select>
+      </div>
+
+      <div class="inp-row">
+        <div class="inp-label">
+          <span>Charges professionnelles mensuelles</span>
+          <span class="inp-live" id="chargesDisplay">500 €</span>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" id="chargesSlider" min="0" max="5000" step="50" value="500" oninput="syncCharges(this.value)">
+        </div>
+        <div class="slider-minmax"><span>0 €</span><span>5 000 €</span></div>
+      </div>
+
+      <div class="inp-row">
+        <div class="inp-label">
+          <span>Congés annuels</span>
+          <span class="inp-live" id="vacDisplay">25 jours</span>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" id="vacSlider" min="0" max="60" step="1" value="25" oninput="syncVac(this.value)">
+        </div>
+        <div class="slider-minmax"><span>0</span><span>60 jours</span></div>
+      </div>
+    </div>
+
+    <!-- Options fiscales -->
+    <div class="card">
+      <div class="card-title">Options fiscales</div>
+
+      <div class="inp-row">
+        <div class="inp-label"><span>Situation familiale</span></div>
+        <select id="parts" onchange="calculate()">
+          <option value="1">Célibataire — 1 part</option>
+          <option value="1.5">1 enfant — 1,5 part</option>
+          <option value="2">Marié(e) / 2 enfants — 2 parts</option>
+          <option value="2.5">3 enfants — 2,5 parts</option>
+          <option value="3">4 enfants et + — 3 parts</option>
+        </select>
+      </div>
+
+      <div class="inp-row">
+        <div class="inp-label"><span>Autres revenus du foyer</span></div>
+        <select id="otherIncome" onchange="calculate()">
+          <option value="0">Aucun</option>
+          <option value="15000">~15 000 €/an (smic)</option>
+          <option value="30000">~30 000 €/an</option>
+          <option value="50000">~50 000 €/an</option>
+        </select>
+      </div>
+
+      <div class="toggle-row">
+        <div>
+          <div class="toggle-label">Versement libératoire IR</div>
+          <div class="toggle-sub">Impôt intégré aux cotisations (si éligible)</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="vfl" onchange="calculate()">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <div>
+          <div class="toggle-label">Franchise TVA</div>
+          <div class="toggle-sub">En dessous des seuils légaux</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="tva" checked onchange="calculate()">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <div>
+          <div class="toggle-label">ACRE (1ère année)</div>
+          <div class="toggle-sub">Réduction de 50% des charges</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="acre" onchange="calculate()">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Results -->
+  <div class="results-panel">
+    <div class="card-title">Résultats en temps réel</div>
+
+    <div class="results-grid">
+      <div class="res-cell">
+        <div class="res-label">Net mensuel</div>
+        <div class="res-value green" id="netMensuel">—</div>
+        <div class="res-sub">après cotisations</div>
+      </div>
+      <div class="res-cell">
+        <div class="res-label">Net disponible</div>
+        <div class="res-value yellow" id="netDispo">—</div>
+        <div class="res-sub">après charges perso</div>
+      </div>
+      <div class="res-cell">
+        <div class="res-label">Cotisations</div>
+        <div class="res-value red" id="cotisations">—</div>
+        <div class="res-sub">par mois</div>
+      </div>
+      <div class="res-cell">
+        <div class="res-label">CA annuel</div>
+        <div class="res-value blue" id="caAnnuel">—</div>
+        <div class="res-sub">projection 12 mois</div>
+      </div>
+    </div>
+
+    <!-- Stacked bar -->
+    <div class="stacked-bar" id="stackedBar">
+      <div class="stacked-seg" id="segNet" style="background: var(--green);"></div>
+      <div class="stacked-seg" id="segCot" style="background: var(--red);"></div>
+      <div class="stacked-seg" id="segCharges" style="background: var(--blue);"></div>
+    </div>
+
+    <!-- Breakdown -->
+    <div class="breakdown">
+      <div class="break-title">Répartition de ton CA</div>
+
+      <div class="break-bar-wrap">
+        <div class="break-bar-info">
+          <span class="break-bar-label">
+            <span class="break-bar-dot" style="background:var(--green)"></span>
+            Salaire net
+          </span>
+          <span class="break-bar-val" id="barNetVal">—</span>
+        </div>
+        <div class="break-bar-track">
+          <div class="break-bar-fill" id="barNet" style="background:var(--green); width:0%"></div>
+        </div>
+      </div>
+
+      <div class="break-bar-wrap">
+        <div class="break-bar-info">
+          <span class="break-bar-label">
+            <span class="break-bar-dot" style="background:var(--red)"></span>
+            Cotisations sociales
+          </span>
+          <span class="break-bar-val" id="barCotVal">—</span>
+        </div>
+        <div class="break-bar-track">
+          <div class="break-bar-fill" id="barCot" style="background:var(--red); width:0%"></div>
+        </div>
+      </div>
+
+      <div class="break-bar-wrap">
+        <div class="break-bar-info">
+          <span class="break-bar-label">
+            <span class="break-bar-dot" style="background:var(--blue)"></span>
+            Charges professionnelles
+          </span>
+          <span class="break-bar-val" id="barChargesVal">—</span>
+        </div>
+        <div class="break-bar-track">
+          <div class="break-bar-fill" id="barCharges" style="background:var(--blue); width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Verdict -->
+    <div class="verdict good" id="verdict">
+      <span class="verdict-icon">💡</span>
+      <span class="verdict-text">Ajuste les curseurs pour voir ton estimation personnalisée.</span>
+    </div>
+  </div>
+
+  <!-- Seuils -->
+  <div class="seuils-grid" id="seuilsGrid"></div>
+
+  <!-- Projection -->
+  <div class="projection">
+    <div class="card-title">Projection mensuelle — 12 mois</div>
+    <div class="months-grid" id="monthsGrid"></div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq">
+    <div class="card-title">Questions fréquentes</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        C'est quoi le versement libératoire ?
+        <span>+</span>
+      </div>
+      <div class="faq-a">Le versement libératoire permet de payer l'impôt sur le revenu directement en même temps que tes cotisations sociales. Tu paies un pourcentage fixe de ton CA (1% pour le commerce, 1,7% pour les services, 2,2% pour les libéraux). Accessible si ton revenu fiscal de référence N-2 ne dépasse pas 27 478€ par part.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        C'est quoi l'ACRE ?
+        <span>+</span>
+      </div>
+      <div class="faq-a">L'Aide aux Créateurs et Repreneurs d'Entreprise réduit de 50% tes cotisations sociales pendant la 1ère année d'activité. Elle est accordée automatiquement aux personnes qui créent ou reprennent une entreprise. Une vraie économie pour démarrer.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Quand dois-je facturer la TVA ?
+        <span>+</span>
+      </div>
+      <div class="faq-a">En micro-entreprise, tu bénéficies de la franchise en base de TVA tant que tu ne dépasses pas 37 500€ de CA annuel pour les services (77 700€ pour le commerce). En dessous de ces seuils, tu ne factures pas de TVA et tu indiques "TVA non applicable, art. 293 B du CGI" sur tes factures.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Ce simulateur est-il fiable ?
+        <span>+</span>
+      </div>
+      <div class="faq-a">Ce simulateur utilise les taux officiels 2025 de l'URSSAF. Les résultats sont indicatifs et ne constituent pas un conseil fiscal. Pour ta situation personnelle, consulte un expert-comptable ou le site officiel urssaf.fr.</div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 SimAutoEntrepreneur — Outil gratuit basé sur les taux URSSAF 2025 · Simulation indicative uniquement
+  </footer>
+
+</div>
+
+<script>
+const MONTHS = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
+
+const SEUILS = [
+  { name: 'Franchise TVA (services)', amount: 37500, key: 'services' },
+  { name: 'Franchise TVA (commerce)', amount: 85000, key: 'commerce' },
+  { name: 'Seuil micro-BNC / services', amount: 77700, key: 'bnc' },
+];
+
+function fmt(n) {
+  return Math.round(Math.max(0, n)).toLocaleString('fr-FR') + ' €';
+}
+
+function syncCA(v) {
+  document.getElementById('caDisplay').textContent = parseInt(v).toLocaleString('fr-FR') + ' €';
+  calculate();
+}
+
+function syncCharges(v) {
+  document.getElementById('chargesDisplay').textContent = parseInt(v).toLocaleString('fr-FR') + ' €';
+  calculate();
+}
+
+function syncVac(v) {
+  document.getElementById('vacDisplay').textContent = v + ' jours';
+  calculate();
+}
+
+function calculate() {
+  const ca = parseFloat(document.getElementById('caSlider').value);
+  const charges = parseFloat(document.getElementById('chargesSlider').value);
+  const vac = parseFloat(document.getElementById('vacSlider').value);
+  const rate = parseFloat(document.getElementById('actType').value);
+  const acre = document.getElementById('acre').checked;
+  const vfl = document.getElementById('vfl').checked;
+  const caAnnuel = ca * 12;
+
+  const effectiveRate = acre ? rate * 0.5 : rate;
+  const cotisations = ca * effectiveRate;
+  const netAvantCharges = ca - cotisations;
+  const netDispo = Math.max(0, netAvantCharges - charges);
+
+  // Update main numbers
+  document.getElementById('netMensuel').textContent = fmt(netAvantCharges);
+  document.getElementById('netDispo').textContent = fmt(netDispo);
+  document.getElementById('cotisations').textContent = fmt(cotisations);
+  document.getElementById('caAnnuel').textContent = fmt(caAnnuel);
+
+  // Bars
+  const total = ca;
+  const pctNet = (netDispo / total) * 100;
+  const pctCot = (cotisations / total) * 100;
+  const pctCharges = (charges / total) * 100;
+
+  document.getElementById('barNet').style.width = Math.max(0, pctNet) + '%';
+  document.getElementById('barCot').style.width = pctCot + '%';
+  document.getElementById('barCharges').style.width = Math.min(pctCharges, 100 - pctCot) + '%';
+
+  document.getElementById('barNetVal').textContent = Math.round(pctNet) + '%';
+  document.getElementById('barCotVal').textContent = Math.round(pctCot) + '%';
+  document.getElementById('barChargesVal').textContent = Math.round(pctCharges) + '%';
+
+  // Stacked bar
+  document.getElementById('segNet').style.flex = Math.max(0, pctNet);
+  document.getElementById('segCot').style.flex = pctCot;
+  document.getElementById('segCharges').style.flex = Math.min(pctCharges, 100 - pctCot);
+
+  // Verdict
+  const v = document.getElementById('verdict');
+  if (netDispo < 0) {
+    v.className = 'verdict bad';
+    v.innerHTML = `<span class="verdict-icon">⚠️</span><span class="verdict-text">Tes charges professionnelles dépassent ton net. Il te faut au minimum <strong>${fmt(charges + cotisations + 200)}/mois</strong> de CA pour être à l'équilibre.</span>`;
+  } else if (netDispo < 1500) {
+    v.className = 'verdict warn';
+    v.innerHTML = `<span class="verdict-icon">💡</span><span class="verdict-text">Tu gardes <strong>${fmt(netDispo)}/mois</strong> net. Correct pour démarrer, mais vise <strong>${fmt(ca * 1.5)}/mois</strong> de CA pour plus de confort. Ton taux de cotisations est de <strong>${Math.round(effectiveRate * 100)}%</strong>.</span>`;
+  } else {
+    v.className = 'verdict good';
+    v.innerHTML = `<span class="verdict-icon">✅</span><span class="verdict-text">Bonne situation ! Tu gardes <strong>${fmt(netDispo)}/mois</strong> net disponible après toutes tes charges. Taux de cotisations effectif : <strong>${Math.round(effectiveRate * 100)}%</strong>${acre ? ' (ACRE activée)' : ''}.</span>`;
+  }
+
+  // Seuils
+  const sg = document.getElementById('seuilsGrid');
+  sg.innerHTML = SEUILS.map(s => {
+    const pct = Math.min((caAnnuel / s.amount) * 100, 100);
+    const status = pct >= 90 ? 'danger' : pct >= 70 ? 'warn' : 'ok';
+    const color = status === 'ok' ? 'var(--green)' : status === 'warn' ? 'var(--accent)' : 'var(--red)';
+    return `
+      <div class="seuil-card ${status}">
+        <div class="seuil-name">${s.name}</div>
+        <div class="seuil-amount">${s.amount.toLocaleString('fr-FR')} €/an</div>
+        <div class="seuil-progress-track">
+          <div class="seuil-progress-fill" style="width:${pct}%; background:${color}"></div>
+        </div>
+        <div class="seuil-pct">Ton CA : ${Math.round(pct)}% du seuil</div>
+      </div>
+    `;
+  }).join('');
+
+  // Monthly grid
+  const mg = document.getElementById('monthsGrid');
+  mg.innerHTML = MONTHS.map(m => `
+    <div class="month-cell">
+      <div class="month-name">${m}</div>
+      <div class="month-net">${fmt(netDispo)}</div>
+      <div class="month-ca">CA : ${fmt(ca)}</div>
+    </div>
+  `).join('');
+}
+
+function toggleFaq(el) {
+  el.classList.toggle('open');
+  const ans = el.nextElementSibling;
+  ans.classList.toggle('visible');
+}
+
+// Init
+calculate();
+</script>
+</body>
+</html>

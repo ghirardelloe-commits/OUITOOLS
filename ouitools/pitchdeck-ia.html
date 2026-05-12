@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PitchDeck IA — Génère ton pitch investisseur en 5 minutes</title>
+<meta name="description" content="Génère un pitch deck professionnel pour lever des fonds en 5 minutes. Structure Sequoia, storytelling IA, export PDF. Pour startups et entrepreneurs français.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #080a0f;
+  --card: #0f1219;
+  --card2: #161c27;
+  --border: #1e2535;
+  --border2: #2a3550;
+  --accent: #3b82f6;
+  --accent2: #60a5fa;
+  --gold: #f59e0b;
+  --gold2: #fbbf24;
+  --green: #10b981;
+  --text: #f0f4ff;
+  --muted: #64748b;
+  --muted2: #94a3b8;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Ambient background */
+body::before {
+  content: '';
+  position: fixed;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 1000px; height: 600px;
+  background: radial-gradient(ellipse, rgba(59,130,246,0.06) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(ellipse, rgba(245,158,11,0.04) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+
+/* ─── HEADER ─── */
+header {
+  padding: 28px 0 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 56px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-mark {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--accent), var(--gold));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.logo-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.logo-name span { color: var(--gold); }
+
+.header-right { display: flex; align-items: center; gap: 12px; }
+
+.vc-badge {
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.25);
+  color: var(--gold2);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+/* ─── HERO ─── */
+.hero { margin-bottom: 56px; text-align: center; }
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(59,130,246,0.08);
+  border: 1px solid rgba(59,130,246,0.2);
+  color: var(--accent2);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hero-tag::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(38px, 6vw, 72px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+}
+
+h1 .gold { color: var(--gold); }
+h1 .blue { color: var(--accent2); }
+
+.hero-sub {
+  font-size: 17px;
+  color: var(--muted2);
+  max-width: 560px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* Social proof */
+.social-proof {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.proof-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--muted2);
+}
+
+.proof-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.proof-sep { color: var(--border2); }
+
+/* ─── TOOL ─── */
+.tool {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 48px;
+  box-shadow: 0 0 80px rgba(59,130,246,0.05);
+}
+
+.tool-top {
+  background: linear-gradient(135deg, #0f1a2e, #0a1020);
+  border-bottom: 1px solid var(--border);
+  padding: 18px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tool-top-left {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.tool-top-left span { color: var(--accent2); }
+
+/* Progress steps */
+.progress-steps {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.ps {
+  width: 32px; height: 3px;
+  background: var(--border2);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+.ps.active { background: var(--gold); width: 48px; }
+.ps.done { background: var(--green); }
+
+.tool-body { padding: 36px; }
+
+/* ─── STEP 1 — Business Info ─── */
+.step-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Sector grid */
+.sector-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 580px) { .sector-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.sector-btn {
+  background: var(--card2);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.18s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.sector-btn:hover { border-color: var(--accent); background: rgba(59,130,246,0.05); }
+
+.sector-btn.selected {
+  border-color: var(--gold);
+  background: rgba(245,158,11,0.08);
+  box-shadow: 0 0 0 1px rgba(245,158,11,0.15);
+}
+
+.sector-icon { font-size: 22px; margin-bottom: 5px; }
+.sector-name { font-size: 11px; font-weight: 600; color: var(--muted2); }
+.sector-btn.selected .sector-name { color: var(--gold2); }
+
+/* Form grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 540px) { .form-grid { grid-template-columns: 1fr; } }
+
+.full { grid-column: 1 / -1; }
+
+.form-group { display: flex; flex-direction: column; gap: 7px; }
+
+label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+}
+
+input, select, textarea {
+  background: var(--card2);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.18s, background 0.18s;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+  background: rgba(59,130,246,0.04);
+}
+
+input::placeholder, textarea::placeholder { color: var(--muted); }
+
+select option { background: var(--card2); }
+
+textarea { resize: vertical; min-height: 80px; }
+
+/* Fundraising slider */
+.raise-options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.raise-opt {
+  background: var(--card2);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.15s;
+  color: var(--muted2);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.raise-opt:hover { border-color: var(--accent2); color: var(--accent2); }
+.raise-opt.selected { background: rgba(59,130,246,0.1); border-color: var(--accent); color: var(--accent2); }
+
+/* Generate button */
+.btn-generate {
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent), #1d4ed8);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 18px;
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.btn-generate:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(59,130,246,0.35);
+}
+
+/* ─── LOADING ─── */
+.loading { display: none; padding: 52px; text-align: center; }
+.loading.visible { display: block; }
+
+.load-orbit {
+  width: 52px; height: 52px;
+  border: 3px solid var(--border2);
+  border-top-color: var(--accent);
+  border-right-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 24px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.load-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.load-step { font-size: 14px; color: var(--muted2); }
+.load-step span { color: var(--accent2); }
+
+/* ─── RESULT ─── */
+.result { display: none; }
+.result.visible { display: block; }
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.result-ok {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--green);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.result-ok::before {
+  content: '●';
+  animation: blink 1.5s infinite;
+}
+
+.result-actions { display: flex; gap: 8px; }
+
+.btn-action {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-action:hover { border-color: var(--accent2); color: var(--accent2); }
+
+/* Pitch deck preview */
+.deck-preview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 580px) { .deck-preview { grid-template-columns: 1fr; } }
+
+.slide-card {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  transition: border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-card:hover { border-color: var(--border2); }
+
+.slide-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.slide-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.slide-content {
+  font-size: 12px;
+  color: var(--muted2);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.slide-card.locked .slide-content {
+  filter: blur(4px);
+  user-select: none;
+  pointer-events: none;
+}
+
+.slide-lock {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: rgba(8,10,15,0.5);
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  backdrop-filter: blur(2px);
+}
+
+.slide-card.locked .slide-lock { display: flex; }
+
+/* Paywall */
+.paywall {
+  display: none;
+  background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(59,130,246,0.05));
+  border: 1.5px solid rgba(245,158,11,0.3);
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.paywall.visible { display: block; }
+
+.pw-icon { font-size: 36px; margin-bottom: 12px; }
+
+.pw-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.pw-sub { font-size: 14px; color: var(--muted2); line-height: 1.6; margin-bottom: 20px; max-width: 420px; margin-left: auto; margin-right: auto; }
+
+.pw-price {
+  font-family: 'Syne', sans-serif;
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 4px;
+  letter-spacing: -2px;
+}
+
+.pw-note { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+
+.btn-pay {
+  background: linear-gradient(135deg, var(--gold), #d97706);
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  padding: 15px 40px;
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: -0.3px;
+}
+
+.btn-pay:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(245,158,11,0.3); }
+
+.pw-guarantees {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.pw-g { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+
+/* Reset */
+.btn-reset {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-top: 12px;
+}
+
+.btn-reset:hover { border-color: var(--accent); color: var(--accent2); }
+
+/* ─── FEATURES ─── */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+@media (max-width: 580px) { .features { grid-template-columns: 1fr; } }
+
+.feat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+}
+
+.feat-icon { font-size: 24px; margin-bottom: 10px; }
+.feat-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.feat-text { font-size: 13px; color: var(--muted2); line-height: 1.5; }
+
+/* Notif */
+.notif {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 13px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 999;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.notif.show { transform: translateY(0); opacity: 1; }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--accent2); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.result.visible { animation: fadeUp 0.4s ease; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <div class="logo-mark">🚀</div>
+      <div class="logo-name">Pitch<span>Deck</span> IA</div>
+    </div>
+    <div class="header-right">
+      <div class="vc-badge">✦ Structure Sequoia</div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-tag">Pitch deck investisseur</div>
+    <h1>Lève des fonds<br>avec un deck <span class="gold">qui</span><br><span class="blue">convertit</span></h1>
+    <p class="hero-sub">Tu décris ton projet en 10 questions. L'IA génère un pitch deck complet, structuré comme les meilleurs decks de YC et Sequoia. En 5 minutes.</p>
+
+    <div class="social-proof">
+      <div class="proof-item">
+        <span class="proof-num">1 200+</span>
+        <span>decks générés</span>
+      </div>
+      <span class="proof-sep">·</span>
+      <div class="proof-item">
+        <span class="proof-num">49€</span>
+        <span>deck complet</span>
+      </div>
+      <span class="proof-sep">·</span>
+      <div class="proof-item">
+        <span class="proof-num">5 min</span>
+        <span>chrono</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tool -->
+  <div class="tool">
+    <div class="tool-top">
+      <div class="tool-top-left">// <span>pitchdeck_generator</span>.js — 10 slides · structure Sequoia</div>
+      <div class="progress-steps">
+        <div class="ps active" id="ps1"></div>
+        <div class="ps" id="ps2"></div>
+        <div class="ps" id="ps3"></div>
+      </div>
+    </div>
+
+    <div class="tool-body">
+
+      <!-- Form -->
+      <div id="formSection">
+
+        <!-- Sector -->
+        <div class="step-title">1 — Ton secteur</div>
+        <div class="sector-grid">
+          <button class="sector-btn" onclick="selectSector(this, 'SaaS / Logiciel')">
+            <div class="sector-icon">💻</div>
+            <div class="sector-name">SaaS</div>
+          </button>
+          <button class="sector-btn" onclick="selectSector(this, 'Marketplace / Plateforme')">
+            <div class="sector-icon">🛒</div>
+            <div class="sector-name">Marketplace</div>
+          </button>
+          <button class="sector-btn" onclick="selectSector(this, 'FinTech / Finance')">
+            <div class="sector-icon">💳</div>
+            <div class="sector-name">FinTech</div>
+          </button>
+          <button class="sector-btn" onclick="selectSector(this, 'HealthTech / Santé')">
+            <div class="sector-icon">🏥</div>
+            <div class="sector-name">HealthTech</div>
+          </button>
+          <button class="sector-btn" onclick="selectSector(this, 'Intelligence Artificielle / IA')">
+            <div class="sector-icon">🤖</div>
+            <div class="sector-name">IA</div>
+          </button>
+          <button class="sector-btn" onclick="selectSector(this, 'E-commerce / Retail')">
+            <div class="sector-icon">📦</div>
+            <div class="sector-name">E-commerce</div>
+          </button>
+          <button class="sector-btn" onclick="selectSector(this, 'GreenTech / Impact')">
+            <div class="sector-icon">🌱</div>
+            <div class="sector-name">GreenTech</div>
+          </button>
+          <button class="sector-btn" onclick="selectSector(this, 'Autre / Divers')">
+            <div class="sector-icon">⚡</div>
+            <div class="sector-name">Autre</div>
+          </button>
+        </div>
+
+        <!-- Core info -->
+        <div class="step-title">2 — Ton projet</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nom de ta startup</label>
+            <input type="text" id="startupName" placeholder="Ex: Acme, NovaTech...">
+          </div>
+          <div class="form-group">
+            <label>Ton prénom & nom</label>
+            <input type="text" id="founderName" placeholder="Jean Dupont">
+          </div>
+          <div class="form-group full">
+            <label>Le problème que tu résous (en 1-2 phrases)</label>
+            <textarea id="problem" placeholder="Ex: Les PME perdent 8h/semaine à gérer leurs factures manuellement, sans visibilité sur leur trésorerie en temps réel..."></textarea>
+          </div>
+          <div class="form-group full">
+            <label>Ta solution</label>
+            <textarea id="solution" placeholder="Ex: Un logiciel de comptabilité IA qui automatise 90% des tâches comptables et prédit la trésorerie à 90 jours..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Taille du marché cible</label>
+            <select id="marketSize">
+              <option>Moins de 100M€</option>
+              <option>100M€ — 1Md€</option>
+              <option selected>1Md€ — 10Md€</option>
+              <option>Plus de 10Md€</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Stade actuel</label>
+            <select id="stage">
+              <option>Idée / Pre-product</option>
+              <option selected>MVP lancé</option>
+              <option>Premiers clients / Traction</option>
+              <option>Revenus significatifs</option>
+              <option>Croissance rapide</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Modèle de revenus</label>
+            <select id="revenue">
+              <option>Abonnement mensuel (SaaS)</option>
+              <option>Commission / Marketplace</option>
+              <option>Freemium</option>
+              <option>À l'usage / Pay-as-you-go</option>
+              <option>Vente directe B2B</option>
+              <option>Publicité</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Taille de l'équipe</label>
+            <select id="teamSize">
+              <option>Solo founder</option>
+              <option>2-3 personnes</option>
+              <option selected>4-10 personnes</option>
+              <option>Plus de 10</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Tes chiffres clés (traction, ARR, clients, croissance...)</label>
+            <textarea id="traction" placeholder="Ex: 50 clients beta, 8 000€ MRR, croissance 30% mois/mois, 200 utilisateurs en liste d'attente..."></textarea>
+          </div>
+          <div class="form-group full">
+            <label>Ton avantage concurrentiel</label>
+            <input type="text" id="moat" placeholder="Ex: Technologie propriétaire, effets de réseau, données exclusives, équipe...">
+          </div>
+        </div>
+
+        <!-- Fundraising -->
+        <div class="step-title">3 — Ta levée de fonds</div>
+        <div class="raise-options">
+          <button class="raise-opt" onclick="selectRaise(this, '50 000€')">50k€</button>
+          <button class="raise-opt" onclick="selectRaise(this, '150 000€')">150k€</button>
+          <button class="raise-opt" onclick="selectRaise(this, '500 000€')">500k€</button>
+          <button class="raise-opt selected" onclick="selectRaise(this, '1 000 000€')">1M€</button>
+          <button class="raise-opt" onclick="selectRaise(this, '3 000 000€')">3M€</button>
+          <button class="raise-opt" onclick="selectRaise(this, '5 000 000€+')">5M€+</button>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>À quoi servira cette levée ? (18 mois)</label>
+            <input type="text" id="useOfFunds" placeholder="Ex: 60% R&D, 30% commercial, 10% opérations">
+          </div>
+        </div>
+
+        <button class="btn-generate" onclick="generateDeck()">
+          🚀 Générer mon pitch deck
+        </button>
+
+      </div>
+
+      <!-- Loading -->
+      <div class="loading" id="loadingSection">
+        <div class="load-orbit"></div>
+        <div class="load-title">Génération de ton pitch deck...</div>
+        <div class="load-step" id="loadStep">Analyse du marché <span>en cours</span></div>
+      </div>
+
+      <!-- Result -->
+      <div class="result" id="resultSection">
+        <div class="result-header">
+          <div class="result-ok">Pitch deck généré — 10 slides</div>
+          <div class="result-actions">
+            <button class="btn-action" onclick="copyDeck()">📋 Copier tout</button>
+            <button class="btn-action" onclick="downloadDeck()">⬇️ .txt</button>
+          </div>
+        </div>
+
+        <div class="deck-preview" id="deckPreview"></div>
+
+        <div class="paywall" id="paywall">
+          <div class="pw-icon">🔒</div>
+          <div class="pw-price">49€</div>
+          <div class="pw-note">Paiement unique · Accès immédiat · Pas d'abonnement</div>
+          <div class="pw-title">Débloque ton pitch deck complet</div>
+          <div class="pw-sub">Les 5 derniers slides (Business Model, Concurrence, Traction, Équipe, Ask) sont masqués. Débloque l'intégralité pour 49€ — une agence te facture 5 000€ pour le même résultat.</div>
+          <button class="btn-pay" onclick="simulatePay()">💳 Débloquer pour 49€</button>
+          <div class="pw-guarantees">
+            <span class="pw-g">🔒 Paiement sécurisé</span>
+            <span class="pw-g">✓ Satisfait ou remboursé</span>
+            <span class="pw-g">⚡ Accès immédiat</span>
+            <span class="pw-g">📄 Export PDF inclus</span>
+          </div>
+        </div>
+
+        <button class="btn-reset" onclick="resetForm()">← Nouveau pitch deck</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="features">
+    <div class="feat">
+      <div class="feat-icon">🎯</div>
+      <div class="feat-title">Structure Sequoia / YC</div>
+      <div class="feat-text">Les mêmes 10 slides qui ont permis à Airbnb, Uber et Stripe de lever leurs premiers tours.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🤖</div>
+      <div class="feat-title">Storytelling IA</div>
+      <div class="feat-text">L'IA adapte le narrative à ton secteur et ton stade. Pas un template générique — un deck qui te ressemble.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">⚡</div>
+      <div class="feat-title">5 minutes chrono</div>
+      <div class="feat-text">Remplis le formulaire, le deck est prêt. Ce qui prenait 3 semaines à une agence, tu le fais en 5 minutes.</div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 PitchDeck IA — Propulsé par Claude · <a href="#">CGV</a> · <a href="#">Confidentialité</a>
+  </footer>
+
+</div>
+
+<div class="notif" id="notif"></div>
+
+<script>
+let selectedSector = '';
+let selectedRaise = '1 000 000€';
+let generatedDeck = [];
+let isPaid = false;
+
+const SLIDE_NAMES = [
+  'Problème', 'Solution', 'Marché',
+  'Produit', 'Business Model', 'Concurrence',
+  'Traction', 'Équipe', 'Financier & Ask', 'Roadmap'
+];
+
+function selectSector(btn, sector) {
+  document.querySelectorAll('.sector-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedSector = sector;
+}
+
+function selectRaise(btn, amount) {
+  document.querySelectorAll('.raise-opt').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedRaise = amount;
+}
+
+function showNotif(msg) {
+  const n = document.getElementById('notif');
+  n.textContent = msg;
+  n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), 3000);
+}
+
+function updateProgress(step) {
+  for (let i = 1; i <= 3; i++) {
+    const p = document.getElementById('ps' + i);
+    p.classList.remove('active', 'done');
+    if (i < step) p.classList.add('done');
+    if (i === step) p.classList.add('active');
+  }
+}
+
+async function generateDeck() {
+  const name = document.getElementById('startupName').value.trim();
+  const founder = document.getElementById('founderName').value.trim();
+  const problem = document.getElementById('problem').value.trim();
+  const solution = document.getElementById('solution').value.trim();
+
+  if (!name) { showNotif('⚠️ Indique le nom de ta startup'); return; }
+  if (!problem) { showNotif('⚠️ Décris le problème que tu résous'); return; }
+  if (!solution) { showNotif('⚠️ Décris ta solution'); return; }
+
+  const sector = selectedSector || 'Tech / Divers';
+  const marketSize = document.getElementById('marketSize').value;
+  const stage = document.getElementById('stage').value;
+  const revenue = document.getElementById('revenue').value;
+  const teamSize = document.getElementById('teamSize').value;
+  const traction = document.getElementById('traction').value;
+  const moat = document.getElementById('moat').value;
+  const useOfFunds = document.getElementById('useOfFunds').value;
+
+  document.getElementById('formSection').style.display = 'none';
+  document.getElementById('loadingSection').classList.add('visible');
+  updateProgress(2);
+
+  const steps = [
+    'Analyse du marché en cours',
+    'Structuration du narrative',
+    'Génération des slides',
+    'Optimisation du storytelling',
+    'Finalisation du deck'
+  ];
+  let si = 0;
+  const iv = setInterval(() => {
+    if (si < steps.length) {
+      document.getElementById('loadStep').innerHTML = steps[si++] + ' <span>en cours</span>';
+    }
+  }, 900);
+
+  const prompt = `Tu es un expert en levée de fonds pour startups, ayant accompagné des centaines de pitchs auprès de VCs. Génère un pitch deck complet en 10 slides pour une startup.
+
+INFORMATIONS :
+- Startup : ${name}
+- Fondateur : ${founder || 'Non renseigné'}
+- Secteur : ${sector}
+- Problème : ${problem}
+- Solution : ${solution}
+- Taille du marché : ${marketSize}
+- Stade : ${stage}
+- Modèle de revenus : ${revenue}
+- Équipe : ${teamSize}
+- Traction / KPIs : ${traction || 'Non renseigné'}
+- Avantage concurrentiel : ${moat || 'Non renseigné'}
+- Montant levée : ${selectedRaise}
+- Utilisation des fonds : ${useOfFunds || 'Non renseigné'}
+
+GÉNÈRE EXACTEMENT 10 SLIDES numérotées. Pour CHAQUE slide, respecte ce format STRICT :
+
+SLIDE 1: [TITRE DE LA SLIDE]
+[Contenu de la slide en 3-5 points clés ou paragraphe percutant]
+
+SLIDE 2: [TITRE]
+[Contenu]
+
+...jusqu'à SLIDE 10.
+
+Les 10 slides obligatoires :
+1. Le Problème (douleur client, stats choc)
+2. La Solution (pourquoi maintenant, pourquoi vous)
+3. Le Marché (TAM/SAM/SOM avec chiffres)
+4. Le Produit (features clés, démo imaginée)
+5. Business Model (revenus, unit economics)
+6. Concurrence (matrice, positionnement unique)
+7. Traction (métriques, croissance, preuves)
+8. L'Équipe (expertise, complémentarité)
+9. Financier & Ask (montant, valorisation, use of funds)
+10. Roadmap (12-18 mois, milestones)
+
+Style : percutant, orienté VC, chiffres concrets, pas de jargon inutile. Chaque slide doit convaincre en 30 secondes.`;
+
+  try {
+    const res = await fetch('/.netlify/functions/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: prompt })
+    });
+
+    const data = await res.json();
+    clearInterval(iv);
+    const rawText = data.content?.[0]?.text || '';
+    if (!rawText) throw new Error();
+
+    // Parse slides
+    generatedDeck = parseSlides(rawText);
+
+    document.getElementById('loadingSection').classList.remove('visible');
+    document.getElementById('resultSection').classList.add('visible');
+    updateProgress(3);
+
+    renderDeck();
+
+  } catch (e) {
+    clearInterval(iv);
+    document.getElementById('loadingSection').classList.remove('visible');
+    document.getElementById('formSection').style.display = 'block';
+    updateProgress(1);
+    showNotif('❌ Erreur de génération. Réessaie.');
+  }
+}
+
+function parseSlides(text) {
+  const slides = [];
+  const parts = text.split(/SLIDE\s+\d+:/i);
+  parts.forEach((part, i) => {
+    if (i === 0) return;
+    const lines = part.trim().split('\n');
+    const title = lines[0]?.replace(/[\[\]]/g, '').trim() || SLIDE_NAMES[i-1];
+    const content = lines.slice(1).join('\n').trim();
+    slides.push({ title, content });
+  });
+
+  // Fallback if parsing fails
+  if (slides.length < 5) {
+    return SLIDE_NAMES.map((name, i) => ({
+      title: name,
+      content: text.split('\n\n')[i] || 'Contenu généré...'
+    }));
+  }
+
+  return slides;
+}
+
+function renderDeck() {
+  const preview = document.getElementById('deckPreview');
+  preview.innerHTML = '';
+
+  generatedDeck.forEach((slide, i) => {
+    const isLocked = !isPaid && i >= 5;
+    const card = document.createElement('div');
+    card.className = `slide-card${isLocked ? ' locked' : ''}`;
+    card.innerHTML = `
+      <div class="slide-num">Slide ${i + 1} / ${generatedDeck.length}</div>
+      <div class="slide-title">${slide.title}</div>
+      <div class="slide-content">${slide.content.substring(0, isLocked ? 80 : 300)}${slide.content.length > 300 && !isLocked ? '...' : ''}</div>
+      ${isLocked ? '<div class="slide-lock">🔒</div>' : ''}
+    `;
+    preview.appendChild(card);
+  });
+
+  if (!isPaid) {
+    document.getElementById('paywall').classList.add('visible');
+  }
+}
+
+function simulatePay() {
+  isPaid = true;
+  document.getElementById('paywall').classList.remove('visible');
+  renderDeck();
+  showNotif('🎉 Pitch deck complet débloqué !');
+}
+
+function copyDeck() {
+  const text = generatedDeck.map((s, i) =>
+    `SLIDE ${i+1}: ${s.title}\n${s.content}`
+  ).join('\n\n---\n\n');
+  navigator.clipboard.writeText(text).then(() => showNotif('✓ Deck copié !'));
+}
+
+function downloadDeck() {
+  if (!isPaid) { showNotif('⚠️ Débloque le deck complet d\'abord'); return; }
+  const text = generatedDeck.map((s, i) =>
+    `SLIDE ${i+1}: ${s.title}\n${'─'.repeat(40)}\n${s.content}`
+  ).join('\n\n\n');
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'pitch-deck.txt';
+  a.click();
+  showNotif('⬇️ Deck téléchargé');
+}
+
+function resetForm() {
+  isPaid = false;
+  generatedDeck = [];
+  selectedSector = '';
+  document.querySelectorAll('.sector-btn').forEach(b => b.classList.remove('selected'));
+  ['startupName','founderName','problem','solution','traction','moat','useOfFunds'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('deckPreview').innerHTML = '';
+  document.getElementById('paywall').classList.remove('visible');
+  document.getElementById('resultSection').classList.remove('visible');
+  document.getElementById('formSection').style.display = 'block';
+  updateProgress(1);
+}
+</script>
+
+</body>
+</html>

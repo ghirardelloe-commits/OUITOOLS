@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RésilFacile — Génère ta lettre de résiliation en 30 secondes</title>
+<meta name="description" content="Générateur gratuit de lettres de résiliation pour Free, SFR, Orange, salles de sport, assurances et plus. Conforme loi Châtel et Hamon.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Figtree:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #f8f6f1;
+  --card: #ffffff;
+  --card2: #f2efe8;
+  --border: #e0dbd0;
+  --accent: #c13b2a;
+  --accent2: #e8522f;
+  --text: #1a1714;
+  --muted: #7a7268;
+  --green: #2d6a4f;
+  --green-bg: #f0f7f4;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Figtree', sans-serif;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+
+/* Header */
+header {
+  padding: 32px 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.logo em { font-style: italic; color: var(--accent); }
+
+.logo-sub {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+  font-weight: 400;
+  font-family: 'Figtree', sans-serif;
+}
+
+.trust-badges {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.trust-badge {
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.trust-badge span { font-size: 14px; }
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: end;
+  margin-bottom: 48px;
+}
+
+@media (max-width: 600px) { .hero { grid-template-columns: 1fr; } }
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 6vw, 68px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -1.5px;
+  margin-bottom: 16px;
+}
+
+h1 em { font-style: italic; color: var(--accent); }
+
+.hero-sub {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.6;
+  font-weight: 300;
+  max-width: 480px;
+}
+
+.hero-stats {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  min-width: 180px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.stat-item:last-child { border-bottom: none; }
+
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label { font-size: 11px; color: var(--muted); }
+
+/* Tool */
+.tool {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.05);
+}
+
+.tool-top {
+  background: var(--accent);
+  padding: 16px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tool-top-title {
+  color: #fff;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.step-dots { display: flex; gap: 6px; }
+.sdot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  transition: all 0.3s;
+}
+.sdot.active { background: #fff; transform: scale(1.2); }
+.sdot.done { background: rgba(255,255,255,0.7); }
+
+.tool-body { padding: 36px; }
+
+/* Category grid */
+.cat-section { margin-bottom: 32px; }
+
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 580px) { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.cat-btn {
+  border: 1.5px solid var(--border);
+  background: var(--card2);
+  border-radius: 10px;
+  padding: 16px 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.18s;
+  font-family: 'Figtree', sans-serif;
+}
+
+.cat-btn:hover {
+  border-color: var(--accent);
+  background: #fff5f4;
+  transform: translateY(-1px);
+}
+
+.cat-btn.selected {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(193,59,42,0.25);
+}
+
+.cat-btn.selected .cat-sub { color: rgba(255,255,255,0.7); }
+
+.cat-icon { font-size: 26px; margin-bottom: 8px; }
+.cat-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.cat-sub { font-size: 11px; color: var(--muted); }
+
+/* Popular tags */
+.popular-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.pop-tag {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--text);
+}
+
+.pop-tag:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: #fff5f4;
+}
+
+/* Form */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 540px) { .form-grid { grid-template-columns: 1fr; } }
+
+.full { grid-column: 1 / -1; }
+
+.form-group { display: flex; flex-direction: column; gap: 7px; }
+
+label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+}
+
+input, select, textarea {
+  background: var(--card2);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  color: var(--text);
+  font-family: 'Figtree', sans-serif;
+  font-size: 14px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.18s, background 0.18s;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+  background: #fff;
+}
+
+textarea { resize: vertical; min-height: 80px; }
+
+/* Tone selector */
+.tone-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.tone-btn {
+  border: 1.5px solid var(--border);
+  background: var(--card2);
+  border-radius: 20px;
+  padding: 7px 16px;
+  cursor: pointer;
+  font-family: 'Figtree', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.15s;
+  color: var(--text);
+}
+
+.tone-btn:hover { border-color: var(--accent); color: var(--accent); }
+.tone-btn.selected { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Generate button */
+.btn-generate {
+  width: 100%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 17px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  letter-spacing: -0.3px;
+}
+
+.btn-generate:hover {
+  background: var(--accent2);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(193,59,42,0.3);
+}
+
+/* Loading */
+.loading { display: none; text-align: center; padding: 48px; }
+.loading.visible { display: block; }
+
+.load-ring {
+  width: 44px; height: 44px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.load-text { color: var(--muted); font-size: 15px; }
+.load-step { color: var(--accent); font-size: 13px; font-weight: 600; margin-top: 8px; }
+
+/* Result */
+.result { display: none; }
+.result.visible { display: block; }
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.result-ok {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.result-ok::before {
+  content: '✓';
+  width: 22px; height: 22px;
+  background: var(--green);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.result-actions { display: flex; gap: 8px; }
+
+.btn-action {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: 'Figtree', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-action:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Letter output */
+.letter-box {
+  background: var(--card2);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 32px;
+  font-size: 14px;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  color: var(--text);
+  font-family: 'Figtree', sans-serif;
+  min-height: 320px;
+  position: relative;
+}
+
+/* Paywall */
+.paywall {
+  display: none;
+  margin-top: 20px;
+  background: linear-gradient(135deg, #fff, #fff9f8);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+}
+
+.paywall.visible { display: block; }
+
+.pw-emoji { font-size: 36px; margin-bottom: 12px; }
+.pw-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.pw-sub { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+
+.pw-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.pw-price-note { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+
+.btn-pay {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 15px 40px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-pay:hover {
+  background: var(--accent2);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(193,59,42,0.3);
+}
+
+.pw-guarantees {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.pw-g { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+
+/* Reset */
+.btn-reset {
+  width: 100%;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Figtree', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-top: 14px;
+}
+
+.btn-reset:hover { border-color: var(--accent); color: var(--accent); }
+
+.blurred { filter: blur(5px); user-select: none; pointer-events: none; opacity: 0.6; }
+
+/* How it works */
+.how {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 580px) { .how { grid-template-columns: 1fr; } }
+
+.how-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.how-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--accent);
+  opacity: 0.3;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.how-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.how-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+
+/* Notif */
+.notif {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--text);
+  color: #fff;
+  border-radius: 10px;
+  padding: 13px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 999;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.notif.show { transform: translateY(0); opacity: 1; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.result.visible { animation: fadeUp 0.35s ease; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="logo">Résil<em>Facile</em></div>
+      <div class="logo-sub">Lettres de résiliation conformes à la loi française</div>
+    </div>
+    <div class="trust-badges">
+      <div class="trust-badge"><span>⚡</span> 30 secondes</div>
+      <div class="trust-badge"><span>⚖️</span> Conforme loi Châtel</div>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>Résilie<br><em>n'importe quoi</em><br>sans te prendre la tête</h1>
+      <p class="hero-sub">Opérateur, salle de sport, assurance, streaming... L'IA génère ta lettre de résiliation parfaite, conforme légalement, prête à envoyer en 30 secondes.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">14k+</div>
+        <div class="stat-label">Lettres générées</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Acceptées</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2,90€</div>
+        <div class="stat-label">Lettre complète</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tool -->
+  <div class="tool">
+    <div class="tool-top">
+      <span class="tool-top-title">Générateur de lettre — RésilFacile</span>
+      <div class="step-dots">
+        <div class="sdot active" id="sd1"></div>
+        <div class="sdot" id="sd2"></div>
+        <div class="sdot" id="sd3"></div>
+      </div>
+    </div>
+
+    <div class="tool-body">
+
+      <!-- Form -->
+      <div id="formSection">
+
+        <div class="cat-section">
+          <div class="section-label">1 — Que veux-tu résilier ?</div>
+          <div class="cat-grid">
+            <button class="cat-btn" onclick="selectCat(this, 'opérateur téléphonique ou box internet')">
+              <div class="cat-icon">📱</div>
+              <div class="cat-name">Téléphone / Box</div>
+              <div class="cat-sub">Free, SFR, Orange...</div>
+            </button>
+            <button class="cat-btn" onclick="selectCat(this, 'salle de sport ou club de fitness')">
+              <div class="cat-icon">🏋️</div>
+              <div class="cat-name">Salle de sport</div>
+              <div class="cat-sub">Neoness, Basic-Fit...</div>
+            </button>
+            <button class="cat-btn" onclick="selectCat(this, 'contrat d\'assurance')">
+              <div class="cat-icon">🛡️</div>
+              <div class="cat-name">Assurance</div>
+              <div class="cat-sub">Auto, habitation, santé</div>
+            </button>
+            <button class="cat-btn" onclick="selectCat(this, 'abonnement streaming ou logiciel')">
+              <div class="cat-icon">📺</div>
+              <div class="cat-name">Streaming / Appli</div>
+              <div class="cat-sub">Netflix, Spotify...</div>
+            </button>
+            <button class="cat-btn" onclick="selectCat(this, 'compte bancaire ou service financier')">
+              <div class="cat-icon">🏦</div>
+              <div class="cat-name">Banque</div>
+              <div class="cat-sub">Compte, carte, prêt</div>
+            </button>
+            <button class="cat-btn" onclick="selectCat(this, 'contrat de bail ou location')">
+              <div class="cat-icon">🏠</div>
+              <div class="cat-name">Bail / Location</div>
+              <div class="cat-sub">Appartement, voiture</div>
+            </button>
+            <button class="cat-btn" onclick="selectCat(this, 'abonnement ou contrat de service')">
+              <div class="cat-icon">📰</div>
+              <div class="cat-name">Abonnement</div>
+              <div class="cat-sub">Presse, box, club...</div>
+            </button>
+            <button class="cat-btn" onclick="selectCat(this, 'contrat de travail ou prestation')">
+              <div class="cat-icon">💼</div>
+              <div class="cat-name">Contrat pro</div>
+              <div class="cat-sub">Prestataire, fournisseur</div>
+            </button>
+          </div>
+
+          <div class="popular-tags">
+            <span style="font-size:11px;color:var(--muted);align-self:center">Populaire :</span>
+            <button class="pop-tag" onclick="quickSelect('opérateur téléphonique Free Mobile')">📱 Free Mobile</button>
+            <button class="pop-tag" onclick="quickSelect('opérateur SFR')">📡 SFR</button>
+            <button class="pop-tag" onclick="quickSelect('salle de sport Basic-Fit')">🏋️ Basic-Fit</button>
+            <button class="pop-tag" onclick="quickSelect('Netflix')">📺 Netflix</button>
+            <button class="pop-tag" onclick="quickSelect('assurance auto')">🚗 Assurance auto</button>
+          </div>
+        </div>
+
+        <div class="section-label">2 — Tes informations</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Ton prénom et nom</label>
+            <input type="text" id="userName" placeholder="Jean Dupont">
+          </div>
+          <div class="form-group">
+            <label>Nom du service / entreprise</label>
+            <input type="text" id="serviceName" placeholder="Free, Neoness, AXA...">
+          </div>
+          <div class="form-group">
+            <label>Ton adresse complète</label>
+            <input type="text" id="userAddress" placeholder="12 rue de la Paix, 75001 Paris">
+          </div>
+          <div class="form-group">
+            <label>Numéro de contrat / client</label>
+            <input type="text" id="contractNum" placeholder="Optionnel — améliore la lettre">
+          </div>
+          <div class="form-group">
+            <label>Date d'effet souhaitée</label>
+            <input type="date" id="endDate">
+          </div>
+          <div class="form-group">
+            <label>Motif (optionnel)</label>
+            <input type="text" id="reason" placeholder="Déménagement, prix, insatisfaction...">
+          </div>
+        </div>
+
+        <div class="section-label">3 — Ton ton</div>
+        <div class="tone-row">
+          <button class="tone-btn selected" onclick="selectTone(this, 'ferme et professionnel')">💼 Ferme & pro</button>
+          <button class="tone-btn" onclick="selectTone(this, 'courtois et diplomate')">🤝 Courtois</button>
+          <button class="tone-btn" onclick="selectTone(this, 'urgent, je veux résilier immédiatement')">⚡ Urgent</button>
+          <button class="tone-btn" onclick="selectTone(this, 'détendu et simple')">😊 Simple</button>
+        </div>
+
+        <button class="btn-generate" onclick="generateLetter()">
+          ✦ Générer ma lettre gratuitement
+        </button>
+
+      </div>
+
+      <!-- Loading -->
+      <div class="loading" id="loadingSection">
+        <div class="load-ring"></div>
+        <div class="load-text">Génération en cours...</div>
+        <div class="load-step" id="loadStep">Analyse de ta situation...</div>
+      </div>
+
+      <!-- Result -->
+      <div class="result" id="resultSection">
+        <div class="result-header">
+          <div class="result-ok">Lettre générée</div>
+          <div class="result-actions">
+            <button class="btn-action" onclick="copyLetter()">📋 Copier</button>
+            <button class="btn-action" onclick="downloadLetter()">⬇️ .txt</button>
+          </div>
+        </div>
+
+        <div class="letter-box" id="letterBox"></div>
+
+        <div class="paywall" id="paywall">
+          <div class="pw-emoji">🔒</div>
+          <div class="pw-price">2,90€</div>
+          <div class="pw-price-note">Paiement unique · Accès immédiat</div>
+          <div class="pw-title">Débloque ta lettre complète</div>
+          <div class="pw-sub">La signature et les mentions légales obligatoires sont masquées.<br>Débloque pour 2,90€ — moins cher qu'un café, plus efficace qu'une heure de galère.</div>
+          <button class="btn-pay" onclick="simulatePay()">💳 Débloquer pour 2,90€</button>
+          <div class="pw-guarantees">
+            <span class="pw-g">🔒 Paiement sécurisé</span>
+            <span class="pw-g">✓ Remboursé si refusée</span>
+            <span class="pw-g">⚡ Accès immédiat</span>
+          </div>
+        </div>
+
+        <button class="btn-reset" onclick="resetForm()">← Générer une autre lettre</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div class="how">
+    <div class="how-item">
+      <div class="how-num">01</div>
+      <div class="how-title">Choisis ta catégorie</div>
+      <div class="how-text">Téléphone, sport, assurance, streaming... 8 catégories couvertes avec les bons arguments légaux.</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">02</div>
+      <div class="how-title">Remplis 3 champs</div>
+      <div class="how-text">Ton nom, le service et la date. L'IA s'occupe du reste — rédaction, mentions légales, références à la loi.</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">03</div>
+      <div class="how-title">Copie et envoie</div>
+      <div class="how-text">Ta lettre est prête en 30 secondes. Copie, envoie par email ou imprime pour l'envoyer en recommandé.</div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 RésilFacile — Outil propulsé par IA · <a href="#">CGV</a> · <a href="#">Confidentialité</a><br>
+    <span style="margin-top:6px;display:block">Les lettres générées sont fournies à titre informatif. Consultez un avocat pour votre situation personnelle.</span>
+  </footer>
+
+</div>
+
+<div class="notif" id="notif"></div>
+
+<script>
+let selectedCat = '';
+let selectedTone = 'ferme et professionnel';
+let serviceName = '';
+let generatedLetter = '';
+let isPaid = false;
+
+// Set default date +30 days
+const d = new Date();
+d.setDate(d.getDate() + 30);
+document.getElementById('endDate').value = d.toISOString().split('T')[0];
+
+function selectCat(btn, cat) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedCat = cat;
+}
+
+function quickSelect(service) {
+  serviceName = service;
+  document.getElementById('serviceName').value = service;
+  // Auto-select category
+  const map = {
+    'Free Mobile': 'opérateur téléphonique ou box internet',
+    'SFR': 'opérateur téléphonique ou box internet',
+    'Basic-Fit': 'salle de sport ou club de fitness',
+    'Netflix': 'abonnement streaming ou logiciel',
+    'assurance auto': 'contrat d\'assurance'
+  };
+  for (const [k, v] of Object.entries(map)) {
+    if (service.includes(k)) {
+      selectedCat = v;
+      document.querySelectorAll('.cat-btn').forEach(b => {
+        if (b.querySelector('.cat-sub')?.textContent.includes(k) || b.querySelector('.cat-name')?.textContent.includes(k.split(' ')[0])) {
+          b.classList.add('selected');
+        }
+      });
+      break;
+    }
+  }
+}
+
+function selectTone(btn, tone) {
+  document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedTone = tone;
+}
+
+function showNotif(msg) {
+  const n = document.getElementById('notif');
+  n.textContent = msg;
+  n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), 3000);
+}
+
+function updateDots(step) {
+  for (let i = 1; i <= 3; i++) {
+    const d = document.getElementById('sd' + i);
+    d.classList.remove('active', 'done');
+    if (i < step) d.classList.add('done');
+    if (i === step) d.classList.add('active');
+  }
+}
+
+async function generateLetter() {
+  const userName = document.getElementById('userName').value.trim();
+  const svcName = document.getElementById('serviceName').value.trim();
+  const addr = document.getElementById('userAddress').value.trim();
+  const contract = document.getElementById('contractNum').value.trim();
+  const reason = document.getElementById('reason').value.trim();
+  const endDate = document.getElementById('endDate').value;
+  const cat = selectedCat || 'abonnement ou contrat de service';
+
+  if (!userName) { showNotif('⚠️ Indique ton prénom et nom'); return; }
+  if (!svcName) { showNotif('⚠️ Indique le nom du service'); return; }
+
+  document.getElementById('formSection').style.display = 'none';
+  document.getElementById('loadingSection').classList.add('visible');
+  updateDots(2);
+
+  const steps = ['Analyse de ta situation...', 'Vérification des droits légaux...', 'Rédaction de la lettre...', 'Finalisation...'];
+  let si = 0;
+  const iv = setInterval(() => {
+    if (si < steps.length) document.getElementById('loadStep').textContent = steps[si++];
+  }, 800);
+
+  const dateStr = endDate
+    ? new Date(endDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+    : 'dès que possible';
+
+  const today = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+  const prompt = `Tu es un expert juridique français. Génère une lettre de résiliation complète et professionnelle, conforme au droit français.
+
+INFORMATIONS :
+- Expéditeur : ${userName}
+- Adresse : ${addr || '[Adresse à compléter]'}
+- Service à résilier : ${svcName} — catégorie : ${cat}
+- Numéro de contrat/client : ${contract || 'Non renseigné'}
+- Motif : ${reason || 'Non précisé'}
+- Ton souhaité : ${selectedTone}
+- Date d'effet souhaitée : ${dateStr}
+- Date du jour : ${today}
+
+STRUCTURE OBLIGATOIRE :
+1. Bloc expéditeur (nom, adresse)
+2. Bloc destinataire (service + ville)
+3. Lieu et date
+4. Objet : Résiliation de [type de contrat]
+5. Corps de la lettre avec :
+   - Formule d'ouverture
+   - Demande de résiliation claire et ferme
+   - Référence aux lois applicables (Loi Châtel, Loi Hamon, Code des assurances selon le cas)
+   - Rappel du délai de préavis légal si pertinent
+   - Demande de confirmation écrite et de remboursement si prélèvements après résiliation
+6. Formule de politesse professionnelle
+7. Signature
+
+Génère la lettre COMPLÈTE et IMMÉDIATEMENT UTILISABLE. Utilise des retours à la ligne appropriés.`;
+
+  try {
+    const res = await fetch('/.netlify/functions/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: prompt })
+    });
+
+    const data = await res.json();
+    clearInterval(iv);
+    generatedLetter = data.content?.[0]?.text || '';
+    if (!generatedLetter) throw new Error();
+
+    document.getElementById('loadingSection').classList.remove('visible');
+    document.getElementById('resultSection').classList.add('visible');
+    updateDots(3);
+
+    // Show partial with paywall
+    const lines = generatedLetter.split('\n');
+    const cut = Math.floor(lines.length * 0.62);
+    const preview = lines.slice(0, cut).join('\n');
+    const rest = lines.slice(cut).join('\n');
+
+    const box = document.getElementById('letterBox');
+    box.textContent = preview;
+
+    if (!isPaid) {
+      const blur = document.createElement('div');
+      blur.className = 'blurred';
+      blur.id = 'blurredPart';
+      blur.textContent = rest;
+      box.appendChild(blur);
+      document.getElementById('paywall').classList.add('visible');
+    }
+
+  } catch (e) {
+    clearInterval(iv);
+    document.getElementById('loadingSection').classList.remove('visible');
+    document.getElementById('formSection').style.display = 'block';
+    updateDots(1);
+    showNotif('❌ Erreur de génération. Réessaie.');
+  }
+}
+
+function simulatePay() {
+  // In production → Stripe checkout
+  isPaid = true;
+  const b = document.getElementById('blurredPart');
+  if (b) b.classList.remove('blurred');
+  document.getElementById('paywall').classList.remove('visible');
+  showNotif('🎉 Lettre complète débloquée !');
+}
+
+function copyLetter() {
+  const text = isPaid ? generatedLetter : document.getElementById('letterBox').innerText;
+  navigator.clipboard.writeText(text).then(() => showNotif('✓ Lettre copiée !'));
+}
+
+function downloadLetter() {
+  if (!isPaid) { showNotif('⚠️ Débloque la lettre complète d\'abord'); return; }
+  const blob = new Blob([generatedLetter], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'lettre-resiliation.txt';
+  a.click();
+  showNotif('⬇️ Lettre téléchargée');
+}
+
+function resetForm() {
+  isPaid = false;
+  generatedLetter = '';
+  selectedCat = '';
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
+  ['userName','serviceName','userAddress','contractNum','reason'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('letterBox').textContent = '';
+  document.getElementById('paywall').classList.remove('visible');
+  document.getElementById('resultSection').classList.remove('visible');
+  document.getElementById('formSection').style.display = 'block';
+  updateDots(1);
+}
+</script>
+
+</body>
+</html>

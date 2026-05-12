@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Calculateur TJM Freelance 2025 — Tarif Journalier Gratuit | TJMCalc</title>
+<meta name="description" content="Calcule ton TJM (tarif journalier moyen) gratuitement. Salaire net cible, statut juridique, taux de remplissage — ton tarif journalier en temps réel selon les taux 2025.">
+<meta name="keywords" content="calculateur tjm, tjm freelance, tarif journalier moyen, calculer tjm, tjm consultant, tjm développeur, tarif freelance france 2025, calculer tarif journalier, tjm auto entrepreneur">
+<link rel="canonical" href="https://tjmcalc.fr">
+
+<meta property="og:title" content="Calculateur TJM Freelance 2025 — Tarif Journalier Gratuit">
+<meta property="og:description" content="Calcule ton tarif journalier freelance gratuitement. Résultat instantané selon ton statut et objectif de salaire net.">
+<meta property="og:type" content="website">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "TJMCalc — Calculateur de Tarif Journalier Freelance",
+  "description": "Calculateur gratuit de TJM pour freelances français. Calcule ton tarif journalier selon ton statut, ton objectif salarial et ton taux de remplissage.",
+  "url": "https://tjmcalc.fr",
+  "applicationCategory": "FinanceApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quel est le TJM moyen d'un développeur freelance en France ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En 2025, le TJM moyen d'un développeur freelance en France varie entre 400€ et 800€ par jour selon l'expérience et la spécialité. Un junior facture entre 300-450€/jour, un intermédiaire 450-650€/jour, un senior 650-900€/jour. Les experts en technologies rares peuvent dépasser 1000€/jour."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment calculer son TJM freelance ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour calculer ton TJM : additionne ton salaire net cible + charges sociales + frais professionnels + épargne. Divise par le nombre de jours facturés par mois. Ajoute 20% pour la marge de négociation. Notre calculateur fait ce calcul automatiquement selon ton statut."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle différence entre TJM minimum et TJM recommandé ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le TJM minimum est le plancher absolu en dessous duquel tu ne peux pas descendre sans perdre de l'argent. Le TJM recommandé ajoute une marge de négociation (environ 20%) et tient compte de ton niveau d'expérience. C'est ce montant que tu annonces aux clients."
+      }
+    }
+  ]
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Figtree:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #05080f;
+  --card: #0c1018;
+  --card2: #131824;
+  --border: #1e2535;
+  --accent: #7c6af7;
+  --accent2: #9d8fff;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --green: #4ade80;
+  --border2: #2a3347;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Figtree', sans-serif;
+  line-height: 1.6;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(ellipse, rgba(124,106,247,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+
+nav {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-logo em { font-style: italic; color: var(--accent2); }
+.nav-links { display: flex; gap: 20px; }
+.nav-link { font-size: 13px; color: var(--muted); text-decoration: none; }
+.nav-link:hover { color: var(--accent2); }
+
+.seo-hero {
+  padding: 56px 0 44px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 44px;
+}
+
+.breadcrumb {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 18px;
+  display: flex;
+  gap: 6px;
+}
+
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(30px, 5vw, 52px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+
+h1 em { font-style: italic; color: var(--accent2); }
+
+.hero-desc {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.hero-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.hero-tag {
+  background: rgba(124,106,247,0.1);
+  border: 1px solid rgba(124,106,247,0.2);
+  color: var(--accent2);
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.cta-box {
+  background: var(--card);
+  border: 2px solid var(--accent);
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.cta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.cta-sub { color: var(--muted); font-size: 15px; margin-bottom: 20px; }
+
+.btn-cta {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  padding: 14px 36px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.btn-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+.content { margin-bottom: 48px; }
+
+h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  margin-top: 36px;
+  letter-spacing: -0.5px;
+}
+
+h2 em { font-style: italic; color: var(--accent2); }
+h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; margin-top: 24px; color: var(--text); }
+p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 14px; }
+strong { color: var(--text); font-weight: 600; }
+
+.table-wrap { overflow-x: auto; margin: 20px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+  background: rgba(124,106,247,0.1);
+  border: 1px solid var(--border);
+  padding: 11px 14px;
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--accent2);
+}
+td { border: 1px solid var(--border); padding: 10px 14px; color: var(--muted); font-size: 14px; }
+tr:nth-child(even) td { background: rgba(30,37,53,0.3); }
+td strong { color: var(--text); }
+
+.tip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+
+@media (max-width: 560px) { .tip-grid { grid-template-columns: 1fr; } }
+
+.tip-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.tip-icon { font-size: 22px; margin-bottom: 8px; }
+.tip-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+.tip-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+.faq-section { margin-bottom: 48px; }
+.faq-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+.faq-q { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+.faq-a { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--accent2); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <nav>
+    <a href="/" class="nav-logo">TJM<em>Calc</em></a>
+    <div class="nav-links">
+      <a href="/calculateur" class="nav-link">Calculateur</a>
+      <a href="/guide" class="nav-link">Guide TJM</a>
+      <a href="/faq" class="nav-link">FAQ</a>
+    </div>
+  </nav>
+
+  <div class="seo-hero">
+    <div class="breadcrumb">
+      <a href="/">Accueil</a>
+      <span>/</span>
+      <span>Calculateur TJM freelance 2025</span>
+    </div>
+
+    <h1>Calculateur <em>TJM</em> Freelance 2025<br>— Ton tarif journalier en temps réel</h1>
+
+    <p class="hero-desc">
+      Arrête de sous-facturer. Notre calculateur détermine ton tarif journalier idéal en temps réel selon ton objectif de salaire net, ton statut juridique et ton taux de remplissage.
+    </p>
+
+    <div class="hero-tags">
+      <span class="hero-tag">✓ Taux URSSAF 2025</span>
+      <span class="hero-tag">✓ 100% gratuit</span>
+      <span class="hero-tag">✓ 4 statuts couverts</span>
+      <span class="hero-tag">✓ TJM min + recommandé</span>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <div class="cta-title">Calculer mon TJM maintenant</div>
+    <div class="cta-sub">Résultat instantané · Aucune inscription · 100% gratuit</div>
+    <a href="/calculateur.html" class="btn-cta">→ Accéder au calculateur TJM</a>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <h2>TJM freelance en France : <em>les chiffres 2025</em></h2>
+
+    <p>Le tarif journalier moyen (TJM) est la mesure clé de la facturation pour un freelance. Il représente le prix d'une journée de travail facturé à un client. Voici les fourchettes observées en France en 2025 :</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Profil</th>
+            <th>Expérience</th>
+            <th>TJM min</th>
+            <th>TJM recommandé</th>
+            <th>TJM senior</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Développeur web</strong></td>
+            <td>Toutes</td>
+            <td>350€</td>
+            <td>550€</td>
+            <td>800€+</td>
+          </tr>
+          <tr>
+            <td><strong>Designer UX/UI</strong></td>
+            <td>Toutes</td>
+            <td>300€</td>
+            <td>480€</td>
+            <td>700€+</td>
+          </tr>
+          <tr>
+            <td><strong>Consultant marketing</strong></td>
+            <td>Toutes</td>
+            <td>280€</td>
+            <td>450€</td>
+            <td>700€+</td>
+          </tr>
+          <tr>
+            <td><strong>Chef de projet IT</strong></td>
+            <td>Toutes</td>
+            <td>400€</td>
+            <td>600€</td>
+            <td>900€+</td>
+          </tr>
+          <tr>
+            <td><strong>Data Scientist / IA</strong></td>
+            <td>Toutes</td>
+            <td>500€</td>
+            <td>750€</td>
+            <td>1 100€+</td>
+          </tr>
+          <tr>
+            <td><strong>Consultant RH</strong></td>
+            <td>Toutes</td>
+            <td>300€</td>
+            <td>470€</td>
+            <td>650€+</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Comment <em>calculer son TJM</em> freelance ?</h2>
+
+    <p>Le calcul du TJM suit une logique simple : partir de ce que tu veux gagner, remonter jusqu'au prix à facturer en tenant compte de toutes les charges.</p>
+
+    <h3>La formule de base</h3>
+
+    <p><strong>TJM minimum = (Salaire net + Charges sociales + Frais pro + Épargne) ÷ Jours facturés par mois</strong></p>
+
+    <p>Exemple concret pour un auto-entrepreneur en services :</p>
+    <p>→ Salaire net souhaité : 3 000€<br>
+    → Charges sociales (22,1%) : 853€<br>
+    → Frais pro mensuels : 300€<br>
+    → Épargne cible : 300€<br>
+    → <strong>Total mensuel nécessaire : 4 453€</strong><br>
+    → Jours facturés (18j à 75% remplissage) : 13,5j<br>
+    → <strong>TJM minimum : 330€/jour</strong><br>
+    → <strong>TJM recommandé (+20%) : 396€/jour</strong></p>
+
+    <h2>Les 4 <em>erreurs classiques</em> du freelance sur son TJM</h2>
+
+    <div class="tip-grid">
+      <div class="tip-card">
+        <div class="tip-icon">❌</div>
+        <div class="tip-title">Oublier les périodes creuses</div>
+        <div class="tip-text">Tu ne travailleras jamais 22 jours par mois toute l'année. Intègre un taux de remplissage réaliste (70-80%) dans ton calcul.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">❌</div>
+        <div class="tip-title">Ignorer l'épargne</div>
+        <div class="tip-text">En freelance, pas de congés payés ni de chômage. Tu dois constituer toi-même ton matelas de sécurité — intègre-le au TJM.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">❌</div>
+        <div class="tip-title">Sous-estimer les frais</div>
+        <div class="tip-text">Logiciels, matériel, formation, comptable, mutuelle... Les frais pro s'accumulent vite. Compte 200-500€/mois minimum.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">❌</div>
+        <div class="tip-title">Ne pas augmenter chaque année</div>
+        <div class="tip-text">Ton TJM doit évoluer avec ton expérience. +10% par an est une règle raisonnable pour rester compétitif sans se brader.</div>
+      </div>
+    </div>
+
+    <h2>TJM selon le statut : <em>quelle différence ?</em></h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Statut</th>
+            <th>Taux de charges</th>
+            <th>Impact sur TJM</th>
+            <th>Recommandé pour</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Auto-entrepreneur (services)</strong></td>
+            <td>22,1%</td>
+            <td>+28% vs salaire net</td>
+            <td>Débutants, petits CA</td>
+          </tr>
+          <tr>
+            <td><strong>Libéral CIPAV</strong></td>
+            <td>23,1%</td>
+            <td>+30% vs salaire net</td>
+            <td>Professions réglementées</td>
+          </tr>
+          <tr>
+            <td><strong>SASU / EURL</strong></td>
+            <td>~45%</td>
+            <td>+80% vs salaire net</td>
+            <td>CA > 50k€, optimisation IS</td>
+          </tr>
+          <tr>
+            <td><strong>Portage salarial</strong></td>
+            <td>~35%</td>
+            <td>+54% vs salaire net</td>
+            <td>Missions courtes, débutants</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2>Questions <em>fréquentes</em></h2>
+
+    <div class="faq-item">
+      <div class="faq-q">Quel TJM pour un développeur junior en 2025 ?</div>
+      <div class="faq-a">Un développeur junior (0-2 ans d'expérience) facture généralement entre <strong>300 et 450€/jour</strong> en France selon la technologie et la région. Paris permet des tarifs 15-20% supérieurs aux autres villes. Notre calculateur te donne le TJM minimum selon ton objectif de salaire net.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Comment négocier son TJM avec un client ?</div>
+      <div class="faq-a">Annonce toujours un TJM 15-20% supérieur à ton objectif réel — les clients négocient presque toujours à la baisse. Mets en avant ta valeur ajoutée plutôt que ton tarif. Et ne justifie jamais ton TJM par tes charges personnelles — parle de la valeur créée pour le client.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Doit-on facturer la TVA en freelance ?</div>
+      <div class="faq-a">En auto-entrepreneur, tu bénéficies de la franchise de TVA tant que ton CA reste sous 37 500€/an (services). Tu mentionnes "TVA non applicable, art. 293 B du CGI" sur tes factures. En SASU/EURL, tu es automatiquement soumis à la TVA et tu la récupères aussi sur tes achats pro.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Comment passer de salarié à freelance sans perdre en revenus ?</div>
+      <div class="faq-a">En règle générale, ton TJM freelance doit être environ <strong>1,5 à 2 fois ton salaire journalier brut salarié</strong> pour maintenir le même niveau de vie, une fois toutes les charges comptées. Notre calculateur te permet de partir de ton objectif de salaire net pour trouver le bon TJM.</div>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2025 TJMCalc — Taux URSSAF 2025 · Simulation indicative</span>
+    <div style="display:flex;gap:16px">
+      <a href="#">Confidentialité</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CVExpress — Crée ton CV professionnel en 2 minutes avec l'IA</title>
+<meta name="description" content="Génère un CV professionnel et une lettre de motivation en 2 minutes grâce à l'IA. Gratuit pour commencer. Téléchargement PDF pour 4,90€.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Franklin:wght@300;400;500;600;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #faf8f4;
+  --ink: #0f0d0a;
+  --card: #ffffff;
+  --card2: #f5f2ec;
+  --border: #ddd8ce;
+  --accent: #c8391a;
+  --accent2: #e04a28;
+  --blue: #1a3a6b;
+  --gold: #b8860b;
+  --text: #0f0d0a;
+  --muted: #7a7268;
+  --green: #1a5c3a;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Libre Franklin', sans-serif;
+  min-height: 100vh;
+}
+
+/* Newspaper grid lines */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(15,13,10,0.03) 1px, transparent 1px);
+  background-size: 100% 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+/* ─── MASTHEAD ─── */
+.masthead {
+  border-bottom: 3px double var(--ink);
+  padding: 20px 0 14px;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.masthead-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.masthead-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 900;
+  letter-spacing: -3px;
+  line-height: 0.95;
+  color: var(--ink);
+}
+
+.masthead-title span { color: var(--accent); }
+
+.masthead-tagline {
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+.masthead-rule {
+  border: none;
+  border-top: 1px solid var(--ink);
+  margin: 10px 0 0;
+}
+
+/* ─── HERO COLUMNS ─── */
+.hero-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) { .hero-section { grid-template-columns: 1fr; } }
+
+.hero-main {
+  padding: 28px 24px 28px 0;
+  border-right: 1px solid var(--border);
+}
+
+.hero-label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-label::before {
+  content: '';
+  width: 20px; height: 2px;
+  background: var(--accent);
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin-bottom: 14px;
+}
+
+h1 em { font-style: italic; color: var(--accent); }
+
+.hero-body {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-weight: 300;
+  max-width: 440px;
+  margin-bottom: 20px;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 12px 24px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.hero-cta:hover { background: var(--accent); }
+
+.hero-aside {
+  padding: 28px 0 28px 24px;
+}
+
+.aside-stat {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.aside-stat:last-child { border-bottom: none; }
+
+.aside-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.aside-label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ─── TOOL SECTION ─── */
+.tool-section {
+  border-bottom: 2px solid var(--ink);
+}
+
+.tool-header {
+  background: var(--ink);
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tool-header-title {
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  color: var(--bg);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tool-tabs {
+  display: flex;
+  gap: 0;
+}
+
+.tool-tab {
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  padding: 4px 14px;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.5);
+  background: transparent;
+  transition: all 0.15s;
+}
+
+.tool-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.tool-tab:hover:not(.active) { color: #fff; }
+
+/* Progress */
+.progress-strip {
+  background: var(--card2);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 20px;
+  display: flex;
+  gap: 0;
+}
+
+.prog-step {
+  flex: 1;
+  height: 3px;
+  background: var(--border);
+  transition: background 0.3s;
+}
+
+.prog-step.active { background: var(--accent); }
+.prog-step.done { background: var(--green); }
+
+.tool-body { padding: 28px; }
+
+/* ─── MODE SELECTOR ─── */
+.mode-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 480px) { .mode-grid { grid-template-columns: 1fr; } }
+
+.mode-btn {
+  border: 2px solid var(--border);
+  background: var(--card);
+  padding: 18px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  font-family: 'Libre Franklin', sans-serif;
+  position: relative;
+}
+
+.mode-btn:hover { border-color: var(--ink); }
+.mode-btn.selected { border-color: var(--accent); background: #fff8f6; }
+
+.mode-btn.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 12px; right: 14px;
+  width: 20px; height: 20px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.mode-icon { font-size: 24px; margin-bottom: 8px; }
+.mode-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.mode-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.mode-price { font-family: 'Courier Prime', monospace; font-size: 12px; color: var(--gold); margin-top: 6px; font-weight: 700; }
+
+/* ─── FORM ─── */
+.form-rule {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-rule span { color: var(--accent); }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 520px) { .form-grid { grid-column: 1fr; } }
+
+.full { grid-column: 1 / -1; }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+
+label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+
+input, select, textarea {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-bottom: 2px solid var(--ink);
+  padding: 10px 12px;
+  color: var(--text);
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s, background 0.15s;
+  border-radius: 0;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-bottom-color: var(--accent);
+  background: #fff;
+}
+
+textarea { resize: vertical; min-height: 80px; }
+
+/* Level selector */
+.level-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.level-btn {
+  border: 1px solid var(--border);
+  border-bottom: 2px solid var(--ink);
+  background: var(--card2);
+  padding: 7px 16px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.level-btn:hover { border-bottom-color: var(--accent); background: #fff; }
+.level-btn.selected { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+/* Generate button */
+.btn-generate {
+  width: 100%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 16px;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  font-style: italic;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 8px;
+  letter-spacing: -0.3px;
+}
+
+.btn-generate:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(200,57,26,0.25); }
+
+/* ─── LOADING ─── */
+.loading { display: none; text-align: center; padding: 52px; }
+.loading.visible { display: block; }
+
+.load-spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto 18px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.load-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
+.load-step {
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ─── RESULT ─── */
+.result { display: none; }
+.result.visible { display: block; }
+
+.result-masthead {
+  background: var(--ink);
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.result-ok {
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  color: #4ade80;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.result-actions { display: flex; gap: 6px; }
+
+.btn-action {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 6px 14px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-action:hover { background: rgba(255,255,255,0.2); }
+
+/* CV output */
+.cv-output {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: none;
+  padding: 32px;
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  color: var(--text);
+  font-family: 'Libre Franklin', sans-serif;
+  min-height: 300px;
+}
+
+/* Paywall */
+.paywall {
+  display: none;
+  border: 2px solid var(--accent);
+  border-top: none;
+}
+
+.paywall.visible { display: block; }
+
+.paywall-header {
+  background: var(--accent);
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.paywall-header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: #fff;
+  font-weight: 700;
+}
+
+.paywall-body { background: var(--card); padding: 28px; text-align: center; }
+
+.paywall-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.paywall-note {
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.paywall-desc { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; max-width: 400px; margin-left: auto; margin-right: auto; }
+
+.btn-pay {
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  padding: 14px 36px;
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-style: italic;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-pay:hover { background: var(--accent); transform: translateY(-1px); }
+
+.paywall-guarantees {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.pw-g {
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.btn-reset {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-bottom: 2px solid var(--ink);
+  padding: 11px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  margin-top: 12px;
+  transition: all 0.15s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-reset:hover { border-bottom-color: var(--accent); color: var(--accent); }
+
+.blurred { filter: blur(5px); user-select: none; pointer-events: none; opacity: 0.5; }
+
+/* ─── FEATURES COLUMNS ─── */
+.features-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 580px) { .features-section { grid-template-columns: 1fr; } }
+
+.feat-col {
+  padding: 24px 20px;
+  border-right: 1px solid var(--border);
+}
+
+.feat-col:last-child { border-right: none; }
+
+.feat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--accent);
+  opacity: 0.2;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.feat-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.feat-text {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 3px double var(--ink);
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.footer-logo span { color: var(--accent); font-style: italic; }
+
+.footer-links { display: flex; gap: 20px; }
+.footer-link {
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.footer-link:hover { color: var(--accent); }
+
+/* Notif */
+.notif {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 12px 20px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 13px;
+  z-index: 999;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.notif.show { transform: translateY(0); opacity: 1; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.result.visible { animation: fadeUp 0.35s ease; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- Masthead -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <span>VOL. I · N°001</span>
+      <span>FRANCE · 2025</span>
+      <span>GRATUIT · SANS INSCRIPTION</span>
+    </div>
+    <div class="masthead-title">CV<span>Express</span></div>
+    <div class="masthead-tagline">Le générateur de CV & lettres de motivation propulsé par l'IA</div>
+    <hr class="masthead-rule">
+  </div>
+
+  <!-- Hero -->
+  <div class="hero-section">
+    <div class="hero-main">
+      <div class="hero-label">À la une</div>
+      <h1>Ton CV parfait,<br><em>en 2 minutes</em><br>chrono.</h1>
+      <p class="hero-body">Fini les heures perdues sur Word. L'IA rédige ton CV et ta lettre de motivation adaptés à ton poste cible — professionnels, percutants, prêts à envoyer.</p>
+      <button class="hero-cta" onclick="document.getElementById('outil').scrollIntoView({behavior:'smooth'})">
+        → Créer mon CV maintenant
+      </button>
+    </div>
+    <div class="hero-aside">
+      <div class="aside-stat">
+        <div class="aside-num">2 min</div>
+        <div class="aside-label">Temps de génération</div>
+      </div>
+      <div class="aside-stat">
+        <div class="aside-num">4,90€</div>
+        <div class="aside-label">CV + lettre complets</div>
+      </div>
+      <div class="aside-stat">
+        <div class="aside-num">98%</div>
+        <div class="aside-label">Taux de satisfaction</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tool -->
+  <div class="tool-section" id="outil">
+    <div class="tool-header">
+      <span class="tool-header-title">// CVExpress — Générateur IA</span>
+      <div class="tool-tabs">
+        <button class="tool-tab active" id="tabCV" onclick="switchTab('cv')">CV</button>
+        <button class="tool-tab" id="tabLM" onclick="switchTab('lm')">Lettre de motivation</button>
+      </div>
+    </div>
+
+    <div class="progress-strip">
+      <div class="prog-step active" id="p1"></div>
+      <div class="prog-step" id="p2"></div>
+      <div class="prog-step" id="p3"></div>
+    </div>
+
+    <div class="tool-body">
+
+      <!-- Form -->
+      <div id="formSection">
+
+        <!-- Info perso -->
+        <div class="form-rule"><span>01</span> — Informations personnelles</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Prénom & Nom</label>
+            <input type="text" id="userName" placeholder="Jean Dupont">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="userEmail" placeholder="jean@exemple.fr">
+          </div>
+          <div class="form-group">
+            <label>Téléphone</label>
+            <input type="text" id="userPhone" placeholder="06 12 34 56 78">
+          </div>
+          <div class="form-group">
+            <label>Ville</label>
+            <input type="text" id="userCity" placeholder="Paris">
+          </div>
+          <div class="form-group">
+            <label>LinkedIn (optionnel)</label>
+            <input type="text" id="userLinkedin" placeholder="linkedin.com/in/jean-dupont">
+          </div>
+          <div class="form-group">
+            <label>Portfolio / Site (optionnel)</label>
+            <input type="text" id="userWebsite" placeholder="jeandesign.fr">
+          </div>
+        </div>
+
+        <!-- Poste cible -->
+        <div class="form-rule"><span>02</span> — Poste & Expérience</div>
+
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>Poste visé</label>
+            <input type="text" id="targetJob" placeholder="Développeur Full-Stack, Designer UX, Chef de projet...">
+          </div>
+          <div class="form-group full">
+            <label>Entreprise cible (optionnel — personnalise le CV)</label>
+            <input type="text" id="targetCompany" placeholder="Google, Startup X, Cabinet Y...">
+          </div>
+        </div>
+
+        <div class="form-rule" style="margin-top:4px">Ton niveau d'expérience</div>
+        <div class="level-row">
+          <button class="level-btn" onclick="selectLevel(this, 'Étudiant / Alternant')">Étudiant</button>
+          <button class="level-btn selected" onclick="selectLevel(this, 'Junior (0-3 ans)')">Junior</button>
+          <button class="level-btn" onclick="selectLevel(this, 'Intermédiaire (3-7 ans)')">Intermédiaire</button>
+          <button class="level-btn" onclick="selectLevel(this, 'Senior (7+ ans)')">Senior</button>
+          <button class="level-btn" onclick="selectLevel(this, 'Manager / Directeur')">Manager</button>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>Tes expériences professionnelles (résumé)</label>
+            <textarea id="experiences" placeholder="Ex: 2 ans chez Startup ABC en tant que dev React — j'ai construit le dashboard client, réduit les bugs de 40%, formé 2 juniors. Avant ça, stage de 6 mois chez Agence XYZ..."></textarea>
+          </div>
+          <div class="form-group full">
+            <label>Tes compétences clés</label>
+            <textarea id="skills" placeholder="Ex: React, Node.js, Python, Figma, gestion de projet Agile, anglais C1, espagnol B2..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Formation</label>
+            <input type="text" id="education" placeholder="Master Informatique, EPITECH 2022">
+          </div>
+          <div class="form-group">
+            <label>Centres d'intérêt (optionnel)</label>
+            <input type="text" id="hobbies" placeholder="Photographie, escalade, open source...">
+          </div>
+        </div>
+
+        <!-- Mode -->
+        <div class="form-rule"><span>03</span> — Ce que tu veux générer</div>
+        <div class="mode-grid" id="modeGrid">
+          <button class="mode-btn selected" onclick="selectMode(this, 'cv')">
+            <div class="mode-icon">📄</div>
+            <div class="mode-name">CV uniquement</div>
+            <div class="mode-desc">CV complet, structuré, adapté à ton poste cible.</div>
+            <div class="mode-price">Gratuit (aperçu) · 4,90€ complet</div>
+          </button>
+          <button class="mode-btn" onclick="selectMode(this, 'lm')">
+            <div class="mode-icon">✉️</div>
+            <div class="mode-name">CV + Lettre de motivation</div>
+            <div class="mode-desc">Le pack complet pour maximiser tes chances.</div>
+            <div class="mode-price">Gratuit (aperçu) · 7,90€ complet</div>
+          </button>
+        </div>
+
+        <button class="btn-generate" onclick="generate()">
+          Générer mon CV gratuitement →
+        </button>
+
+      </div>
+
+      <!-- Loading -->
+      <div class="loading" id="loadingSection">
+        <div class="load-spinner"></div>
+        <div class="load-title">Rédaction en cours...</div>
+        <div class="load-step" id="loadStep">Analyse de ton profil</div>
+      </div>
+
+      <!-- Result -->
+      <div class="result" id="resultSection">
+        <div class="result-masthead">
+          <div class="result-ok">✓ Document généré avec succès</div>
+          <div class="result-actions">
+            <button class="btn-action" onclick="copyResult()">Copier</button>
+            <button class="btn-action" onclick="downloadResult()">Télécharger</button>
+          </div>
+        </div>
+
+        <div class="cv-output" id="cvOutput"></div>
+
+        <div class="paywall" id="paywall">
+          <div class="paywall-header">
+            <div class="paywall-header-title">Débloque ton document complet</div>
+          </div>
+          <div class="paywall-body">
+            <div class="paywall-price" id="paywallPrice">4,90€</div>
+            <div class="paywall-note">Paiement unique · Accès immédiat</div>
+            <div class="paywall-desc" id="paywallDesc">La fin de ton CV (compétences détaillées, formations, langues) est masquée. Débloque l'intégralité pour 4,90€ — moins cher qu'une impression chez le libraire.</div>
+            <button class="btn-pay" onclick="simulatePay()">Débloquer maintenant</button>
+            <div class="paywall-guarantees">
+              <span class="pw-g">🔒 Sécurisé</span>
+              <span class="pw-g">✓ Satisfait ou remboursé</span>
+              <span class="pw-g">⚡ Accès immédiat</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-reset" onclick="resetForm()">← Nouveau document</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="features-section">
+    <div class="feat-col">
+      <div class="feat-num">01</div>
+      <div class="feat-title">Adapté à ton poste</div>
+      <div class="feat-text">L'IA ne génère pas un CV générique. Elle analyse le poste cible et adapte chaque ligne pour maximiser tes chances.</div>
+    </div>
+    <div class="feat-col">
+      <div class="feat-num">02</div>
+      <div class="feat-title">Prêt à envoyer</div>
+      <div class="feat-text">Copie-colle dans Word ou Google Docs. La structure est propre, professionnelle, immédiatement utilisable.</div>
+    </div>
+    <div class="feat-col">
+      <div class="feat-num">03</div>
+      <div class="feat-title">Lettre incluse</div>
+      <div class="feat-text">Le pack CV + lettre de motivation pour 7,90€. Ce qu'un coach carrière facture 200€, tu l'as en 2 minutes.</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">CV<span>Express</span></div>
+    <div class="footer-links">
+      <a href="#" class="footer-link">CGV</a>
+      <a href="#" class="footer-link">Confidentialité</a>
+      <a href="#" class="footer-link">Contact</a>
+    </div>
+  </footer>
+
+</div>
+
+<div class="notif" id="notif"></div>
+
+<script>
+let selectedMode = 'cv';
+let selectedLevel = 'Junior (0-3 ans)';
+let generatedText = '';
+let isPaid = false;
+let activeTab = 'cv';
+
+function switchTab(tab) {
+  activeTab = tab;
+  document.getElementById('tabCV').classList.toggle('active', tab === 'cv');
+  document.getElementById('tabLM').classList.toggle('active', tab === 'lm');
+}
+
+function selectMode(btn, mode) {
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedMode = mode;
+  const btnGen = document.querySelector('.btn-generate');
+  btnGen.textContent = mode === 'lm'
+    ? 'Générer CV + Lettre de motivation →'
+    : 'Générer mon CV gratuitement →';
+}
+
+function selectLevel(btn, level) {
+  document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedLevel = level;
+}
+
+function showNotif(msg) {
+  const n = document.getElementById('notif');
+  n.textContent = msg;
+  n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), 3000);
+}
+
+function updateProgress(step) {
+  for (let i = 1; i <= 3; i++) {
+    const p = document.getElementById('p' + i);
+    p.classList.remove('active', 'done');
+    if (i < step) p.classList.add('done');
+    if (i === step) p.classList.add('active');
+  }
+}
+
+async function generate() {
+  const name = document.getElementById('userName').value.trim();
+  const targetJob = document.getElementById('targetJob').value.trim();
+  const experiences = document.getElementById('experiences').value.trim();
+
+  if (!name) { showNotif('Indique ton prénom et nom'); return; }
+  if (!targetJob) { showNotif('Indique le poste visé'); return; }
+  if (!experiences) { showNotif('Décris tes expériences'); return; }
+
+  document.getElementById('formSection').style.display = 'none';
+  document.getElementById('loadingSection').classList.add('visible');
+  updateProgress(2);
+
+  const steps = [
+    'Analyse de ton profil',
+    'Adaptation au poste cible',
+    'Rédaction du document',
+    'Optimisation du contenu',
+    'Finalisation'
+  ];
+  let si = 0;
+  const iv = setInterval(() => {
+    if (si < steps.length) document.getElementById('loadStep').textContent = steps[si++];
+  }, 800);
+
+  const email = document.getElementById('userEmail').value.trim();
+  const phone = document.getElementById('userPhone').value.trim();
+  const city = document.getElementById('userCity').value.trim();
+  const linkedin = document.getElementById('userLinkedin').value.trim();
+  const website = document.getElementById('userWebsite').value.trim();
+  const company = document.getElementById('targetCompany').value.trim();
+  const skills = document.getElementById('skills').value.trim();
+  const education = document.getElementById('education').value.trim();
+  const hobbies = document.getElementById('hobbies').value.trim();
+
+  const today = new Date().toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+
+  let prompt = '';
+
+  if (selectedMode === 'cv') {
+    prompt = `Tu es un expert en recrutement et rédaction de CV français. Génère un CV professionnel complet et percutant.
+
+PROFIL :
+- Nom : ${name}
+- Email : ${email || 'Non renseigné'}
+- Téléphone : ${phone || 'Non renseigné'}
+- Ville : ${city || 'Non renseigné'}
+- LinkedIn : ${linkedin || 'Non renseigné'}
+- Site/Portfolio : ${website || 'Non renseigné'}
+- Poste visé : ${targetJob}
+- Entreprise cible : ${company || 'Non précisée'}
+- Niveau : ${selectedLevel}
+- Expériences : ${experiences}
+- Compétences : ${skills || 'Non renseigné'}
+- Formation : ${education || 'Non renseigné'}
+- Centres d'intérêt : ${hobbies || 'Non renseigné'}
+
+GÉNÈRE un CV complet avec ces sections :
+1. EN-TÊTE (nom, titre du poste, coordonnées)
+2. PROFIL (accroche de 2-3 phrases percutantes adaptées au poste)
+3. EXPÉRIENCES PROFESSIONNELLES (avec dates, entreprises, missions et résultats chiffrés quand possible)
+4. COMPÉTENCES (techniques et soft skills)
+5. FORMATION
+6. LANGUES
+7. CENTRES D'INTÉRÊT (si renseignés)
+
+Style : professionnel, dynamique, orienté résultats. Adapté au marché français 2025. CV COMPLET et IMMÉDIATEMENT UTILISABLE.`;
+  } else {
+    prompt = `Tu es un expert en recrutement français. Génère un CV professionnel complet ET une lettre de motivation percutante.
+
+PROFIL :
+- Nom : ${name}
+- Email : ${email || 'Non renseigné'}
+- Téléphone : ${phone || 'Non renseigné'}
+- Ville : ${city || 'Non renseigné'}
+- Poste visé : ${targetJob}
+- Entreprise cible : ${company || 'cette entreprise'}
+- Niveau : ${selectedLevel}
+- Expériences : ${experiences}
+- Compétences : ${skills || 'Non renseigné'}
+- Formation : ${education || 'Non renseigné'}
+- Date : ${today}
+
+GÉNÈRE dans cet ordre :
+
+=== CV ===
+1. EN-TÊTE
+2. PROFIL (accroche 2-3 phrases)
+3. EXPÉRIENCES (dates, missions, résultats)
+4. COMPÉTENCES
+5. FORMATION
+6. LANGUES
+
+=== LETTRE DE MOTIVATION ===
+Lettre complète de 3-4 paragraphes :
+- Accroche originale (pas "Je me permets de...")
+- Pourquoi ce poste / cette entreprise
+- Ce que tu apportes (preuves concrètes)
+- Conclusion avec call-to-action
+
+Documents COMPLETS et IMMÉDIATEMENT UTILISABLES.`;
+  }
+
+  try {
+    const res = await fetch('/.netlify/functions/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: prompt })
+    });
+
+    const data = await res.json();
+    clearInterval(iv);
+    generatedText = data.content?.[0]?.text || '';
+    if (!generatedText) throw new Error();
+
+    document.getElementById('loadingSection').classList.remove('visible');
+    document.getElementById('resultSection').classList.add('visible');
+    updateProgress(3);
+
+    const lines = generatedText.split('\n');
+    const cut = Math.floor(lines.length * 0.58);
+    const preview = lines.slice(0, cut).join('\n');
+    const rest = lines.slice(cut).join('\n');
+
+    const out = document.getElementById('cvOutput');
+    out.textContent = preview;
+
+    const existing = document.getElementById('blurPart');
+    if (existing) existing.remove();
+
+    if (!isPaid) {
+      const blur = document.createElement('div');
+      blur.className = 'blurred';
+      blur.id = 'blurPart';
+      blur.textContent = rest;
+      out.appendChild(blur);
+
+      const price = selectedMode === 'lm' ? '7,90€' : '4,90€';
+      document.getElementById('paywallPrice').textContent = price;
+      document.getElementById('paywallDesc').textContent = selectedMode === 'lm'
+        ? `La lettre de motivation et la fin du CV sont masquées. Débloque le pack complet pour ${price} — ce qu'un coach facture 200€, tu l'as en 2 minutes.`
+        : `La fin de ton CV est masquée. Débloque l'intégralité pour ${price} — moins cher qu'une impression chez le libraire.`;
+
+      document.getElementById('paywall').classList.add('visible');
+    }
+
+  } catch (e) {
+    clearInterval(iv);
+    document.getElementById('loadingSection').classList.remove('visible');
+    document.getElementById('formSection').style.display = 'block';
+    updateProgress(1);
+    showNotif('Erreur de génération. Réessaie.');
+  }
+}
+
+function simulatePay() {
+  isPaid = true;
+  const b = document.getElementById('blurPart');
+  if (b) b.classList.remove('blurred');
+  document.getElementById('paywall').classList.remove('visible');
+  document.getElementById('cvOutput').textContent = generatedText;
+  showNotif('Document complet débloqué !');
+}
+
+function copyResult() {
+  navigator.clipboard.writeText(isPaid ? generatedText : document.getElementById('cvOutput').innerText)
+    .then(() => showNotif('Copié dans le presse-papier'));
+}
+
+function downloadResult() {
+  if (!isPaid) { showNotif('Débloque le document complet d\'abord'); return; }
+  const blob = new Blob([generatedText], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'cv-cvexpress.txt';
+  a.click();
+  showNotif('Document téléchargé');
+}
+
+function resetForm() {
+  isPaid = false;
+  generatedText = '';
+  selectedMode = 'cv';
+  selectedLevel = 'Junior (0-3 ans)';
+  document.querySelectorAll('.mode-btn').forEach((b, i) => { b.classList.toggle('selected', i === 0); });
+  document.querySelectorAll('.level-btn').forEach((b, i) => { b.classList.toggle('selected', i === 1); });
+  ['userName','userEmail','userPhone','userCity','userLinkedin','userWebsite',
+   'targetJob','targetCompany','experiences','skills','education','hobbies'
+  ].forEach(id => { document.getElementById(id).value = ''; });
+  document.getElementById('cvOutput').textContent = '';
+  document.getElementById('paywall').classList.remove('visible');
+  document.getElementById('resultSection').classList.remove('visible');
+  document.getElementById('formSection').style.display = 'block';
+  updateProgress(1);
+}
+</script>
+
+</body>
+</html>

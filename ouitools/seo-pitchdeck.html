@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Créer un Pitch Deck Gratuit 2025 — Générateur IA Investisseur | PitchDeck IA</title>
+<meta name="description" content="Génère un pitch deck professionnel pour lever des fonds en 5 minutes. Structure Sequoia / YC, 10 slides, storytelling adapté. Ce qu'une agence facture 5 000€, tu l'as pour 49€.">
+<meta name="keywords" content="pitch deck, créer pitch deck, pitch deck investisseur, pitch deck startup, modèle pitch deck, lever des fonds, pitch investor, présentation investisseur, pitch deck gratuit france, levée de fonds startup">
+<link rel="canonical" href="https://ouitools.fr/pitchdeck">
+
+<meta property="og:title" content="Créer un Pitch Deck Investisseur en 5 minutes — PitchDeck IA">
+<meta property="og:description" content="Structure Sequoia, 10 slides, storytelling IA. Ce qu'une agence facture 5 000€, tu l'as pour 49€.">
+<meta property="og:type" content="website">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "PitchDeck IA",
+  "description": "Générateur de pitch deck investisseur propulsé par l'IA. Structure Sequoia / YC, 10 slides adaptés à ton secteur et ton stade.",
+  "url": "https://ouitools.fr/pitchdeck-ia.html",
+  "applicationCategory": "BusinessApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "49",
+    "priceCurrency": "EUR",
+    "description": "Pitch deck complet 10 slides"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce qu'un pitch deck ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un pitch deck est une présentation de 10 à 15 slides destinée à convaincre des investisseurs de financer ta startup. Il couvre le problème, la solution, le marché, le business model, la traction, l'équipe et le montant recherché. Les meilleurs pitch decks (Airbnb, Uber, LinkedIn) suivent une structure narrative précise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la structure idéale d'un pitch deck ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La structure Sequoia, validée par des centaines de levées réussies : 1. Le Problème, 2. La Solution, 3. Le Marché (TAM/SAM/SOM), 4. Le Produit, 5. Le Business Model, 6. La Concurrence, 7. La Traction, 8. L'Équipe, 9. Le Financier & Ask, 10. La Roadmap. PitchDeck IA génère ces 10 slides automatiquement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien coûte un pitch deck créé par une agence ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Une agence spécialisée facture entre 3 000€ et 15 000€ pour un pitch deck complet, avec des délais de 2 à 6 semaines. PitchDeck IA génère un deck de qualité comparable en 5 minutes pour 49€."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment lever des fonds pour une startup en France ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour lever des fonds en France : 1. Prépare un pitch deck solide (problème, solution, marché, traction, équipe), 2. Cible les bons investisseurs selon ton stade (love money, business angels, VCs), 3. Candidature aux programmes BPI France, French Tech, Station F, 4. Envoie des cold emails ciblés avec ton deck en pièce jointe. Le pitch deck est la première impression — il doit être impeccable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que la structure Sequoia pour un pitch deck ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La structure Sequoia est un framework de pitch deck développé par le fonds Sequoia Capital, l'un des plus importants VCs au monde (investisseurs d'Apple, Google, Airbnb). Elle impose une narration en 10 slides qui guide l'investisseur du problème à la solution, en prouvant à chaque slide que l'opportunité est réelle et que l'équipe est la bonne pour la saisir."
+      }
+    }
+  ]
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #080a0f;
+  --card: #0f1219;
+  --card2: #161c27;
+  --border: #1e2535;
+  --accent: #3b82f6;
+  --accent2: #60a5fa;
+  --gold: #f59e0b;
+  --gold2: #fbbf24;
+  --green: #10b981;
+  --text: #f0f4ff;
+  --muted: #64748b;
+  --muted2: #94a3b8;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.6;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 800px; height: 500px;
+  background: radial-gradient(ellipse, rgba(59,130,246,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+
+nav {
+  padding: 22px 0 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.nav-logo span { color: var(--gold); }
+
+.nav-links { display: flex; gap: 16px; align-items: center; }
+.nav-link { font-size: 13px; color: var(--muted2); text-decoration: none; }
+.nav-link:hover { color: var(--accent2); }
+
+.nav-cta {
+  background: var(--accent);
+  color: #fff;
+  padding: 7px 16px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.nav-cta:hover { background: var(--accent2); }
+
+.seo-hero {
+  padding: 52px 0 44px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 44px;
+}
+
+.breadcrumb {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 18px;
+  display: flex;
+  gap: 6px;
+}
+
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent2); }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--gold2);
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 5vw, 50px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+  margin-bottom: 16px;
+}
+
+h1 span { color: var(--gold); }
+
+.hero-desc {
+  font-size: 16px;
+  color: var(--muted2);
+  max-width: 580px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.hero-tag {
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.2);
+  color: var(--gold2);
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.btn-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--accent), #1d4ed8);
+  color: #fff;
+  padding: 13px 28px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+  font-family: 'Syne', sans-serif;
+  letter-spacing: -0.3px;
+}
+
+.btn-hero:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(59,130,246,0.3); }
+
+/* Price callout */
+.price-callout {
+  background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(59,130,246,0.05));
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 44px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.price-big {
+  font-family: 'Syne', sans-serif;
+  font-size: 52px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: -2px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.price-vs {
+  font-size: 14px;
+  color: var(--muted2);
+  line-height: 1.6;
+}
+
+.price-vs strong { color: var(--text); font-weight: 700; }
+
+.price-vs .strikethrough {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+.content { margin-bottom: 44px; }
+
+h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(22px, 4vw, 34px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 14px;
+  margin-top: 40px;
+}
+
+h2 span { color: var(--gold); }
+h2:first-child { margin-top: 0; }
+
+h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; margin-top: 24px; }
+p { font-size: 15px; color: var(--muted2); line-height: 1.8; margin-bottom: 14px; }
+strong { color: var(--text); font-weight: 600; }
+
+.table-wrap { overflow-x: auto; margin: 20px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { background: rgba(59,130,246,0.1); border: 1px solid var(--border); padding: 11px 14px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent2); font-weight: 700; }
+td { border: 1px solid var(--border); padding: 10px 14px; color: var(--muted2); }
+tr:nth-child(even) td { background: rgba(30,37,53,0.3); }
+td strong { color: var(--text); }
+
+/* Slides grid */
+.slides-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+@media (max-width: 560px) { .slides-grid { grid-template-columns: 1fr; } }
+
+.slide-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.slide-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--gold2);
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.2);
+  padding: 2px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.slide-info { flex: 1; }
+.slide-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.slide-desc { font-size: 12px; color: var(--muted2); line-height: 1.4; }
+
+.faq-section { margin-bottom: 44px; }
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 580px) { .faq-grid { grid-template-columns: 1fr; } }
+
+.faq-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  padding: 18px;
+}
+
+.faq-q { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+.faq-a { font-size: 13px; color: var(--muted2); line-height: 1.6; }
+
+.internal {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 44px;
+}
+
+.int-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+
+.int-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+@media (max-width: 540px) { .int-grid { grid-template-columns: 1fr 1fr; } }
+
+.int-link {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.int-link:hover { border-color: var(--accent2); color: var(--accent2); }
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--accent2); }
+.footer-links { display: flex; gap: 16px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <nav>
+    <a href="/index.html" class="nav-logo">Pitch<span>Deck</span> IA</a>
+    <div class="nav-links">
+      <a href="/index.html" class="nav-link">Accueil</a>
+      <a href="/pitchdeck-ia.html" class="nav-cta">🚀 Générer mon deck</a>
+    </div>
+  </nav>
+
+  <div class="seo-hero">
+    <div class="breadcrumb">
+      <a href="/index.html">Accueil</a>
+      <span>/</span>
+      <span>Pitch deck investisseur 2025</span>
+    </div>
+
+    <div class="hero-eyebrow">✦ Structure Sequoia · YC · 10 slides</div>
+
+    <h1>Génère ton pitch deck<br><span>investisseur</span> en 5 minutes</h1>
+
+    <p class="hero-desc">
+      Ce qu'une agence facture 5 000€ et 3 semaines, tu l'as pour 49€ en 5 minutes. Structure Sequoia validée, storytelling IA adapté à ton secteur, 10 slides prêts à présenter.
+    </p>
+
+    <div class="hero-tags">
+      <span class="hero-tag">✦ Structure Sequoia / YC</span>
+      <span class="hero-tag">⚡ 5 minutes</span>
+      <span class="hero-tag">🤖 IA générative</span>
+      <span class="hero-tag">📊 10 slides complets</span>
+    </div>
+
+    <a href="/pitchdeck-ia.html" class="btn-hero">🚀 Générer mon pitch deck — 49€</a>
+  </div>
+
+  <!-- Price callout -->
+  <div class="price-callout">
+    <div class="price-big">49€</div>
+    <div class="price-vs">
+      <strong>Pitch deck complet · 10 slides · Accès immédiat</strong><br>
+      Une agence spécialisée : <span class="strikethrough">3 000€ — 15 000€</span> et 3-6 semaines de délai.<br>
+      Un coach startup : <span class="strikethrough">500€ — 2 000€</span> pour un accompagnement partiel.<br>
+      PitchDeck IA : <strong>49€</strong> et 5 minutes.
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <h2>C'est quoi un pitch deck <span>exactement ?</span></h2>
+
+    <p>Un pitch deck est une présentation de <strong>10 à 15 slides</strong> que tu montres à des investisseurs pour les convaincre de financer ta startup. C'est souvent le premier (et parfois le seul) document qu'un VC verra de toi avant de décider de te rencontrer.</p>
+
+    <p>Les pitch decks les plus célèbres sont devenus des références dans l'écosystème startup : <strong>Airbnb a levé ses premiers fonds avec 10 slides</strong>, Uber avec 25, LinkedIn avec 36. La structure compte autant que le contenu.</p>
+
+    <h2>Les 10 slides de la <span>structure Sequoia</span></h2>
+
+    <p>Sequoia Capital — l'un des VCs les plus influents au monde (Apple, Google, Airbnb, WhatsApp) — a codifié la structure parfaite d'un pitch deck. PitchDeck IA génère exactement ces 10 slides, adaptées à ton projet.</p>
+
+    <div class="slides-grid">
+      <div class="slide-item">
+        <span class="slide-num">01</span>
+        <div class="slide-info">
+          <div class="slide-title">Le Problème</div>
+          <div class="slide-desc">La douleur client. Stats choc. Pourquoi maintenant.</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <span class="slide-num">02</span>
+        <div class="slide-info">
+          <div class="slide-title">La Solution</div>
+          <div class="slide-desc">Ton approche unique. Pourquoi toi, pourquoi maintenant.</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <span class="slide-num">03</span>
+        <div class="slide-info">
+          <div class="slide-title">Le Marché</div>
+          <div class="slide-desc">TAM / SAM / SOM avec chiffres sourcés.</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <span class="slide-num">04</span>
+        <div class="slide-info">
+          <div class="slide-title">Le Produit</div>
+          <div class="slide-desc">Features clés, démo, screenshots.</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <span class="slide-num">05</span>
+        <div class="slide-info">
+          <div class="slide-title">Business Model</div>
+          <div class="slide-desc">Comment tu gagnes de l'argent. Unit economics.</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <span class="slide-num">06</span>
+        <div class="slide-info">
+          <div class="slide-title">Concurrence</div>
+          <div class="slide-desc">Matrice concurrentielle. Ton positionnement unique.</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <span class="slide-num">07</span>
+        <div class="slide-info">
+          <div class="slide-title">Traction</div>
+          <div class="slide-desc">Métriques, croissance, preuves concrètes.</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <span class="slide-num">08</span>
+        <div class="slide-info">
+          <div class="slide-title">L'Équipe</div>
+          <div class="slide-desc">Expertise, complémentarité, pourquoi vous.</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <span class="slide-num">09</span>
+        <div class="slide-info">
+          <div class="slide-title">Financier & Ask</div>
+          <div class="slide-desc">Montant recherché, valorisation, use of funds.</div>
+        </div>
+      </div>
+      <div class="slide-item">
+        <span class="slide-num">10</span>
+        <div class="slide-info">
+          <div class="slide-title">Roadmap</div>
+          <div class="slide-desc">Milestones 12-18 mois. Vision long terme.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Lever des fonds en France :<span> par où commencer ?</span></h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Stade</th>
+            <th>Montant typique</th>
+            <th>Investisseurs ciblés</th>
+            <th>Ce qu'ils regardent</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Pre-seed</strong></td>
+            <td>50k€ — 500k€</td>
+            <td>Love money, business angels, BPI</td>
+            <td>Équipe + vision + marché</td>
+          </tr>
+          <tr>
+            <td><strong>Seed</strong></td>
+            <td>500k€ — 3M€</td>
+            <td>Business angels, fonds seed, VCs early</td>
+            <td>MVP + premiers clients + traction</td>
+          </tr>
+          <tr>
+            <td><strong>Série A</strong></td>
+            <td>3M€ — 15M€</td>
+            <td>VCs généralistes</td>
+            <td>Revenus récurrents + croissance prouvée</td>
+          </tr>
+          <tr>
+            <td><strong>Série B+</strong></td>
+            <td>15M€+</td>
+            <td>Grands VCs, fonds de croissance</td>
+            <td>Unit economics + scalabilité</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2>Questions <span>fréquentes</span></h2>
+    <div class="faq-grid">
+
+      <div class="faq-card">
+        <div class="faq-q">Le pitch deck généré est-il vraiment utilisable avec de vrais investisseurs ?</div>
+        <div class="faq-a">Oui. PitchDeck IA génère le contenu textuel de chaque slide, structuré et adapté à ton secteur. Tu le copies dans Google Slides ou PowerPoint pour le mettre en forme visuellement avant présentation.</div>
+      </div>
+
+      <div class="faq-card">
+        <div class="faq-q">Dois-je avoir une startup déjà lancée pour utiliser l'outil ?</div>
+        <div class="faq-a">Non. L'outil couvre tous les stades : idée, MVP, premiers clients, croissance. Le contenu généré s'adapte à ton stade actuel — un deck pre-seed n'a pas les mêmes slides qu'un deck Série A.</div>
+      </div>
+
+      <div class="faq-card">
+        <div class="faq-q">Quelle est la différence avec un template PowerPoint gratuit ?</div>
+        <div class="faq-a">Un template te donne la structure vide à remplir. PitchDeck IA rédige le contenu pour toi — accroche, description du marché, analyse concurrentielle, narrative — adaptés à ton projet spécifique.</div>
+      </div>
+
+      <div class="faq-card">
+        <div class="faq-q">Puis-je modifier le pitch deck après génération ?</div>
+        <div class="faq-a">Absolument. Tu reçois le texte complet que tu copies dans l'outil de présentation de ton choix. Chaque mot est modifiable — c'est ta base, pas ton deck définitif.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Internal links -->
+  <div class="internal">
+    <div class="int-title">Nos autres outils gratuits</div>
+    <div class="int-grid">
+      <a href="/cvexpress.html" class="int-link">📄 Créer un CV</a>
+      <a href="/droitfacile.html" class="int-link">⚖️ DroitFacile</a>
+      <a href="/simulateur-micro-entreprise.html" class="int-link">📊 Simulateur AE</a>
+      <a href="/calculateur-tjm.html" class="int-link">💼 Calculateur TJM</a>
+      <a href="/generateur-resiliation.html" class="int-link">📄 Résiliation</a>
+      <a href="/index.html" class="int-link">🏠 Tous les outils</a>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2025 PitchDeck IA · OuiTools — Simulation indicative</span>
+    <div class="footer-links">
+      <a href="#">CGV</a>
+      <a href="#">Confidentialité</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
